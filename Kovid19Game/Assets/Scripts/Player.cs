@@ -5,9 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int playerSpeed = 10;
-    public bool facingRight = true;
     public int jumpPower = 1250;
-    public float moveX;
+
+    private bool facingLeft = false;
+    private float moveX;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +27,17 @@ public class Player : MonoBehaviour
     {
         //controls
         moveX = Input.GetAxis("Horizontal");
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
         //animations
         //direction
-        if (moveX < 0.0f && facingRight == false)
+        if (moveX < 0.0f && facingLeft == false)
         {
             FlipPlayer();
         }
-        else if(moveX > 0.0f && facingRight == true)
+        else if(moveX > 0.0f && facingLeft == true)
         {
             FlipPlayer();
         }
@@ -43,11 +48,12 @@ public class Player : MonoBehaviour
     void Jump()
     {
         //jumping code
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
     }
 
     void FlipPlayer()
     {
-        facingRight = !facingRight;
+        facingLeft = !facingLeft;
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
