@@ -7,13 +7,17 @@ public class Player : MonoBehaviour
     public int playerSpeed = 10;
     public int jumpPower = 1250;
 
-    private bool facingLeft = false;
-    private float moveX;
+
+    //player status
+    private bool facingLeft = false; //player orientation
+    private float moveX; //horizontal movement
+    private bool isGrounded = true; //if true player is not jumping 
+    private int health;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = 250; 
     }
 
 
@@ -27,7 +31,7 @@ public class Player : MonoBehaviour
     {
         //controls
         moveX = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
         {
             Jump();
         }
@@ -47,8 +51,9 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        //jumping code
-        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
+       //jumping code
+       GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
+       isGrounded = false;  
     }
 
     void FlipPlayer()
@@ -57,5 +62,19 @@ public class Player : MonoBehaviour
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Player has collided with " + collision.collider.name);
+        if(collision.gameObject.tag == "Floor")
+        {
+            isGrounded = true;
+        }
+        else if(collision.gameObject.tag == "Enemy" && !isGrounded)
+        {
+            isGrounded = true;
+            health -= 20;
+        }
     }
 }
