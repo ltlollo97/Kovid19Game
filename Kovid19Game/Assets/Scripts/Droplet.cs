@@ -13,19 +13,20 @@ public class Droplet : Enemy
     {
         base.Start();
         enemySpeed = 1;
+        health = 100;
         yDirection = RandomExcept(-1,1,0);
-        startingPosition = transform.position;
     }
 
     // Update is called once per frame
     new void Update()
     {
-        base.Update();      
+        base.Update();
+
     }
 
     public override void EnemyMove()
     {
-        transform.position = startingPosition + Vector3.up * Mathf.Sin(Time.realtimeSinceStartup) * yDirection;
+        transform.position = new Vector3(moveX,moveY,0f) + Vector3.up * Mathf.Sin(Time.realtimeSinceStartup) * yDirection;
     }
 
 }

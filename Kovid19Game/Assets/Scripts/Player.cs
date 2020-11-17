@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public int playerSpeed = 10;
     public int jumpPower = 1250;
-
+    public GameObject sanitizerPuffPrefab;
 
     //player status
     private bool facingLeft = false; //player orientation
@@ -34,6 +34,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
         {
             Jump();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+        {
+            Attack();
         }
         //animations
         //direction
@@ -64,6 +69,14 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    void Attack()
+    {
+        GameObject attack = Instantiate(sanitizerPuffPrefab, 
+                                transform.position + new Vector3(1.5f,0,0), 
+                                Quaternion.identity) as GameObject;
+        attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f, 0);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player has collided with " + collision.collider.name);
@@ -71,10 +84,17 @@ public class Player : MonoBehaviour
         {
             isGrounded = true;
         }
-        else if(collision.gameObject.tag == "Enemy" && !isGrounded)
+
+        if(collision.gameObject.tag == "Enemy" && !isGrounded)
         {
-            isGrounded = true;
-            health -= 20;
+            isGrounded = true; //in this way jump is not bugged
+            health -= 20; 
         }
+
+        if(collision.gameObject.tag == "HealthKit")
+        {
+            health += 100;
+        }
+
     }
 }

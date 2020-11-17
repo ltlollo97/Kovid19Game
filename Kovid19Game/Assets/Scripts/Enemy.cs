@@ -21,6 +21,10 @@ public abstract class Enemy : MonoBehaviour
     public void Update()
     {
         EnemyMove();
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -31,6 +35,16 @@ public abstract class Enemy : MonoBehaviour
         int random = Random.Range(min, max);
         if (random == 0) random = 1;
         return random;
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Attack")
+        {
+            health -= 50;
+            Debug.Log("Hit");
+            // health -= GetSanitizerAttack(); this should return the attack value of an item
+        }
     }
 
 }
