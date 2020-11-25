@@ -17,7 +17,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 250; 
+        health = 250;
+        // health = base + mask power up
+        Debug.Log("Initial health = " + health);
     }
 
 
@@ -93,8 +95,18 @@ public class Player : MonoBehaviour
 
         if(collision.gameObject.tag == "HealthKit")
         {
-            health += 100;
+            if(health < 250)
+            {
+                // max value : base - current
+                health += 100;
+
+                if (health > 250)
+                    health = 250;
+            }
+                
+            Debug.Log("New health: " + health);
         }
 
+        
     }
 }
