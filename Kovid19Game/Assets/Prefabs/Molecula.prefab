@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5085197096180225492}
   m_Layer: 9
   m_Name: Molecula
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,3 +145,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xDirection: 0
   yDirection: 0
+  player: {fileID: 628647455700727132, guid: 0b02c3543bedd8046b2d76c79840f62a, type: 3}
+  aggroRange: 6

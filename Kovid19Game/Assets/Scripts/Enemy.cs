@@ -8,6 +8,8 @@ public abstract class Enemy : MonoBehaviour
     protected float moveY;
     protected float enemySpeed;
     protected int health;
+    protected bool facingLeft = false;
+    
 
     // Start is called before the first frame update
     public void Start()
@@ -21,10 +23,12 @@ public abstract class Enemy : MonoBehaviour
     public void Update()
     {
         EnemyMove();
+
         if (health == 0)
         {
             Destroy(gameObject);
         }
+
     }
 
 
@@ -46,5 +50,15 @@ public abstract class Enemy : MonoBehaviour
             // health -= GetSanitizerAttack(); this should return the attack value of an item
         }
     }
+
+    protected void FlipEnemy()
+    {
+        facingLeft = !facingLeft;
+        Vector2 localScale = gameObject.transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
+
+
 
 }

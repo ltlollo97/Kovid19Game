@@ -7,6 +7,8 @@ public class Molecula : Enemy
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
+    [SerializeField] Transform player;
+    public float aggroRange = 6f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +22,49 @@ public class Molecula : Enemy
     // Update is called once per frame
     void Update()
     {
-        base.Update();
+       
+        float distToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distToPlayer < aggroRange)
+        {
+            //move towards player
+            ChasePlayer();
+        }
+        else
+        {
+            //move casually
+            EnemyMove();
+        }
+
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void EnemyMove()
     {
-        transform.position += -transform.right * enemySpeed* Time.deltaTime;
+        transform.position = new Vector3(moveX, moveY, 0f) + new Vector3(1,0,0) * Mathf.Sin(Time.realtimeSinceStartup) * xDirection;
+        
+    }
+
+    protected void ChasePlayer()
+    {
+        if (transform.position.x < player.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
+            Vector2 localScale = gameObject.transform.localScale;
+            localScale.x *= -1;
+            transform.localScale = localScale;
+        }
+
+        else
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
+            Vector2 localScale = gameObject.transform.localScale;
+            localScale.x *= 1;
+            transform.localScale = localScale;
+        }
     }
 
 }

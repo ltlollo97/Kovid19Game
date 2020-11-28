@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
+    public ScoreSystem level;
+    public float ultimateAttackCooldown;
 
     //player status
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
     private bool isGrounded = true; //if true player is not jumping 
     private int health;
+    private Animator playerAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 250;
         // health = base + mask power up
+        GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
+        level = camObj.GetComponent<ScoreSystem>();
         Debug.Log("Initial health = " + health);
+        playerAnimator = gameObject.GetComponent<Animator>();
     }
 
 
@@ -27,12 +34,18 @@ public class Player : MonoBehaviour
     void Update()
     {
         PlayerMove();
+
+        if (level.GetTimeSpent() > ultimateAttackCooldown)
+        {
+            //UltimateAttack()
+        }
     }
 
     void PlayerMove()
     {
         //controls
         moveX = Input.GetAxis("Horizontal");
+        
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
         {
             Jump();
@@ -40,9 +53,11 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
         {
+            playerAnimator.Play("player attack");
             Attack();
+            
         }
-        //animations
+       
         //direction
         if (moveX < 0.0f && facingLeft == false)
         {
@@ -73,10 +88,13 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
+
+        
         GameObject attack = Instantiate(sanitizerPuffPrefab, 
                                 transform.position + new Vector3(1.5f,0,0), 
                                 Quaternion.identity) as GameObject;
         attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f, 0);
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
