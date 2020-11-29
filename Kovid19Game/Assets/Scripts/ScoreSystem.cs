@@ -7,7 +7,7 @@ public class ScoreSystem : MonoBehaviour
 {
     
     public float score; //each level has a maximum amount of point obtainable
-    public Text textUI;
+    //public Text textUI;
 
     private bool gameEnded = false;
     private GameObject[] enemies;
@@ -17,7 +17,7 @@ public class ScoreSystem : MonoBehaviour
     void Start()
     {
         timeSpent = 0f; //time when the level starts
-        textUI.text = "0";
+        //textUI.text = "0";
         //enemies = GameObject.FindGameObjectsWithTag("Enemy"); //arrays of objects with tag Enemy
     }
 
@@ -49,7 +49,7 @@ public class ScoreSystem : MonoBehaviour
         //  the lower timeSpent, the higher score
         score -= 0.01f * timeSpent;
         int visualScore = (int) score; //type cast
-        textUI.text = "You achieved " + visualScore.ToString() + " points";
+       // textUI.text = "You achieved " + visualScore.ToString() + " points";
     }
 
 }

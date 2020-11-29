@@ -145,5 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xDirection: 0
   yDirection: 0
-  player: {fileID: 628647455700727132, guid: 0b02c3543bedd8046b2d76c79840f62a, type: 3}
+  playerCharacter: {fileID: 1960007604342759915, guid: c3abb10f18ea16249866c921da9c53fc,
+    type: 3}
   aggroRange: 6

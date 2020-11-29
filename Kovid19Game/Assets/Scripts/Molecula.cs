@@ -7,7 +7,7 @@ public class Molecula : Enemy
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
-    [SerializeField] Transform player;
+    [SerializeField] Transform playerCharacter;
     public float aggroRange = 6f;
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class Molecula : Enemy
     void Update()
     {
        
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
+        float distToPlayer = Vector2.Distance(transform.position, playerCharacter.position);
 
         if (distToPlayer < aggroRange)
         {
@@ -39,6 +39,10 @@ public class Molecula : Enemy
         if (health == 0)
         {
             Destroy(gameObject);
+
+            player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
+
+            Debug.Log(player.GetUltraCooldown());
         }
     }
 
@@ -50,7 +54,7 @@ public class Molecula : Enemy
 
     protected void ChasePlayer()
     {
-        if (transform.position.x < player.position.x)
+        if (transform.position.x < playerCharacter.position.x)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
             Vector2 localScale = gameObject.transform.localScale;

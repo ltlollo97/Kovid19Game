@@ -9,7 +9,9 @@ public abstract class Enemy : MonoBehaviour
     protected float enemySpeed;
     protected int health;
     protected bool facingLeft = false;
-    
+
+    protected Player player;
+    protected float playerUltraCooldown;
 
     // Start is called before the first frame update
     public void Start()
@@ -17,6 +19,10 @@ public abstract class Enemy : MonoBehaviour
         //get enemy initial position
         moveX = gameObject.transform.position.x;
         moveY = gameObject.transform.position.y;
+
+        GameObject playObj = GameObject.FindGameObjectWithTag("Player");
+        player = playObj.GetComponent<Player>();
+
     }
 
     // Update is called once per frame
@@ -27,6 +33,11 @@ public abstract class Enemy : MonoBehaviour
         if (health == 0)
         {
             Destroy(gameObject);
+
+            player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
+
+            Debug.Log(player.GetUltraCooldown());
+
         }
 
     }

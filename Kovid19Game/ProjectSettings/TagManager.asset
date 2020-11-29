@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - HealthKit
   - Attack
+  - Weapon
   layers:
   - Default
   - TransparentFX

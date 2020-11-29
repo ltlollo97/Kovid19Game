@@ -8,25 +8,31 @@ public class Player : MonoBehaviour
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
-    public ScoreSystem level;
-    public float ultimateAttackCooldown;
+    
+    
 
     //player status
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
     private bool isGrounded = true; //if true player is not jumping 
+    private bool ultraReady = false;
     private int health;
     private Animator playerAnimator;
+    private ScoreSystem level;
+    private float ultimateAttackCooldown = 60f;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 250;
         // health = base + mask power up
+
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
         level = camObj.GetComponent<ScoreSystem>();
-        Debug.Log("Initial health = " + health);
         playerAnimator = gameObject.GetComponent<Animator>();
+
+        Debug.Log("Initial health = " + health);
+        
     }
 
 
@@ -37,11 +43,22 @@ public class Player : MonoBehaviour
 
         if (level.GetTimeSpent() > ultimateAttackCooldown)
         {
-            //UltimateAttack()
+            ultraReady = true;
+            ultimateAttackCooldown = 60f; //restore cooldown
         }
     }
 
-    void PlayerMove()
+    public float GetUltraCooldown()
+    {
+        return ultimateAttackCooldown;
+    }
+
+    public void SetUltraCooldown(float val)
+    {
+        ultimateAttackCooldown = val;
+    }
+
+    private void PlayerMove()
     {
         //controls
         moveX = Input.GetAxis("Horizontal");
@@ -53,9 +70,14 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
         {
-            playerAnimator.Play("player attack");
+            playerAnimator.Play("Attack");
             Attack();
             
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
+        {
+            UltraAttack();
         }
        
         //direction
@@ -71,14 +93,14 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
     }
 
-    void Jump()
+    private void Jump()
     {
        //jumping code
        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
        isGrounded = false;  
     }
 
-    void FlipPlayer()
+    private void FlipPlayer()
     {
         facingLeft = !facingLeft;
         Vector2 localScale = gameObject.transform.localScale;
@@ -86,15 +108,21 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    void Attack()
+    private void Attack()
     {
-
         
         GameObject attack = Instantiate(sanitizerPuffPrefab, 
-                                transform.position + new Vector3(1.5f,0,0), 
+                                transform.position + new Vector3(1.5f,0.5f,0), 
                                 Quaternion.identity) as GameObject;
         attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f, 0);
         
+    }
+
+    private void UltraAttack()
+    {
+        //instantiate attack component
+        //give it speed
+        //play animation
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
