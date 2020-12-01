@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
-    
+    public Transform projectileSpawnPoint;
     
 
     //player status
@@ -26,10 +26,12 @@ public class Player : MonoBehaviour
     {
         health = 250;
         // health = base + mask power up
+        moveX = transform.position.x;
 
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
         level = camObj.GetComponent<ScoreSystem>();
         playerAnimator = gameObject.GetComponent<Animator>();
+
 
         Debug.Log("Initial health = " + health);
         
@@ -60,16 +62,22 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
-        //controls
-        moveX = Input.GetAxis("Horizontal");
+        
+        if(isGrounded)
+        {
+            playerAnimator.SetBool("isJumping", false);
+        }
         
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
         {
+            playerAnimator.SetTrigger("takeOff");
             Jump();
+            
         }
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
         {
+
             playerAnimator.Play("Attack");
             Attack();
             
@@ -89,15 +97,26 @@ public class Player : MonoBehaviour
         {
             FlipPlayer();
         }
-        //physics
+      
+        moveX = Input.GetAxis("Horizontal");
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+
+        if(moveX == 0) //player is not moving
+        {
+            playerAnimator.SetBool("isRunning", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isRunning", true);
+        }
     }
 
     private void Jump()
     {
-       //jumping code
+       isGrounded = false;
+       playerAnimator.SetBool("isJumping", true);
        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
-       isGrounded = false;  
+        
     }
 
     private void FlipPlayer()
@@ -110,12 +129,22 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
+
+        GameObject attack = Instantiate(sanitizerPuffPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+
+        if(facingLeft)
+        {
+            Vector2 localScale = attack.transform.localScale;
+            localScale.x *= -1;
+            attack.transform.localScale = localScale;
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * -projectileSpawnPoint.right.x, 0);
+        }
+        else
+        {
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * projectileSpawnPoint.right.x, 0);
+        }
         
-        GameObject attack = Instantiate(sanitizerPuffPrefab, 
-                                transform.position + new Vector3(1.5f,0.5f,0), 
-                                Quaternion.identity) as GameObject;
-        attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f, 0);
-        
+
     }
 
     private void UltraAttack()
