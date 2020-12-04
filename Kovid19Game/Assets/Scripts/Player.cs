@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
+            ultraReady = false;
             UltraAttack();
         }
        
@@ -169,8 +170,22 @@ public class Player : MonoBehaviour
     private void UltraAttack()
     {
         //instantiate attack component
-        //give it speed
+        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position + new Vector3(0.0f, 1.0f, 0.0f), projectileSpawnPoint.rotation);
+
+        if (facingLeft)
+        {
+            Vector2 localScale = attack.transform.localScale;
+            localScale.x *= -1;
+            attack.transform.localScale = localScale;
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * -projectileSpawnPoint.right.x, 0);
+        }
+        else
+        {
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * projectileSpawnPoint.right.x, 0);
+        }
+
         //play animation
+       // attack.GetComponent<Animator>().Play("SuperAttackProj");
         nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
         superAttackBar.SetValue(0);
 
