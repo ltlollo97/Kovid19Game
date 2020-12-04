@@ -11,6 +11,7 @@ public class Boss : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        SoundManagerScript.PlaySound("ronahello");
         health = 400;
         anim = gameObject.GetComponent<Animator>();
     }
@@ -24,6 +25,16 @@ public class Boss : Enemy
         {
             Destroy(gameObject);
             anim.Play(explosion.name);
+        }
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Attack")
+        {
+            health -= 50;
+            Debug.Log("Hit");
+            SoundManagerScript.PlaySound("ronahit");
         }
     }
 

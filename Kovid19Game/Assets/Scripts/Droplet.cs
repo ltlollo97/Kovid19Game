@@ -29,4 +29,14 @@ public class Droplet : Enemy
         transform.position = new Vector3(moveX,moveY,0f) + Vector3.up * Mathf.Sin(Time.realtimeSinceStartup) * yDirection;
     }
 
+    new public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Attack")
+        {
+            health -= 50;
+            Debug.Log("Hit");
+            SoundManagerScript.PlaySound("enemy2Hit");
+        }
+    }
+
 }

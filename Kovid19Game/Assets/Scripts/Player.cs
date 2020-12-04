@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
-            
+            SoundManagerScript.PlaySound("jump");    
         }
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
@@ -196,7 +196,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = true; //in this way jump is not bugged
             health -= 20;
-
+            SoundManagerScript.PlaySound("playerHit");
         }
 
         if(collision.gameObject.tag == "HealthKit")
