@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: -7232803444256724178, guid: e69137689c13ed94487f12cead72fa44,
     type: 3}
@@ -149,8 +149,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 1574478851483543937, guid: e69137689c13ed94487f12cead72fa44,
     type: 3}
@@ -231,8 +231,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 6
   m_Sprite: {fileID: 8495889150253970369, guid: e69137689c13ed94487f12cead72fa44,
     type: 3}
@@ -313,8 +313,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: 813077486443466194, guid: e69137689c13ed94487f12cead72fa44, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -397,8 +397,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -4615934594204528967, guid: e69137689c13ed94487f12cead72fa44,
     type: 3}
@@ -479,8 +479,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 968895305
+  m_SortingLayer: 2
   m_SortingOrder: 5
   m_Sprite: {fileID: 1640612656079587139, guid: e69137689c13ed94487f12cead72fa44,
     type: 3}
@@ -505,9 +505,11 @@ GameObject:
   - component: {fileID: 8808934415904393253}
   - component: {fileID: 7330190231000092534}
   - component: {fileID: 7330190231000092535}
+  - component: {fileID: 8149633764677656749}
+  - component: {fileID: 2909333540989590489}
   m_Layer: 0
   m_Name: MissRona
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -562,3 +564,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 7400000, guid: 46d9b92f79b9bf14ba2729c1e17bf16d, type: 2}
   anim: {fileID: 0}
+--- !u!61 &8149633764677656749
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330190231000092533}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10278225, y: 4.3348465}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.879776, y: 8.847271}
+  m_EdgeRadius: 0
+--- !u!50 &2909333540989590489
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330190231000092533}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0.05
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
