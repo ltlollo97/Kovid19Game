@@ -847,6 +847,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 871549027564614206, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 217
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549027564614206, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44
+      objectReference: {fileID: 0}
     - target: {fileID: 871549028209744433, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
         type: 3}
       propertyPath: m_Name
@@ -976,6 +986,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029061268793, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 215.29999
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029061268793, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -282
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029163883534, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 213
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029163883534, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 397
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029169215217, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 217
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549029169215217, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 194
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b377eb8ff7709941acdadcb5cb6f0aa, type: 3}

@@ -692,7 +692,7 @@ MonoBehaviour:
   yDirection: 0
   playerCharacter: {fileID: 1301859353993117987, guid: 4175e71761b93464b9d1cc207c5fbf43,
     type: 3}
-  aggroRange: 6
+  aggroRange: 1
 --- !u!61 &4945129966957068034
 BoxCollider2D:
   m_ObjectHideFlags: 0
