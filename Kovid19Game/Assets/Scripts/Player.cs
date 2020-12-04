@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
+    public GameObject sanitizerUltraPrefab;
     public Transform projectileSpawnPoint;
 
     public BarsUI superAttackBar, healthBar;
