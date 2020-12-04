@@ -7,7 +7,7 @@ public class ScoreSystem : MonoBehaviour
 {
     
     public float score; //each level has a maximum amount of point obtainable
-    //public Text textUI;
+    public Text timerUI; //timer on canvas
 
     private bool gameEnded = false;
     private GameObject[] enemies;
@@ -24,6 +24,7 @@ public class ScoreSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         timeSpent += Time.deltaTime; // time spent in seconds
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         
@@ -35,7 +36,10 @@ public class ScoreSystem : MonoBehaviour
 
         }
 
-        //Debug.Log(enemies.Length);  //outputs in console how many object with tag Enemy are in the scene  
+        int min = Mathf.FloorToInt(timeSpent / 60);
+        int sec = Mathf.FloorToInt(timeSpent % 60);
+        timerUI.text = min.ToString("00") + ":" + sec.ToString("00");
+
     }
 
 

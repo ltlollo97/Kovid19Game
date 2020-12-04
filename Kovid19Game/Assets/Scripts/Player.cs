@@ -9,32 +9,37 @@ public class Player : MonoBehaviour
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
     public Transform projectileSpawnPoint;
-    
+
+    public BarsUI superAttackBar, healthBar;
 
     //player status
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
     private bool isGrounded = true; //if true player is not jumping 
     private bool ultraReady = false;
+    private bool isDead = false;
     private int health;
     private Animator playerAnimator;
     private ScoreSystem level;
-    private float ultimateAttackCooldown = 60f;
+    private float ultimateAttackCooldown = 10f;
+    private float nextUltimateFire;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 250;
         // health = base + mask power up
-        moveX = transform.position.x;
 
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
         level = camObj.GetComponent<ScoreSystem>();
         playerAnimator = gameObject.GetComponent<Animator>();
 
+        nextUltimateFire = ultimateAttackCooldown; // wait 60 secs at the beginning
 
-        Debug.Log("Initial health = " + health);
-        
+        // set initial values for UI bars
+        superAttackBar.SetMaxValue((int)ultimateAttackCooldown); 
+        superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
+        healthBar.SetMaxValue(health);
     }
 
 
@@ -43,11 +48,24 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
 
-        if (level.GetTimeSpent() > ultimateAttackCooldown)
+        if(Time.time > nextUltimateFire+1)
         {
             ultraReady = true;
-            ultimateAttackCooldown = 60f; //restore cooldown
+             
         }
+
+        if (health <= 0)
+        {
+            isDead = true;
+            Die();
+        }
+
+        //updates Sliders value
+        if(!ultraReady)
+            superAttackBar.SetValue((int)Time.time % (int) (ultimateAttackCooldown+1));
+
+        if(!isDead)
+            healthBar.SetValue(health);
     }
 
     public float GetUltraCooldown()
@@ -152,6 +170,17 @@ public class Player : MonoBehaviour
         //instantiate attack component
         //give it speed
         //play animation
+        nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
+        superAttackBar.SetValue(0);
+
+    }
+
+    private void Die()
+    {
+        //play Die animation
+        Destroy(gameObject);
+        //load Defeat Scene
+        Debug.Log("Player is Dead");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -162,10 +191,11 @@ public class Player : MonoBehaviour
             isGrounded = true;
         }
 
-        if(collision.gameObject.tag == "Enemy" && !isGrounded)
+        if((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
         {
             isGrounded = true; //in this way jump is not bugged
-            health -= 20; 
+            health -= 20;
+
         }
 
         if(collision.gameObject.tag == "HealthKit")
@@ -179,9 +209,9 @@ public class Player : MonoBehaviour
                     health = 250;
             }
                 
-            Debug.Log("New health: " + health);
         }
 
         
     }
+
 }
