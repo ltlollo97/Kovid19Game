@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour
 {
     public int playerSpeed = 10;
@@ -10,7 +11,6 @@ public class Player : MonoBehaviour
     public GameObject sanitizerPuffPrefab;
     public GameObject sanitizerUltraPrefab;
     public Transform projectileSpawnPoint;
-
     public BarsUI superAttackBar, healthBar;
 
     //player status
@@ -20,10 +20,14 @@ public class Player : MonoBehaviour
     private bool ultraReady = false;
     private bool isDead = false;
     private int health;
+    private bool invulnerable = false;
+    private float invincibilityTime = 3f;
     private Animator playerAnimator;
     private ScoreSystem level;
     private float ultimateAttackCooldown = 10f;
     private float nextUltimateFire;
+    private Renderer[] rend;
+    private Color[] color;
 
     // Start is called before the first frame update
     void Start()
@@ -202,32 +206,49 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player has collided with " + collision.collider.name);
-        if(collision.gameObject.tag == "Floor")
+
+        if (collision.gameObject.tag == "Floor")
         {
             isGrounded = true;
         }
 
-        if((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
+        if (!invulnerable)
         {
-            isGrounded = true; //in this way jump is not bugged
-            health -= 20;
-            SoundManagerScript.PlaySound("playerHit");
-        }
-
-        if(collision.gameObject.tag == "HealthKit")
-        {
-            if(health < 250)
+             
+            if((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
             {
-                // max value : base - current
-                health += 100;
+                isGrounded = true; //in this way jump is not bugged
+                playerAnimator.Play("Hit");
+                StartCoroutine(Invulnerability(collision));
+                health -= 20;
+                SoundManagerScript.PlaySound("playerHit");
 
-                if (health > 250)
-                    health = 250;
             }
-                
-        }
 
-        
+            if(collision.gameObject.tag == "HealthKit")
+            {
+                if(health < 250)
+                {
+                    // max value : base - current
+                    health += 100;
+
+                    if (health > 250)
+                        health = 250;
+                }
+                
+            }
+        }
     }
+
+    private IEnumerator Invulnerability(Collision2D collider)
+    {
+        invulnerable = true;
+        gameObject.layer = 10;
+        yield return new WaitForSeconds(invincibilityTime);
+        gameObject.layer = 8;
+        playerAnimator.SetTrigger("frameEnd");
+        invulnerable = false;
+    }
+
 
 }
