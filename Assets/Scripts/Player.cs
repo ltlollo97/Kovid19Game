@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public AudioSource jumpSound, hitSound, spraySound;
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
     public GameObject sanitizerUltraPrefab;
     public Transform projectileSpawnPoint;
-
     public BarsUI superAttackBar, healthBar;
 
     //player status
@@ -20,10 +20,13 @@ public class Player : MonoBehaviour
     private bool ultraReady = false;
     private bool isDead = false;
     private int health;
+    private bool invulnerable = false;
+    private float invincibilityTime = 3f;
     private Animator playerAnimator;
     private ScoreSystem level;
     private float ultimateAttackCooldown = 10f;
     private float nextUltimateFire;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +41,7 @@ public class Player : MonoBehaviour
         nextUltimateFire = ultimateAttackCooldown; // wait 60 secs at the beginning
 
         // set initial values for UI bars
-        superAttackBar.SetMaxValue((int)ultimateAttackCooldown); 
+        superAttackBar.SetMaxValue((int)ultimateAttackCooldown);
         superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
         healthBar.SetMaxValue(health);
     }
@@ -49,10 +52,10 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
 
-        if(Time.time > nextUltimateFire+1)
+        if (Time.time > nextUltimateFire + 1)
         {
             ultraReady = true;
-             
+
         }
 
         if (health <= 0)
@@ -62,10 +65,10 @@ public class Player : MonoBehaviour
         }
 
         //updates Sliders value
-        if(!ultraReady)
-            superAttackBar.SetValue((int)Time.time % (int) (ultimateAttackCooldown+1));
+        if (!ultraReady)
+            superAttackBar.SetValue((int)Time.time % (int)(ultimateAttackCooldown + 1));
 
-        if(!isDead)
+        if (!isDead)
             healthBar.SetValue(health);
     }
 
@@ -81,47 +84,49 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
-        
-        if(isGrounded)
+
+        if (isGrounded)
         {
             playerAnimator.SetBool("isJumping", false);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
-            SoundManagerScript.PlaySound("jump");    
+            if (!jumpSound.isPlaying)
+                jumpSound.Play();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+        if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
         {
 
             playerAnimator.Play("Attack");
             Attack();
-            
+            if (!spraySound.isPlaying)
+                spraySound.Play();
         }
 
-        if(Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
+        if (Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
             UltraAttack();
         }
-       
+
         //direction
         if (moveX < 0.0f && facingLeft == false)
         {
             FlipPlayer();
         }
-        else if(moveX > 0.0f && facingLeft == true)
+        else if (moveX > 0.0f && facingLeft == true)
         {
             FlipPlayer();
         }
-      
+
         moveX = Input.GetAxis("Horizontal");
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
-        if(moveX == 0) //player is not moving
+        if (moveX == 0) //player is not moving
         {
             playerAnimator.SetBool("isRunning", false);
         }
@@ -133,10 +138,10 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-       isGrounded = false;
-       playerAnimator.SetBool("isJumping", true);
-       GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
-        
+        isGrounded = false;
+        playerAnimator.SetBool("isJumping", true);
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
+
     }
 
     private void FlipPlayer()
@@ -152,7 +157,7 @@ public class Player : MonoBehaviour
 
         GameObject attack = Instantiate(sanitizerPuffPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 
-        if(facingLeft)
+        if (facingLeft)
         {
             Vector2 localScale = attack.transform.localScale;
             localScale.x *= -1;
@@ -163,7 +168,7 @@ public class Player : MonoBehaviour
         {
             attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * projectileSpawnPoint.right.x, 0);
         }
-        
+
 
     }
 
@@ -185,7 +190,7 @@ public class Player : MonoBehaviour
         }
 
         //play animation
-       // attack.GetComponent<Animator>().Play("SuperAttackProj");
+        // attack.GetComponent<Animator>().Play("SuperAttackProj");
         nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
         superAttackBar.SetValue(0);
 
@@ -202,32 +207,54 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player has collided with " + collision.collider.name);
-        if(collision.gameObject.tag == "Floor")
-        {
-            isGrounded = true;
-        }
 
-        if((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Floor")
         {
+
             isGrounded = true; //in this way jump is not bugged
-            health -= 20;
-            SoundManagerScript.PlaySound("playerHit");
+
         }
 
-        if(collision.gameObject.tag == "HealthKit")
+        if (!invulnerable)
         {
-            if(health < 250)
+
+            if ((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
             {
-                // max value : base - current
-                health += 100;
+                isGrounded = true; //in this way jump is not bugged
+                playerAnimator.Play("Hit");
+                if (!hitSound.isPlaying)
+                {
+                    hitSound.Play();
+                }
+                StartCoroutine(Invulnerability(collision));
+                health -= 20;
 
-                if (health > 250)
-                    health = 250;
             }
-                
-        }
 
-        
+            if (collision.gameObject.tag == "HealthKit")
+            {
+                if (health < 250)
+                {
+                    // max value : base - current
+                    health += 100;
+
+                    if (health > 250)
+                        health = 250;
+                }
+
+            }
+        }
     }
+
+    private IEnumerator Invulnerability(Collision2D collider)
+    {
+        invulnerable = true;
+        gameObject.layer = 10;
+        yield return new WaitForSeconds(invincibilityTime);
+        gameObject.layer = 8;
+        //playerAnimator.SetTrigger("frameEnd");
+        invulnerable = false;
+    }
+
 
 }

@@ -11,7 +11,6 @@ public class Boss : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        SoundManagerScript.PlaySound("ronahello");
         health = 400;
         anim = gameObject.GetComponent<Animator>();
     }
@@ -34,13 +33,17 @@ public class Boss : Enemy
         {
             health -= 50;
             Debug.Log("Hit");
-            SoundManagerScript.PlaySound("ronahit");
         }
     }
 
     public override void EnemyMove()
     {
         transform.position *= Time.deltaTime * 0.5f;
+    }
+
+    protected override void ChasePlayer()
+    {
+
     }
 }
 
