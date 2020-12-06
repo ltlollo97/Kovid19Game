@@ -8,7 +8,7 @@ public class ScoreSystem : MonoBehaviour
     
     public float score; //each level has a maximum amount of point obtainable
     public Text timerUI; //timer on canvas
-
+    public BarsUI completionBar;
     private bool gameEnded = false;
     private GameObject[] enemies;
     private float timeSpent; //how much time the player spent in completing the level
@@ -17,8 +17,10 @@ public class ScoreSystem : MonoBehaviour
     void Start()
     {
         timeSpent = 0f; //time when the level starts
-        //textUI.text = "0";
-        //enemies = GameObject.FindGameObjectsWithTag("Enemy"); //arrays of objects with tag Enemy
+                        //textUI.text = "0";
+                        //enemies = GameObject.FindGameObjectsWithTag("Enemy"); //arrays of objects with tag Enemy
+
+        completionBar.SetValue(0);
     }
 
     // Update is called once per frame

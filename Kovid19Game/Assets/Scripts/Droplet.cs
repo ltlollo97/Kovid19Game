@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Droplet : Enemy
 {
+    public AudioSource hitSound;
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
@@ -22,6 +23,18 @@ public class Droplet : Enemy
     {
         base.Update();
 
+
+        if (health <= 0)
+        {
+            if (hitSound.isPlaying)
+                Invoke("Destroy(gameObject)", 1);
+            else
+                Destroy(gameObject);
+
+            player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
+
+            Debug.Log(player.GetUltraCooldown());
+        }
     }
 
     public override void EnemyMove()
@@ -35,8 +48,8 @@ public class Droplet : Enemy
         {
             health -= 50;
             Debug.Log("Hit");
-            SoundManagerScript.PlaySound("enemy2Hit");
+            if (!hitSound.isPlaying)
+                hitSound.Play();
         }
     }
-
 }

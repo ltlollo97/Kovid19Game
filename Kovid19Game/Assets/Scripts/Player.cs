@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public AudioSource jumpSound, hitSound, spraySound;
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public GameObject sanitizerPuffPrefab;
@@ -91,7 +92,8 @@ public class Player : MonoBehaviour
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
-            SoundManagerScript.PlaySound("jump");    
+            if (!jumpSound.isPlaying)
+                jumpSound.Play();
         }
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
@@ -99,7 +101,8 @@ public class Player : MonoBehaviour
 
             playerAnimator.Play("Attack");
             Attack();
-            
+            if (!spraySound.isPlaying)
+                spraySound.Play();
         }
 
         if(Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
@@ -211,7 +214,10 @@ public class Player : MonoBehaviour
         {
             isGrounded = true; //in this way jump is not bugged
             health -= 20;
-            SoundManagerScript.PlaySound("playerHit");
+            if (!hitSound.isPlaying)
+            {
+                hitSound.Play();
+            }
         }
 
         if(collision.gameObject.tag == "HealthKit")

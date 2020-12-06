@@ -15,7 +15,6 @@ public class SoundManagerScript : MonoBehaviour
         enemy2HitSound = Resources.Load<AudioClip>("enemy2-hit");
         ronaHelloSound = Resources.Load<AudioClip>("rona-scream");
         ronaHitSound = Resources.Load<AudioClip>("rona-dies");
-
         audioSrc = GetComponent<AudioSource>();
     }
 
