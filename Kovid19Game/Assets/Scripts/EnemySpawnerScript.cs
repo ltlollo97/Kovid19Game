@@ -34,4 +34,9 @@ public class EnemySpawnerScript : MonoBehaviour
             }
         }
     }
+    
+    public int GetThreshold()
+    {
+        return threshold;
+    }
 }

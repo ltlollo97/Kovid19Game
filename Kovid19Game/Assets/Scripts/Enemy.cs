@@ -6,29 +6,25 @@ public abstract class Enemy : MonoBehaviour
 {
     protected float moveX;
     protected float moveY;
-    protected float enemySpeed;
+
+    public float enemySpeed;
     protected int health;
     protected bool facingLeft = false;
-
+    protected float minDistance = 0.2f;
     protected Player player;
     protected float playerUltraCooldown;
 
     // Start is called before the first frame update
     public void Start()
     {
-        //get enemy initial position
-        moveX = gameObject.transform.position.x;
-        moveY = gameObject.transform.position.y;
-
-        GameObject playObj = GameObject.FindGameObjectWithTag("Player");
-        player = playObj.GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
     }
 
     // Update is called once per frame
     public void Update()
     {
-        EnemyMove();
+        ChasePlayer();
 
         if (health == 0)
         {
@@ -44,6 +40,8 @@ public abstract class Enemy : MonoBehaviour
 
 
     public abstract void EnemyMove();
+
+    protected abstract void ChasePlayer();
 
     public int RandomExcept(int min, int max, int except)
     {

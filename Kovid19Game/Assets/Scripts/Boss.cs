@@ -31,5 +31,10 @@ public class Boss : Enemy
     {
         transform.position *= Time.deltaTime * 0.5f;
     }
+
+    protected override void ChasePlayer()
+    {
+
+    }
 }
 
