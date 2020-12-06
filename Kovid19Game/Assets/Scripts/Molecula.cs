@@ -7,7 +7,8 @@ public class Molecula : Enemy
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
-    [SerializeField] Transform playerCharacter;
+    [SerializeField]
+    public Transform Player;
     public float aggroRange = 6f;
 
     // Start is called before the first frame update
@@ -23,9 +24,9 @@ public class Molecula : Enemy
     void Update()
     {
        
-        float distToPlayer = Vector2.Distance(transform.position, playerCharacter.position);
+        float distToPlayer = (transform.position.x - Player.position.x);
 
-        if (distToPlayer < aggroRange)
+        if (distToPlayer < 0)
         {
             //move towards player
             ChasePlayer();
@@ -33,7 +34,7 @@ public class Molecula : Enemy
         else
         {
             //move casually
-            EnemyMove();
+          //  EnemyMove();
         }
 
         if (health == 0)
@@ -54,7 +55,7 @@ public class Molecula : Enemy
 
     protected void ChasePlayer()
     {
-        if (transform.position.x < playerCharacter.position.x)
+        if (transform.position.x < Player.position.x)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
             Vector2 localScale = gameObject.transform.localScale;
