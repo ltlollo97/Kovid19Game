@@ -1214,6 +1214,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 5082593280235631139, guid: 7b377eb8ff7709941acdadcb5cb6f0aa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Click
+      objectReference: {fileID: 0}
+>>>>>>> parent of f068c24... Merge pull request #2 from ltlollo97/gameplay-l
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b377eb8ff7709941acdadcb5cb6f0aa, type: 3}
 --- !u!1001 &2587421949753534631
