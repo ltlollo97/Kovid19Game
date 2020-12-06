@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
-            
+            SoundManagerScript.PlaySound("jump");    
         }
 
         if(Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
@@ -221,6 +221,7 @@ public class Player : MonoBehaviour
                 playerAnimator.Play("Hit");
                 StartCoroutine(Invulnerability(collision));
                 health -= 20;
+                SoundManagerScript.PlaySound("playerHit");
 
             }
 

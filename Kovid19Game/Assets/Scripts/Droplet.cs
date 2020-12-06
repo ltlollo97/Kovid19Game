@@ -29,6 +29,7 @@ public class Droplet : Enemy
         transform.position = new Vector3(moveX,moveY,0f) + Vector3.up * Mathf.Sin(Time.realtimeSinceStartup) * yDirection;
     }
 
+
     protected override void ChasePlayer()
     {
         if (transform.position.x < player.transform.position.x) //go left
@@ -50,4 +51,16 @@ public class Droplet : Enemy
             //transform.position += -transform.right * Mathf.Sin(Time.time * 3f) * 1f;
         }
     }
+
+    new public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Attack")
+        {
+            health -= 50;
+            Debug.Log("Hit");
+            SoundManagerScript.PlaySound("enemy2Hit");
+        }
+    }
+
+
 }

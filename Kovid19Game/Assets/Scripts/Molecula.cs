@@ -27,7 +27,19 @@ public class Molecula : Enemy
         
     }
 
+
+    new public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Attack")
+        {
+            health -= 50;
+            Debug.Log("Hit");
+            SoundManagerScript.PlaySound("enemy1Hit");
+        }
+    }
+
     protected override void ChasePlayer()
+
     {
         if (transform.position.x < player.transform.position.x) //go left
         {
