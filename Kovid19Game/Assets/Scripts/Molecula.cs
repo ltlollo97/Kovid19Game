@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Molecula : Enemy
 {
-    public AudioSource hitSound;
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
@@ -37,11 +36,8 @@ public class Molecula : Enemy
             EnemyMove();
         }
 
-        if (health <= 0)
+        if (health == 0)
         {
-            if (hitSound.isPlaying)
-                Invoke("Destroy(gameObject)", 1);
-            else
             Destroy(gameObject);
 
             player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
@@ -62,8 +58,7 @@ public class Molecula : Enemy
         {
             health -= 50;
             Debug.Log("Hit");
-            if (!hitSound.isPlaying)
-                hitSound.Play();
+            SoundManagerScript.PlaySound("enemy1Hit");
         }
     }
 
