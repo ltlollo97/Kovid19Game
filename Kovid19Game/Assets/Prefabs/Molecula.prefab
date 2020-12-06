@@ -663,7 +663,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7234031304473445412}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -688,11 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2b0b0fe086f0a42865bb068933e5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xDirection: 0
-  yDirection: 0
-  playerCharacter: {fileID: 1301859353993117987, guid: 4175e71761b93464b9d1cc207c5fbf43,
-    type: 3}
-  aggroRange: 6
+  enemySpeed: 0
 --- !u!61 &4945129966957068034
 BoxCollider2D:
   m_ObjectHideFlags: 0

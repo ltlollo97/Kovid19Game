@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class Molecula : Enemy
 {
+<<<<<<< HEAD
     public AudioSource hitSound;
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
     [SerializeField] Transform playerCharacter;
     public float aggroRange = 6f;
+=======
+    
+>>>>>>> f068c2468cfb6fd05a6cf35cd72f0ce68deb6a86
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        enemySpeed = 0.5f;
+        enemySpeed = 1.0f;
         health = 200;
-        xDirection = RandomExcept(-1, 1, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-        float distToPlayer = Vector2.Distance(transform.position, playerCharacter.position);
 
+<<<<<<< HEAD
         if (distToPlayer < aggroRange)
         {
             //move towards player
@@ -48,13 +50,17 @@ public class Molecula : Enemy
 
             Debug.Log(player.GetUltraCooldown());
         }
+=======
+        base.Update();
+>>>>>>> f068c2468cfb6fd05a6cf35cd72f0ce68deb6a86
     }
 
     public override void EnemyMove()
     {
-        transform.position = new Vector3(moveX, moveY, 0f) + new Vector3(1,0,0) * Mathf.Sin(Time.realtimeSinceStartup) * xDirection;
+       // transform.position = new Vector3(moveX, moveY, 0f) + new Vector3(1,0,0) * Mathf.Sin(Time.realtimeSinceStartup) * xDirection;
         
     }
+
 
     new public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -67,22 +73,25 @@ public class Molecula : Enemy
         }
     }
 
-    protected void ChasePlayer()
+    protected override void ChasePlayer()
+
     {
-        if (transform.position.x < playerCharacter.position.x)
+        if (transform.position.x < player.transform.position.x) //go left
         {
+            if (!facingLeft)
+                FlipEnemy();
+
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
-            Vector2 localScale = gameObject.transform.localScale;
-            localScale.x *= -1;
-            transform.localScale = localScale;
+
         }
 
-        else
+        else //go right
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
-            Vector2 localScale = gameObject.transform.localScale;
-            localScale.x *= 1;
-            transform.localScale = localScale;
+            if (facingLeft)
+                FlipEnemy();
+
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, 0);
+
         }
     }
 
