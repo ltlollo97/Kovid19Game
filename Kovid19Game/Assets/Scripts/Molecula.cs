@@ -7,8 +7,7 @@ public class Molecula : Enemy
     public int xDirection;
     public int yDirection;
     private Vector3 startingPosition;
-    [SerializeField]
-    public Transform Player;
+    public GameObject Player;
     public float aggroRange = 6f;
 
     // Start is called before the first frame update
