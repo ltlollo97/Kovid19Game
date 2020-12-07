@@ -88,6 +88,7 @@ public class ScoreSystem : MonoBehaviour
         score -= 0.01f * timeSpent;
         int visualScore = (int) score; //type cast
         scoreText.text = visualScore.ToString();
+
     }
 
 }

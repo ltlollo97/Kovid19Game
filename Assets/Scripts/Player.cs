@@ -19,11 +19,12 @@ public class Player : MonoBehaviour
     private bool isGrounded = true; //if true player is not jumping 
     private bool ultraReady = false;
     private bool isDead = false;
-    private int health;
+    public int health;
     private bool invulnerable = false;
     private float invincibilityTime = 3f;
     private Animator playerAnimator;
     private ScoreSystem level;
+    private GameObject gameOverPanel;
     private float ultimateAttackCooldown = 10f;
     private float nextUltimateFire;
 
@@ -31,10 +32,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 250;
+        //health = 250;
         // health = base + mask power up
 
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
+
+        gameOverPanel = GameObject.Find("GameOverPanel");
+        gameOverPanel.SetActive(false);
+
         level = camObj.GetComponent<ScoreSystem>();
         playerAnimator = gameObject.GetComponent<Animator>();
 
@@ -62,6 +67,7 @@ public class Player : MonoBehaviour
         {
             isDead = true;
             Die();
+            //GameOverPanel.setActive(true);
         }
 
         //updates Sliders value
@@ -202,6 +208,7 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
         //load Defeat Scene
         Debug.Log("Player is Dead");
+        gameOverPanel.SetActive(true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
