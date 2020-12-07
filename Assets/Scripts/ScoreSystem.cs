@@ -9,21 +9,26 @@ public class ScoreSystem : MonoBehaviour
     public float score; //each level has a maximum amount of point obtainable
     public Text timerUI; //timer on canvas
     public Text completionState;
+    public Text scoreText;
+
     public BarsUI completionBar;
 
     private int threshold;
     private float percentage;
     private List<int> thresholds = new List<int>();
     private EnemyTracker tracker;
+    private GameObject levelCompetePanel;
     private GameObject[] spawners;
     private bool gameEnded = false;
-    private GameObject[] enemies;
     private float timeSpent; //how much time the player spent in completing the level
 
 
     // Start is called before the first frame update
     void Start()
     {
+        levelCompetePanel = GameObject.Find("LevelCompletePanel");
+        levelCompetePanel.SetActive(false);
+
         timeSpent = 0f; //time when the level starts
         threshold = 0;
         percentage = 0f;
@@ -53,9 +58,6 @@ public class ScoreSystem : MonoBehaviour
 
         percentage = (tracker.GetDeaths()/ (float)threshold) *100; //float division to avoid rounding by zero the result
 
-        Debug.Log("Value Captured: " + tracker.GetDeaths());
-        Debug.Log("percentage:" + percentage);
-
         completionBar.SetValue((int)percentage);
         completionState.text = percentage.ToString() + "%";
 
@@ -82,9 +84,10 @@ public class ScoreSystem : MonoBehaviour
     private void Win()
     {
         //  the lower timeSpent, the higher score
+        levelCompetePanel.SetActive(true);
         score -= 0.01f * timeSpent;
         int visualScore = (int) score; //type cast
-       // textUI.text = "You achieved " + visualScore.ToString() + " points";
+        scoreText.text = visualScore.ToString();
     }
 
 }
