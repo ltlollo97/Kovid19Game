@@ -12,6 +12,7 @@ public class EnemySpawnerScript : MonoBehaviour
     Vector2 whereToSpawn;
     public float spawnRate = 2f;
     float nextSpawn = 0.0f;
+    
     // Start is called before the first frame update
     void Start()
     {

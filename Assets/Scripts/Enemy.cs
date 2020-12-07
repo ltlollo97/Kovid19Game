@@ -14,11 +14,13 @@ public abstract class Enemy : MonoBehaviour
     protected float minDistance = 0.2f;
     protected Player player;
     protected float playerUltraCooldown;
+    protected Animator anim;
 
     // Start is called before the first frame update
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        anim = GetComponent<Animator>();
 
     }
 
@@ -32,7 +34,13 @@ public abstract class Enemy : MonoBehaviour
             if (hitSound.isPlaying)
                 Invoke("Destroy(gameObject)", 1);
             else
+            {
+                EnemyTracker tracker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EnemyTracker>();
+                tracker.AddDeath();
+                anim.Play("Die");
                 Destroy(gameObject);
+            }
+                
 
             player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
 
@@ -59,6 +67,7 @@ public abstract class Enemy : MonoBehaviour
         {
             health -= 50;
             Debug.Log("Hit");
+            anim.Play("Hit");
             if (!hitSound.isPlaying)
                 hitSound.Play();
             // health -= GetSanitizerAttack(); this should return the attack value of an item
