@@ -9,7 +9,7 @@ public class Molecula : Enemy
     void Start()
     {
         base.Start();
-        enemySpeed = 1.0f;
+        //enemySpeed = 1.0f;
         health = 200;
     }
 

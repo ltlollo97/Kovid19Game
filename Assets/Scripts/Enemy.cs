@@ -43,8 +43,6 @@ public abstract class Enemy : MonoBehaviour
                 
 
             player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
-
-            Debug.Log(player.GetUltraCooldown());
         }
 
     }
@@ -66,7 +64,7 @@ public abstract class Enemy : MonoBehaviour
         if (collision.collider.tag == "Attack")
         {
             health -= 50;
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             anim.Play("Hit");
             if (!hitSound.isPlaying)
                 hitSound.Play();

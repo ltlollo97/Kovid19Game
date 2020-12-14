@@ -39,7 +39,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach(GameObject spawner in spawners)
         {
-            thresholds.Add(spawner.gameObject.GetComponent<EnemySpawnerScript>().GetThreshold());
+            thresholds.Add(spawner.gameObject.GetComponent<WaveSpawner>().EnemyNumber());
         }
 
         foreach(int val in thresholds)
@@ -85,7 +85,9 @@ public class ScoreSystem : MonoBehaviour
     {
         //  the lower timeSpent, the higher score
         levelCompetePanel.SetActive(true);
-        score -= 0.01f * timeSpent;
+        score -= 2 * timeSpent;
+        if (score <= 200)
+            score = 200; // minimum amount of points
         int visualScore = (int) score; //type cast
         scoreText.text = visualScore.ToString();
 

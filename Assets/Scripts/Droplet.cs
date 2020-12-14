@@ -9,7 +9,7 @@ public class Droplet : Enemy
     new void Start()
     {
         base.Start();
-        enemySpeed = 1.5f;
+        //enemySpeed = 1.5f;
         health = 100;
     }
 

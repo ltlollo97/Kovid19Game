@@ -10,7 +10,7 @@ public class EnemySpawnerScript : MonoBehaviour
 
     private GameObject cam;
     private Vector2 whereToSpawn;
-    //private float randX;
+    private float randX;
     private float offset;
     private int cont = 0;
     private float nextSpawn = 0.0f;
@@ -24,18 +24,18 @@ public class EnemySpawnerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector2(cam.transform.position.x + 12f, transform.position.y); // enemy can't spawn 
+
         if (cont < threshold)
         {
             
             if (Time.time > nextSpawn)
             {
                 nextSpawn = Time.time + spawnRate;
-                //randX = Random.Range(-22f, 70f);
+                //randX = Random.Range(-12f, 10f);
                 whereToSpawn = new Vector2(transform.position.x, transform.position.y);
-                Instantiate(enemy, whereToSpawn, Quaternion.identity);
+                Invoke("Instantiate(enemy, whereToSpawn, Quaternion.identity)", 2);
                 cont++;
-                Debug.Log(cont);
+                //Debug.Log(cont);
             }
         }
        

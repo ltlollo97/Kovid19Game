@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public AudioSource jumpSound, hitSound, spraySound;
     public int playerSpeed = 10;
     public int jumpPower = 1250;
+    public float dashDuration;
+    public float dashCooldown;
     public GameObject sanitizerPuffPrefab;
     public GameObject sanitizerUltraPrefab;
     public Transform projectileSpawnPoint;
@@ -16,6 +18,11 @@ public class Player : MonoBehaviour
     //player status
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
+    private bool canDash;
+    private bool isDashing;
+    private float gravityScal;
+    private IEnumerator dashCoroutine;
+    private float direction;
     private bool isGrounded = true; //if true player is not jumping 
     private bool ultraReady = false;
     private bool isDead = false;
@@ -25,15 +32,18 @@ public class Player : MonoBehaviour
     private Animator playerAnimator;
     private ScoreSystem level;
     private GameObject gameOverPanel;
-    private float ultimateAttackCooldown = 10f;
+    public float startTimeBetweenShots;
+    private float timeBetweenShots;
+    private float ultimateAttackCooldown = 60f;
     private float nextUltimateFire;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //health = 250;
         // health = base + mask power up
+        canDash = true;
+        gravityScal = gameObject.GetComponent<Rigidbody2D>().gravityScale;
 
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
 
@@ -45,6 +55,7 @@ public class Player : MonoBehaviour
 
         nextUltimateFire = ultimateAttackCooldown; // wait 60 secs at the beginning
 
+
         // set initial values for UI bars
         superAttackBar.SetMaxValue((int)ultimateAttackCooldown);
         superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
@@ -55,6 +66,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         PlayerMove();
 
         if (Time.time > nextUltimateFire + 1)
@@ -76,7 +88,17 @@ public class Player : MonoBehaviour
 
         if (!isDead)
             healthBar.SetValue(health);
+
+        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        {
+            if (dashCoroutine != null)
+                StopCoroutine(dashCoroutine);
+            dashCoroutine = Dash(.3f, 3f);
+            StartCoroutine(dashCoroutine);
+            Debug.Log("Dash coroutine started");
+        }
     }
+
 
     public float GetUltraCooldown()
     {
@@ -90,13 +112,30 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
+        if (timeBetweenShots <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+            {
+
+                playerAnimator.Play("Attack");
+                Attack();
+                if (!spraySound.isPlaying)
+                    spraySound.Play();
+                timeBetweenShots = startTimeBetweenShots;
+            }
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
+        }
+
 
         if (isGrounded)
         {
             playerAnimator.SetBool("isJumping", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)  //up arrow to jump IF the player has not jumped already
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
@@ -104,18 +143,10 @@ public class Player : MonoBehaviour
                 jumpSound.Play();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
-        {
-
-            playerAnimator.Play("Attack");
-            Attack();
-            if (!spraySound.isPlaying)
-                spraySound.Play();
-        }
-
         if (Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
+            nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
             UltraAttack();
         }
 
@@ -130,6 +161,10 @@ public class Player : MonoBehaviour
         }
 
         moveX = Input.GetAxis("Horizontal");
+
+        if (moveX != 0)
+            direction = moveX;
+
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
         if (moveX == 0) //player is not moving
@@ -139,6 +174,11 @@ public class Player : MonoBehaviour
         else
         {
             playerAnimator.SetBool("isRunning", true);
+        }
+
+        if (isDashing)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(direction * 20, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -181,7 +221,7 @@ public class Player : MonoBehaviour
     private void UltraAttack()
     {
         //instantiate attack component
-        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position + new Vector3(0.0f, 1.0f, 0.0f), projectileSpawnPoint.rotation);
+        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 
         if (facingLeft)
         {
@@ -197,7 +237,7 @@ public class Player : MonoBehaviour
 
         //play animation
         // attack.GetComponent<Animator>().Play("SuperAttackProj");
-        nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
+
         superAttackBar.SetValue(0);
 
     }
@@ -250,6 +290,15 @@ public class Player : MonoBehaviour
                 }
 
             }
+
+            if (collision.gameObject.tag == "Object")
+            {
+                playerAnimator.Play("Hit");
+                if (!hitSound.isPlaying)
+                    hitSound.Play();
+                StartCoroutine(Invulnerability(collision));
+                health -= 10;
+            }
         }
     }
 
@@ -261,6 +310,19 @@ public class Player : MonoBehaviour
         gameObject.layer = 8;
         //playerAnimator.SetTrigger("frameEnd");
         invulnerable = false;
+    }
+
+    private IEnumerator Dash(float dashDuration, float dashCooldown)
+    {
+        isDashing = true;
+        canDash = false;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = gravityScal;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
 

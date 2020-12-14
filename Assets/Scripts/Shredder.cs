@@ -13,11 +13,11 @@ public class Shredder : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(tag == "Attack" && timer > waitTime)
+        if((tag == "Attack" || tag == "Effect") && timer > waitTime )
         {
-            //if the attack does not hit nothing in 3 seconds, it gets destroyed
             Destroy(gameObject); 
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
