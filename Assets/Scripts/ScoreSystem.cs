@@ -57,9 +57,9 @@ public class ScoreSystem : MonoBehaviour
         timeSpent += Time.deltaTime; // time spent in seconds
 
         percentage = (tracker.GetDeaths()/ (float)threshold) *100; //float division to avoid rounding by zero the result
-
-        completionBar.SetValue((int)percentage);
-        completionState.text = percentage.ToString() + "%";
+        int progress = (int)percentage;
+        completionBar.SetValue(progress);
+        completionState.text = progress.ToString() + "%";
 
 
         if (tracker.GetDeaths() == threshold && !gameEnded) //level completed

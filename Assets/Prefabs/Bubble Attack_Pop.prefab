@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6784064512412556435}
   - component: {fileID: 4204101956156130121}
   - component: {fileID: 5867876495283875231}
-  - component: {fileID: 755288498520351597}
+  - component: {fileID: 681053088189647779}
   m_Layer: 8
   m_Name: Bubble Attack_Pop
   m_TagString: Attack
@@ -106,7 +106,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &755288498520351597
+--- !u!114 &681053088189647779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,9 +115,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2498063136096892257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a38c96ef50ad6a498af9d55e77d9548, type: 3}
+  m_Script: {fileID: 11500000, guid: adb5f92d49c83e544adfc273ce812ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
 --- !u!1 &2722328261060702638
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,7 @@ public class Droplet : Enemy
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
             // transform.position += transform.right * Mathf.Sin(Time.time * 3f) * 1f;
 
+
         }
 
         else //go right
@@ -45,6 +46,10 @@ public class Droplet : Enemy
             GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
             //transform.position += -transform.right * Mathf.Sin(Time.time * 3f) * 1f;
         }
+
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
     }
+
+
 
 }

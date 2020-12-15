@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSound: {fileID: 5349477877935286301}
-  enemySpeed: 3
+  enemySpeed: 2
 --- !u!61 &5159209515876001932
 BoxCollider2D:
   m_ObjectHideFlags: 0

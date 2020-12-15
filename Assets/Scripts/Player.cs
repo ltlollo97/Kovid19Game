@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public AudioSource jumpSound, hitSound, spraySound;
+    public AudioSource jumpSound, hitSound, spraySound, ultraSound, dashSound;
     public int playerSpeed = 10;
     public int jumpPower = 1250;
     public float dashDuration;
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     private GameObject gameOverPanel;
     public float startTimeBetweenShots;
     private float timeBetweenShots;
-    private float ultimateAttackCooldown = 60f;
+    public float ultimateAttackCooldown = 60f;
     private float nextUltimateFire;
 
 
@@ -89,13 +89,14 @@ public class Player : MonoBehaviour
         if (!isDead)
             healthBar.SetValue(health);
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
             dashCoroutine = Dash(.3f, 3f);
             StartCoroutine(dashCoroutine);
-            Debug.Log("Dash coroutine started");
+            if (!dashSound.isPlaying)
+                dashSound.Play();
         }
     }
 
@@ -148,6 +149,8 @@ public class Player : MonoBehaviour
             ultraReady = false;
             nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
             UltraAttack();
+            if (!ultraSound.isPlaying)
+                ultraSound.Play();
         }
 
         //direction
@@ -188,6 +191,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isJumping", true);
         GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
 
+
     }
 
     private void FlipPlayer()
@@ -203,16 +207,18 @@ public class Player : MonoBehaviour
 
         GameObject attack = Instantiate(sanitizerPuffPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 
+        float speed = sanitizerPuffPrefab.GetComponent<Projectile>().speed;
+
         if (facingLeft)
         {
             Vector2 localScale = attack.transform.localScale;
             localScale.x *= -1;
             attack.transform.localScale = localScale;
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * -projectileSpawnPoint.right.x, 0);
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * -projectileSpawnPoint.right.x, 0);
         }
         else
         {
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * projectileSpawnPoint.right.x, 0);
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * projectileSpawnPoint.right.x, 0);
         }
 
 
@@ -221,22 +227,22 @@ public class Player : MonoBehaviour
     private void UltraAttack()
     {
         //instantiate attack component
-        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position + new Vector3 (0.0f, 0.5f, 0.0f), projectileSpawnPoint.rotation);
+
+        float speed = sanitizerUltraPrefab.GetComponent<Projectile>().speed;
 
         if (facingLeft)
         {
             Vector2 localScale = attack.transform.localScale;
             localScale.x *= -1;
             attack.transform.localScale = localScale;
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * -projectileSpawnPoint.right.x, 0);
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * -projectileSpawnPoint.right.x, 0);
         }
         else
         {
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(4f * projectileSpawnPoint.right.x, 0);
+            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * projectileSpawnPoint.right.x, 0);
         }
 
-        //play animation
-        // attack.GetComponent<Animator>().Play("SuperAttackProj");
 
         superAttackBar.SetValue(0);
 
@@ -284,9 +290,10 @@ public class Player : MonoBehaviour
                 {
                     // max value : base - current
                     health += 100;
-
-                    if (health > 250)
-                        health = 250;
+                }
+                else
+                {
+                    health = 250;
                 }
 
             }
@@ -327,3 +334,5 @@ public class Player : MonoBehaviour
 
 
 }
+
+

@@ -28,16 +28,19 @@ public class WaveSpawner : MonoBehaviour
 
     private float searchCountdown;
 
+    private int remainingWaves;
+
     public SpawnState state = SpawnState.COUNTING;
     
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
+        remainingWaves = waves.Length;
     }
 
     private void Update()
     {
-        if(!end)
+        if(remainingWaves != 0)
         {
             if (state == SpawnState.WAITING)
             {
@@ -73,7 +76,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (nextWave + 1 > waves.Length - 1)
         {
-            end = true;
+            remainingWaves -= 1;
             Debug.Log("All waves completed");
         }
         else

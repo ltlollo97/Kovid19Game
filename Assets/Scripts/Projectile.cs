@@ -6,7 +6,9 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     public float lifeTime;
+    public int attackValue;
     public bool cameraShakingEnabled;
+    public bool isUltra;
 
     public GameObject destroyEffect;
     private GameObject cam;
@@ -14,7 +16,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cam = GameObject.Find("Camera Obj");
         Invoke("DestroyProjectile", lifeTime);
     }
 
@@ -27,17 +29,16 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && !isUltra)
         {
             DestroyProjectile();
             if (cameraShakingEnabled)
             {
-                cam.GetComponent<CameraSystem>().enabled = false; // to allow the screen shaking
-                cam.GetComponent<Animator>().SetTrigger("shake");
-                cam.GetComponent<CameraSystem>().enabled = true;
+                cam.GetComponentInChildren<Animator>().SetTrigger("shake");
             }
                 
         }
+
             
     }
 }

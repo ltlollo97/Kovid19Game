@@ -331,7 +331,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8277572150697712408}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -382,8 +382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce184b6b4c0399747999fa786c991933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  lifeTime: 3
+  speed: 15
+  lifeTime: 2.5
+  attackValue: 100
   cameraShakingEnabled: 1
+  isUltra: 1
   destroyEffect: {fileID: 1255495400647307441, guid: e9739736b058fa444b2ef49eb5355c7e,
     type: 3}
