@@ -103,12 +103,12 @@ public class Player : MonoBehaviour
 
     public float GetUltraCooldown()
     {
-        return ultimateAttackCooldown;
+        return nextUltimateFire;
     }
 
     public void SetUltraCooldown(float val)
     {
-        ultimateAttackCooldown = val;
+        nextUltimateFire = val;
     }
 
     private void PlayerMove()

@@ -42,7 +42,7 @@ public abstract class Enemy : MonoBehaviour
             }
                 
 
-            player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
+            //player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
         }
 
     }
