@@ -13,6 +13,8 @@ TagManager:
   - Spawner
   - Effect
   - Object
+  - Platform
+  - SettingsMenu
   layers:
   - Default
   - TransparentFX
@@ -27,7 +29,7 @@ TagManager:
   - Immune
   - GameBorders
   - Platforms
-  - 
+  - Platform
   - 
   - 
   - 

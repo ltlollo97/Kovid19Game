@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     private GameObject gameOverPanel;
     public float startTimeBetweenShots;
     private float timeBetweenShots;
-    public float ultimateAttackCooldown = 60f;
+    public float ultimateAttackCooldown;
     private float nextUltimateFire;
 
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
         PlayerMove();
 
-        if (Time.time > nextUltimateFire + 1)
+        if (Time.time >= nextUltimateFire)
         {
             ultraReady = true;
 
@@ -144,9 +144,10 @@ public class Player : MonoBehaviour
                 jumpSound.Play();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) == true && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
+        if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
+            superAttackBar.SetValue(0); // resets super attack bar
             nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
             UltraAttack();
             if (!ultraSound.isPlaying)
@@ -242,16 +243,13 @@ public class Player : MonoBehaviour
         {
             attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * projectileSpawnPoint.right.x, 0);
         }
-
-
-        superAttackBar.SetValue(0);
-
+        
     }
 
     private void Die()
     {
-        //play Die animation
-        Destroy(gameObject);
+        playerAnimator.Play("Die"); //play Die animation
+        Invoke("Destroy(gameObject)", 2); // wait 2 secs then destroy the game object
         //load Defeat Scene
         Debug.Log("Player is Dead");
         gameOverPanel.SetActive(true);
@@ -315,7 +313,6 @@ public class Player : MonoBehaviour
         gameObject.layer = 10;
         yield return new WaitForSeconds(invincibilityTime);
         gameObject.layer = 8;
-        //playerAnimator.SetTrigger("frameEnd");
         invulnerable = false;
     }
 

@@ -29,15 +29,19 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && !isUltra)
+        if (collision.gameObject.tag == "Enemy")
         {
-            DestroyProjectile();
+            if(!isUltra)
+                DestroyProjectile(); // normal attack destroys as soon as hits an enemy
+
             if (cameraShakingEnabled)
             {
                 cam.GetComponentInChildren<Animator>().SetTrigger("shake");
             }
                 
         }
+
+
 
             
     }

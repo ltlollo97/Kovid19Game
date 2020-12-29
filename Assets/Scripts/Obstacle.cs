@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Obstacle : MonoBehaviour
 {
     public AudioSource fallingSound, hitSound;
@@ -41,9 +40,12 @@ public class Obstacle : MonoBehaviour
             Debug.Log("Got you!");
         if (col.gameObject.tag == "Player" || col.gameObject.tag == "Floor")
         {
-            if (!touched)
+            if (!hitSound.isPlaying && !touched)
+            {
                 hitSound.Play();
-            Destroy(gameObject, 0.5f);
+                touched = true;
+            }
+            Destroy(gameObject, 1);
         }
     }
 }

@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce184b6b4c0399747999fa786c991933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 12.5
   lifeTime: 2.5
   attackValue: 100
   cameraShakingEnabled: 1
