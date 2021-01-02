@@ -15,6 +15,7 @@ TagManager:
   - Object
   - Platform
   - SettingsMenu
+  - Piece
   layers:
   - Default
   - TransparentFX
@@ -28,8 +29,8 @@ TagManager:
   - EnemyGenerated
   - Immune
   - GameBorders
-  - Platforms
   - Platform
+  - Object
   - 
   - 
   - 

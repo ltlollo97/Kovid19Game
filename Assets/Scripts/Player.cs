@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public AudioSource jumpSound, hitSound, spraySound, ultraSound, dashSound;
     public int playerSpeed = 10;
-    public int jumpPower = 1250;
+    public int jumpPower;
     public float dashDuration;
     public float dashCooldown;
     public GameObject sanitizerPuffPrefab;
@@ -27,8 +27,6 @@ public class Player : MonoBehaviour
     private bool ultraReady = false;
     private bool isDead = false;
     public int health;
-    private bool invulnerable = false;
-    private float invincibilityTime = 3f;
     private Animator playerAnimator;
     private ScoreSystem level;
     private GameObject gameOverPanel;
@@ -36,7 +34,6 @@ public class Player : MonoBehaviour
     private float timeBetweenShots;
     public float ultimateAttackCooldown;
     private float nextUltimateFire;
-
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +46,8 @@ public class Player : MonoBehaviour
 
         gameOverPanel = GameObject.Find("GameOverPanel");
         gameOverPanel.SetActive(false);
-
+        
+        
         level = camObj.GetComponent<ScoreSystem>();
         playerAnimator = gameObject.GetComponent<Animator>();
 
@@ -66,8 +64,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        PlayerMove();
+        if (!isDead)
+            PlayerControl();
 
         if (Time.time >= nextUltimateFire)
         {
@@ -75,11 +73,10 @@ public class Player : MonoBehaviour
 
         }
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             isDead = true;
             Die();
-            //GameOverPanel.setActive(true);
         }
 
         //updates Sliders value
@@ -88,19 +85,9 @@ public class Player : MonoBehaviour
 
         if (!isDead)
             healthBar.SetValue(health);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
-        {
-            if (dashCoroutine != null)
-                StopCoroutine(dashCoroutine);
-            dashCoroutine = Dash(.3f, 3f);
-            StartCoroutine(dashCoroutine);
-            if (!dashSound.isPlaying)
-                dashSound.Play();
-        }
     }
 
-
+   
     public float GetUltraCooldown()
     {
         return nextUltimateFire;
@@ -111,8 +98,9 @@ public class Player : MonoBehaviour
         nextUltimateFire = val;
     }
 
-    private void PlayerMove()
+    private void PlayerControl()
     {
+        // ------------- ATTACK ----------------------
         if (timeBetweenShots <= 0)
         {
             if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
@@ -129,21 +117,7 @@ public class Player : MonoBehaviour
         {
             timeBetweenShots -= Time.deltaTime;
         }
-
-
-        if (isGrounded)
-        {
-            playerAnimator.SetBool("isJumping", false);
-        }
-
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
-        {
-            playerAnimator.SetTrigger("takeOff");
-            Jump();
-            if (!jumpSound.isPlaying)
-                jumpSound.Play();
-        }
-
+        // -- ULTRA ATTACK 
         if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
@@ -153,8 +127,30 @@ public class Player : MonoBehaviour
             if (!ultraSound.isPlaying)
                 ultraSound.Play();
         }
+        // ------------------------------------------------
 
-        //direction
+
+        // -------------- JUMP ----------------------------
+        
+        // -- JUMP ANIMATION
+        if (isGrounded)
+        {
+            playerAnimator.SetBool("isJumping", false);
+        }
+        // --
+
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
+        {
+            playerAnimator.SetTrigger("takeOff");
+            Jump();
+            if (!jumpSound.isPlaying)
+                jumpSound.Play();
+        }
+        // -------------------------------------------
+
+
+
+        //--------- FLIP CHARACTER SPRITE -------------
         if (moveX < 0.0f && facingLeft == false)
         {
             FlipPlayer();
@@ -164,6 +160,10 @@ public class Player : MonoBehaviour
             FlipPlayer();
         }
 
+        // ---------------------------------------------
+
+
+        // ------------ MOVEMENT ON X AXIS -------------
         moveX = Input.GetAxis("Horizontal");
 
         if (moveX != 0)
@@ -171,6 +171,7 @@ public class Player : MonoBehaviour
 
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
+        // -- RUNNING ANIMATION
         if (moveX == 0) //player is not moving
         {
             playerAnimator.SetBool("isRunning", false);
@@ -178,6 +179,19 @@ public class Player : MonoBehaviour
         else
         {
             playerAnimator.SetBool("isRunning", true);
+        }
+        // --------------------------------------------
+
+
+        // ------------ DASH --------------------------
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        {
+            if (dashCoroutine != null)
+                StopCoroutine(dashCoroutine);
+            dashCoroutine = Dash(.3f, 3f);
+            StartCoroutine(dashCoroutine);
+            if (!dashSound.isPlaying)
+                dashSound.Play();
         }
 
         if (isDashing)
@@ -190,9 +204,8 @@ public class Player : MonoBehaviour
     {
         isGrounded = false;
         playerAnimator.SetBool("isJumping", true);
-        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower);
-
-
+        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0f);
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpPower, ForceMode2D.Force);
     }
 
     private void FlipPlayer()
@@ -249,7 +262,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         playerAnimator.Play("Die"); //play Die animation
-        Invoke("Destroy(gameObject)", 2); // wait 2 secs then destroy the game object
+        Destroy(gameObject, 2f); // wait 2 secs then destroy the game object
         //load Defeat Scene
         Debug.Log("Player is Dead");
         gameOverPanel.SetActive(true);
@@ -259,17 +272,18 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player has collided with " + collision.collider.name);
 
-        if (collision.gameObject.tag == "Floor")
+        if (collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")
         {
 
             isGrounded = true; //in this way jump is not bugged
 
+            //prevents super jump 
+            //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            //GetComponent<Rigidbody2D>().angularVelocity = 0f;
+
         }
 
-        if (!invulnerable)
-        {
-
-            if ((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
+         if ((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
             {
                 isGrounded = true; //in this way jump is not bugged
                 playerAnimator.Play("Hit");
@@ -277,43 +291,31 @@ public class Player : MonoBehaviour
                 {
                     hitSound.Play();
                 }
-                StartCoroutine(Invulnerability(collision));
                 health -= 20;
 
             }
 
-            if (collision.gameObject.tag == "HealthKit")
+        if (collision.gameObject.tag == "HealthKit")
+        {
+            if (health < 250)
             {
-                if (health < 250)
-                {
-                    // max value : base - current
-                    health += 100;
-                }
-                else
-                {
-                    health = 250;
-                }
-
+                // max value : base - current
+                health += 100;
             }
-
-            if (collision.gameObject.tag == "Object")
+            else
             {
-                playerAnimator.Play("Hit");
-                if (!hitSound.isPlaying)
-                    hitSound.Play();
-                StartCoroutine(Invulnerability(collision));
-                health -= 10;
+                health = 250;
             }
         }
-    }
 
-    private IEnumerator Invulnerability(Collision2D collider)
-    {
-        invulnerable = true;
-        gameObject.layer = 10;
-        yield return new WaitForSeconds(invincibilityTime);
-        gameObject.layer = 8;
-        invulnerable = false;
+        if (collision.gameObject.tag == "Object")
+        {
+            playerAnimator.Play("Hit");
+            if (!hitSound.isPlaying)
+                hitSound.Play();
+            health -= 10;
+        }
+
     }
 
     private IEnumerator Dash(float dashDuration, float dashCooldown)

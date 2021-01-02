@@ -33,6 +33,7 @@ public class Boss : Enemy
         {
             health -= 50;
             Debug.Log("Hit");
+            anim.Play("Hit");
         }
     }
 

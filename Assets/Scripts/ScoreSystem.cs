@@ -7,11 +7,10 @@ public class ScoreSystem : MonoBehaviour
 {
     
     public float score; //each level has a maximum amount of point obtainable
-    public Text timerUI; //timer on canvas
-    public Text completionState;
-    public Text scoreText;
-
-    public BarsUI completionBar;
+    public Text timerUI; //timer text on canvas
+    public Text completionState; // completion text on canvas
+    public Text scoreText; // score text on level complete panel
+    public BarsUI completionBar; // completion bar to fill on canvas
 
     private int threshold;
     private float percentage;

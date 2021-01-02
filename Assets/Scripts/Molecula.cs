@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Molecula : Enemy
 {
+    private int offset = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -30,25 +31,25 @@ public class Molecula : Enemy
     protected override void ChasePlayer()
 
     {
-        if (transform.position.x < player.transform.position.x) //go left
+        if (transform.position.x < player.transform.position.x - offset) //go left
         {
             if (!facingLeft)
                 FlipEnemy();
 
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, 0);
-
         }
 
-        else //go right
+        else if (transform.position.x > player.transform.position.x + offset) //go right
         {
             if (facingLeft)
                 FlipEnemy();
 
             GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, 0);
+        }
 
+        else
+        {
+            // nothing
         }
     }
-
-
-
 }

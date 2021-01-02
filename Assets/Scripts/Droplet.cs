@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Droplet : Enemy
 {
- 
+    private int offset = 2;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -24,32 +25,28 @@ public class Droplet : Enemy
         //
     }
 
-
     protected override void ChasePlayer()
     {
-        if (transform.position.x < player.transform.position.x) //go left
+        if (transform.position.x < player.transform.position.x - offset) //go left
         {
             if (!facingLeft)
                 FlipEnemy();
 
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
-            // transform.position += transform.right * Mathf.Sin(Time.time * 3f) * 1f;
-
-
         }
 
-        else //go right
+        else if (transform.position.x > player.transform.position.x + offset) //go right
         {
             if (facingLeft)
                 FlipEnemy();
 
             GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
-            //transform.position += -transform.right * Mathf.Sin(Time.time * 3f) * 1f;
         }
 
+        else
+        {
+            // nothing
+        }
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
     }
-
-
-
 }

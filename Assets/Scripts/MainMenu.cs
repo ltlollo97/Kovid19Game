@@ -20,6 +20,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void Load(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
     public void SetMusicVolume(float volume)
     {
         musicMixer.SetFloat("volume", volume);

@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Explodable))]
 public class Obstacle : MonoBehaviour
 {
-    public AudioSource fallingSound, hitSound;
+    public AudioSource fallingSound;
     public float fallSpeed = 8.0f;
     public float spinSpeed = 250.0f;
+    private Explodable _explodable;
+    private SoundManagerScript soundManager;
     Rigidbody2D rb;
 
     // Use this for initialization
     void Start()
     {
+        _explodable = GetComponent<Explodable>();
         rb = GetComponent<Rigidbody2D>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
     }
 
         void OnTriggerEnter2D(Collider2D col)
@@ -40,12 +45,12 @@ public class Obstacle : MonoBehaviour
             Debug.Log("Got you!");
         if (col.gameObject.tag == "Player" || col.gameObject.tag == "Floor")
         {
-            if (!hitSound.isPlaying && !touched)
+            if (!touched)
             {
-                hitSound.Play();
+                SoundManagerScript.PlaySound("breakingObject");
                 touched = true;
             }
-            Destroy(gameObject, 1);
+            _explodable.explode(); // generates fragments and destroys parent objectt
         }
     }
 }

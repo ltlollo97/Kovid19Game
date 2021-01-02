@@ -291,8 +291,8 @@ MonoBehaviour:
   dashSound: {fileID: 1267751176960554851}
   playerSpeed: 10
   jumpPower: 1250
-  dashDuration: 0
-  dashCooldown: 0
+  dashDuration: 0.4
+  dashCooldown: 3
   sanitizerPuffPrefab: {fileID: 1158794219509665489, guid: 2a27a25436bc4f5469ce4d3c3b40102a,
     type: 3}
   sanitizerUltraPrefab: {fileID: 8277572150697712408, guid: fb54c495a68ee404681ff06c42a01231,
