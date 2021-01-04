@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreSystem : MonoBehaviour
 {
-    
+
     public float score; //each level has a maximum amount of point obtainable
     public Text timerUI; //timer text on canvas
     public Text completionState; // completion text on canvas
@@ -36,12 +36,12 @@ public class ScoreSystem : MonoBehaviour
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        foreach(GameObject spawner in spawners)
+        foreach (GameObject spawner in spawners)
         {
             thresholds.Add(spawner.gameObject.GetComponent<WaveSpawner>().EnemyNumber());
         }
 
-        foreach(int val in thresholds)
+        foreach (int val in thresholds)
         {
             threshold += val;
         }
@@ -55,7 +55,7 @@ public class ScoreSystem : MonoBehaviour
     {
         timeSpent += Time.deltaTime; // time spent in seconds
 
-        percentage = (tracker.GetDeaths()/ (float)threshold) *100; //float division to avoid rounding by zero the result
+        percentage = (tracker.GetDeaths() / (float)threshold) * 100; //float division to avoid rounding by zero the result
         int progress = (int)percentage;
         completionBar.SetValue(progress);
         completionState.text = progress.ToString() + "%";
@@ -66,7 +66,7 @@ public class ScoreSystem : MonoBehaviour
             gameEnded = true;
             Win();
         }
-       
+
 
         int min = Mathf.FloorToInt(timeSpent / 60);
         int sec = Mathf.FloorToInt(timeSpent % 60);
@@ -79,7 +79,7 @@ public class ScoreSystem : MonoBehaviour
     {
         return timeSpent;
     }
-    
+
     private void Win()
     {
         //  the lower timeSpent, the higher score
@@ -87,9 +87,13 @@ public class ScoreSystem : MonoBehaviour
         score -= 2 * timeSpent;
         if (score <= 200)
             score = 200; // minimum amount of points
-        int visualScore = (int) score; //type cast
+        int visualScore = (int)score; //type cast
         scoreText.text = visualScore.ToString();
 
+        // update points 
+        int currentPoints = PlayerPrefs.GetInt("totalPoints");
+        currentPoints += visualScore; // calculate new amount
+        PlayerPrefs.SetInt("totalPoints", currentPoints);
     }
 
 }

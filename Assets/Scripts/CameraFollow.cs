@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         Vector2 tmp = playerTransform.position;
-        tmp.y += 4f;
+        tmp.y += offsetY;
         transform.position = tmp;
     }
 
@@ -30,11 +30,10 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 temp = transform.position;
 
-        temp.x = playerTransform.position.x;
-        temp.y = playerTransform.position.y + offsetY;
-
-        temp.x += offsetX;
-
+        temp.x = playerTransform.position.x + offsetX;
+        //temp.y = playerTransform.position.y + offsetY; // comment to prevent camera following player on Y-axis
+        
+        // Camera boundaries 
         if (temp.x >= maxX)
             temp.x = maxX;
 

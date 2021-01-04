@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6848080995921804536}
   - component: {fileID: 3119959175412581779}
+  - component: {fileID: 4078154193754097134}
   m_Layer: 8
   m_Name: Bubble 1
   m_TagString: Attack
@@ -83,6 +84,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &4078154193754097134
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690952355215636975}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.021355085, y: -0.0000019223576}
+  serializedVersion: 2
+  m_Radius: 1.8409696
 --- !u!1 &1158794219509665489
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +111,6 @@ GameObject:
   - component: {fileID: 7779976999280336779}
   - component: {fileID: 7826108980085974819}
   - component: {fileID: 642258175153535225}
-  - component: {fileID: 7192486689567774255}
   - component: {fileID: -7426165563100258641}
   m_Layer: 8
   m_Name: Bubble Attack
@@ -163,32 +179,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &7192486689567774255
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158794219509665489}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &-7426165563100258641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +195,7 @@ MonoBehaviour:
   lifeTime: 1
   attackValue: 50
   cameraShakingEnabled: 0
-  isUltra: 0
+  isDestructible: 1
   destroyEffect: {fileID: 2498063136096892257, guid: bb5ebaa67c6faef43bc63b3698d5c398,
     type: 3}
 --- !u!1 &1691556022028356126
@@ -218,6 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6165134986352127418}
   - component: {fileID: 5331898912749371030}
+  - component: {fileID: 8475669406580965683}
   m_Layer: 8
   m_Name: Bubble 2
   m_TagString: Untagged
@@ -289,6 +280,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &8475669406580965683
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691556022028356126}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.8474945
 --- !u!1 &7303456168943339358
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 973044747965561824}
   - component: {fileID: 4842534403052401324}
+  - component: {fileID: 3866657447314886382}
   m_Layer: 8
   m_Name: Bubble 3
   m_TagString: Untagged
@@ -370,3 +378,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &3866657447314886382
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303456168943339358}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011302103, y: -0.0000038324524}
+  serializedVersion: 2
+  m_Radius: 1.8585603

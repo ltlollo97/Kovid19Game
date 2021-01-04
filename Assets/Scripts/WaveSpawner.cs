@@ -23,11 +23,7 @@ public class WaveSpawner : MonoBehaviour
 
     public float timeBetweenWaves = 5f;
     private float waveCountdown;
-
-    private bool end = false;
-
     private float searchCountdown;
-
     private int remainingWaves;
 
     public SpawnState state = SpawnState.COUNTING;

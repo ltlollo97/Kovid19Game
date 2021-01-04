@@ -5,6 +5,7 @@ using UnityEngine;
 public class Droplet : Enemy
 {
     private int offset = 2;
+    private Vector2 target;
 
     // Start is called before the first frame update
     new void Start()
@@ -19,12 +20,7 @@ public class Droplet : Enemy
     {
         base.Update();
     }
-
-    public override void EnemyMove()
-    {
-        //
-    }
-
+    
     protected override void ChasePlayer()
     {
         if (transform.position.x < player.transform.position.x - offset) //go left
@@ -39,7 +35,7 @@ public class Droplet : Enemy
         {
             if (facingLeft)
                 FlipEnemy();
-
+        
             GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
         }
 
@@ -47,6 +43,7 @@ public class Droplet : Enemy
         {
             // nothing
         }
+
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public AudioSource jumpSound, hitSound, spraySound, ultraSound, dashSound;
+    public int health;
     public int playerSpeed = 10;
     public int jumpPower;
     public float dashDuration;
@@ -14,8 +15,11 @@ public class Player : MonoBehaviour
     public GameObject sanitizerUltraPrefab;
     public Transform projectileSpawnPoint;
     public BarsUI superAttackBar, healthBar;
+    //public float startTimeBetweenShots;
+    public float ultimateAttackCooldown;
 
-    //player status
+
+    // movement
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
     private bool canDash;
@@ -24,21 +28,29 @@ public class Player : MonoBehaviour
     private IEnumerator dashCoroutine;
     private float direction;
     private bool isGrounded = true; //if true player is not jumping 
+    // attack
     private bool ultraReady = false;
+    private float nextUltimateFire;
+    private float timeBetweenShots;
+    // status
+    private int maxHealth;
     private bool isDead = false;
-    public int health;
+    private bool invulnerable = false;
+    private float invincibilityTime = 3f;
+    // other game objs
     private Animator playerAnimator;
     private ScoreSystem level;
     private GameObject gameOverPanel;
-    public float startTimeBetweenShots;
-    private float timeBetweenShots;
-    public float ultimateAttackCooldown;
-    private float nextUltimateFire;
+    // equip
+    private Mask mask;
+    private Weapon sanitizer;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        // health = base + mask power up
+        InitializeEquip();
+
         canDash = true;
         gravityScal = gameObject.GetComponent<Rigidbody2D>().gravityScale;
 
@@ -107,10 +119,10 @@ public class Player : MonoBehaviour
             {
 
                 playerAnimator.Play("Attack");
-                Attack();
+                Attack(sanitizerPuffPrefab, Vector2.zero); // spawn without offset
                 if (!spraySound.isPlaying)
                     spraySound.Play();
-                timeBetweenShots = startTimeBetweenShots;
+                timeBetweenShots = sanitizer.startTimeBetweenShots;
             }
         }
         else
@@ -122,8 +134,9 @@ public class Player : MonoBehaviour
         {
             ultraReady = false;
             superAttackBar.SetValue(0); // resets super attack bar
-            nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown 
-            UltraAttack();
+            nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown
+            Attack(sanitizerUltraPrefab, new Vector2(0.0f, 0.5f));
+            //UltraAttack();
             if (!ultraSound.isPlaying)
                 ultraSound.Play();
         }
@@ -216,12 +229,12 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private void Attack()
+    private void Attack(GameObject projectilePrefab, Vector3 offset) //instantiate projectilePrefab attack with an offset
     {
 
-        GameObject attack = Instantiate(sanitizerPuffPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+        GameObject attack = Instantiate(projectilePrefab, projectileSpawnPoint.position + offset, projectileSpawnPoint.rotation);
 
-        float speed = sanitizerPuffPrefab.GetComponent<Projectile>().speed;
+        float speed = projectilePrefab.GetComponent<Projectile>().speed;
 
         if (facingLeft)
         {
@@ -238,34 +251,27 @@ public class Player : MonoBehaviour
 
     }
 
-    private void UltraAttack()
+    private void InitializeEquip()
     {
-        //instantiate attack component
-        GameObject attack = Instantiate(sanitizerUltraPrefab, projectileSpawnPoint.position + new Vector3 (0.0f, 0.5f, 0.0f), projectileSpawnPoint.rotation);
+        mask = GetComponentInChildren<Mask>();
+        mask.SelectOption(PlayerPrefs.GetInt("maskEquipped"));
+        maxHealth += mask.bonusHP; // health = base + mask power up
+        health = maxHealth; // at the beginning, current health is max
+        Debug.Log("Player hp: " + health);
 
-        float speed = sanitizerUltraPrefab.GetComponent<Projectile>().speed;
-
-        if (facingLeft)
-        {
-            Vector2 localScale = attack.transform.localScale;
-            localScale.x *= -1;
-            attack.transform.localScale = localScale;
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * -projectileSpawnPoint.right.x, 0);
-        }
-        else
-        {
-            attack.GetComponent<Rigidbody2D>().velocity = new Vector2(speed * projectileSpawnPoint.right.x, 0);
-        }
-        
+        sanitizer = GetComponentInChildren<Weapon>();
+        sanitizer.SelectSanitizer(PlayerPrefs.GetInt("sanitizerEquipped"));
+        sanitizerPuffPrefab = GetComponentInChildren<Weapon>().normalAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")]; // update projectile sprite
+        sanitizerUltraPrefab = GetComponentInChildren<Weapon>().ultraAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")]; // update ultra proj prefab
+        Debug.Log("SANITIZER : " + PlayerPrefs.GetInt("sanitizerEquipped"));
     }
 
     private void Die()
     {
         playerAnimator.Play("Die"); //play Die animation
         Destroy(gameObject, 2f); // wait 2 secs then destroy the game object
-        //load Defeat Scene
         Debug.Log("Player is Dead");
-        gameOverPanel.SetActive(true);
+        gameOverPanel.SetActive(true); //load Defeat Scene
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -275,47 +281,80 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")
         {
 
-            isGrounded = true; //in this way jump is not bugged
-
-            //prevents super jump 
-            //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //GetComponent<Rigidbody2D>().angularVelocity = 0f;
-
+            isGrounded = true; 
         }
 
-         if ((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
+        if (!invulnerable)
+        {
+            if ((collision.gameObject.tag == "Enemy" && !isGrounded) || collision.gameObject.tag == "Enemy")
             {
-                isGrounded = true; //in this way jump is not bugged
                 playerAnimator.Play("Hit");
                 if (!hitSound.isPlaying)
                 {
                     hitSound.Play();
                 }
+                StartCoroutine(Invulnerability(collision));
                 health -= 20;
 
             }
 
-        if (collision.gameObject.tag == "HealthKit")
-        {
-            if (health < 250)
+            if (collision.gameObject.tag == "HealthKit")
             {
-                // max value : base - current
-                health += 100;
+                if (health + 100 < maxHealth)
+                {
+                    health += 100;
+                }
+                else
+                {
+                    health = maxHealth;
+                }
             }
-            else
+
+            if (collision.gameObject.tag == "Object")
             {
-                health = 250;
+                playerAnimator.Play("Hit");
+                if (!hitSound.isPlaying)
+                    hitSound.Play();
+                StartCoroutine(Invulnerability(collision));
+                health -= 10;
             }
         }
+    }
 
-        if (collision.gameObject.tag == "Object")
+    private IEnumerator Invulnerability(Collision2D collider)
+    {
+        invulnerable = true;
+        gameObject.layer = 10; // switch to Immune layer
+        StartCoroutine(DamageAnimation()); // lasts 1.5 secs
+        yield return new WaitForSeconds(invincibilityTime);
+        gameObject.layer = 8; // bring back to PlayerGenerated layer
+        invulnerable = false; // no longer invulnerable
+    }
+
+    private IEnumerator DamageAnimation() // character sprites flash for little time
+    {
+        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
+
+        for (int i = 0; i < 15; i++)
         {
-            playerAnimator.Play("Hit");
-            if (!hitSound.isPlaying)
-                hitSound.Play();
-            health -= 10;
-        }
+            foreach (SpriteRenderer sr in srs)
+            {
+                Color c = sr.color;
+                c.a = 0.5f;
+                sr.color = c;
+            }
 
+            yield return new WaitForSeconds(.1f);
+
+            foreach (SpriteRenderer sr in srs)
+            {
+                Color c = sr.color;
+                c.a = 1;
+                sr.color = c;
+            }
+
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     private IEnumerator Dash(float dashDuration, float dashCooldown)

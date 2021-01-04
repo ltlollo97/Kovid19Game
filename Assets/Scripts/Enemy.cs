@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour
 
     public AudioSource hitSound;
     public float enemySpeed;
-    protected int health;
+    public int health;
     protected bool facingLeft = false;
     protected float minDistance = 0.2f;
     protected Player player;
@@ -48,7 +48,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public abstract void EnemyMove();
+    //public abstract void EnemyMove();
 
     protected abstract void ChasePlayer();
 
@@ -72,7 +72,7 @@ public abstract class Enemy : MonoBehaviour
         if (collision.collider.tag == "Attack")
         {
             health -= collision.gameObject.GetComponent<Projectile>().attackValue;
-            //Debug.Log("Hit");
+            
             anim.Play("Hit");
             if (!hitSound.isPlaying)
                 hitSound.Play();

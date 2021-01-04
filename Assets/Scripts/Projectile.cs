@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     public float lifeTime;
     public int attackValue;
     public bool cameraShakingEnabled;
-    public bool isUltra;
+    public bool isDestructible;
 
     public GameObject destroyEffect;
     private GameObject cam;
@@ -18,6 +18,10 @@ public class Projectile : MonoBehaviour
     {
         cam = GameObject.Find("Camera Obj");
         Invoke("DestroyProjectile", lifeTime);
+        if (cameraShakingEnabled)
+        {
+            cam.GetComponentInChildren<Animator>().SetTrigger("shake");
+        }
     }
 
     // Update is called once per frame
@@ -31,18 +35,9 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if(!isUltra)
+            if(isDestructible)
                 DestroyProjectile(); // normal attack destroys as soon as hits an enemy
-
-            if (cameraShakingEnabled)
-            {
-                cam.GetComponentInChildren<Animator>().SetTrigger("shake");
-            }
-                
         }
-
-
-
-            
+     
     }
 }

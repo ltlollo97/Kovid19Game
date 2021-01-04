@@ -5,9 +5,8 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     // Destroys game object
-    private float waitTime = 2.0f;
+    private float waitTime = 1.0f;
     private float timer = 0.0f;
-    private bool destroy = false;
     public AudioSource clip;
 
     private void Start()

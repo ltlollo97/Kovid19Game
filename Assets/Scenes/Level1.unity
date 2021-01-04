@@ -35583,12 +35583,22 @@ MonoBehaviour:
     type: 3}
   spawnPoints:
   - {fileID: 25725947}
+  - {fileID: 242899900}
+  - {fileID: 920253741}
   waves:
+  - name: Droplet
+    enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
+    count: 3
+    rate: 1
   - name: Droplet
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
     count: 1
     rate: 1
-  timeBetweenWaves: 3
+  - name: Droplet
+    enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
+    count: 1
+    rate: 1
+  timeBetweenWaves: 2
   state: 2
 --- !u!4 &489376546
 Transform:
@@ -62176,7 +62186,7 @@ MonoBehaviour:
   maxX: 38
   minY: -2.5
   maxY: 3
-  offsetY: 4.5
+  offsetY: 4
 --- !u!1 &910381675
 GameObject:
   m_ObjectHideFlags: 0
@@ -154992,6 +155002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7243642986616900457, guid: bf382834c34b0dc4e99ca201e14ce8b4, type: 3}
+    - {fileID: 5605234093534999995, guid: bf382834c34b0dc4e99ca201e14ce8b4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bf382834c34b0dc4e99ca201e14ce8b4, type: 3}
 --- !u!1 &7243642985233328609 stripped
 GameObject:

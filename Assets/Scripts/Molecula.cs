@@ -7,7 +7,7 @@ public class Molecula : Enemy
     private int offset = 2;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
         //enemySpeed = 1.0f;
@@ -15,18 +15,12 @@ public class Molecula : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
 
         base.Update();
     }
-
-    public override void EnemyMove()
-    {
-        // transform.position = new Vector3(moveX, moveY, 0f) + new Vector3(1,0,0) * Mathf.Sin(Time.realtimeSinceStartup) * xDirection;
-
-    }
-
+    
 
     protected override void ChasePlayer()
 

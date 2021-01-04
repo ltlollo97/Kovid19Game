@@ -18,6 +18,11 @@ public class BarsUI : MonoBehaviour
         slider.value = value; //update slider's current value
     }
 
+    public float GetValue()
+    {
+        return slider.value;
+    }
+
     public void Increment()
     {
         slider.value += 1;
