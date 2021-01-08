@@ -5,13 +5,21 @@ using UnityEngine;
 public class Droplet : Enemy
 {
     private int offset = 2;
+    protected GameObject rightSide;
+    protected GameObject leftSide;
     private Vector2 target;
+    private Vector3 position;
+    private bool touched;
+    public float amplitude;
+    private bool waited;
+    private bool called = false;
 
     // Start is called before the first frame update
     new void Start()
     {
+        rightSide = GameObject.Find("RightSide");
+        leftSide = GameObject.Find("LeftSide");
         base.Start();
-        //enemySpeed = 1.5f;
         health = 100;
     }
 
@@ -20,30 +28,92 @@ public class Droplet : Enemy
     {
         base.Update();
     }
-    
+
     protected override void ChasePlayer()
     {
-        if (transform.position.x < player.transform.position.x - offset) //go left
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) < 3.0 && !touched && !waited)
         {
-            if (!facingLeft)
+            if (transform.position.x > player.transform.position.x + 1.5 && facingLeft)
                 FlipEnemy();
 
-            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
-        }
-
-        else if (transform.position.x > player.transform.position.x + offset) //go right
-        {
-            if (facingLeft)
+            else if (transform.position.x < player.transform.position.x - 1.5 && !facingLeft)
                 FlipEnemy();
-        
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, Mathf.Sin(Time.time * 3f) * 2f);
+
+            if (!called)
+                StartCoroutine(Wait());
+
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
+            
         }
 
         else
         {
-            // nothing
+            if (facingLeft)
+            {
+                position.x = rightSide.transform.position.x + 5;
+                position.y = transform.position.y;
+                position.z = 0;
+               // transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+            }
+
+            else if (!facingLeft)
+            {
+                position.x = leftSide.transform.position.x - 5;
+                position.y = transform.position.y;
+                position.z = 0;
+                //transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+            }
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
+        if (transform.position.x > rightSide.transform.position.x + 4) //go left
+        {
+            if (facingLeft)
+                FlipEnemy();
+        }
+
+        else if (transform.position.x < leftSide.transform.position.x - 4) //go right
+        {
+            if (!facingLeft)
+                FlipEnemy();
+        }
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Droplet has collided with " + collision.collider.name);
+
+        if (collision.collider.tag == "Player")
+        {
+            StartCoroutine(ChangeVariable());
+        }
+
+        if (collision.collider.tag == "Attack")
+        {
+            health -= collision.gameObject.GetComponent<Projectile>().attackValue;
+
+            anim.Play("Hit");
+            if (!hitSound.isPlaying)
+                hitSound.Play();
+            // health -= GetSanitizerAttack(); this should return the attack value of an item
+        }
+    }
+
+    private IEnumerator ChangeVariable()
+    {
+        touched = true;
+        yield return new WaitForSeconds(3f);
+        touched = false;
+    }
+
+    private IEnumerator Wait()
+    {
+        called = true;
+        yield return new WaitForSeconds(1f);
+        waited = true;
+        yield return new WaitForSeconds(3f);
+        waited = false;
+        called = false;
     }
 }

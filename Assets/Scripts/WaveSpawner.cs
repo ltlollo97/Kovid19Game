@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public enum SpawnState {SPAWNING, WAITING, COUNTING};
+    public enum SpawnState { SPAWNING, WAITING, COUNTING };
     public GameObject spawnEffect;
 
     [System.Serializable]
@@ -27,7 +27,7 @@ public class WaveSpawner : MonoBehaviour
     private int remainingWaves;
 
     public SpawnState state = SpawnState.COUNTING;
-    
+
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
@@ -36,7 +36,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        if(remainingWaves != 0)
+        if (remainingWaves > 0)
         {
             if (state == SpawnState.WAITING)
             {
@@ -78,9 +78,10 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             nextWave++;
+            remainingWaves -= 1;
         }
 
-        
+
     }
 
     bool EnemyisAlive()
@@ -104,7 +105,7 @@ public class WaveSpawner : MonoBehaviour
     {
         state = SpawnState.SPAWNING;
 
-        for (int i =0; i< wave.count; i++)
+        for (int i = 0; i < wave.count; i++)
         {
             SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f / wave.rate);
@@ -114,10 +115,10 @@ public class WaveSpawner : MonoBehaviour
         yield break;
     }
 
-    void SpawnEnemy (Transform enemy)
+    void SpawnEnemy(Transform enemy)
     {
         Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        if(spawnPoints.Length == 0)
+        if (spawnPoints.Length == 0)
         {
             Debug.Log("error: no spawn points reference");
         }
@@ -127,7 +128,7 @@ public class WaveSpawner : MonoBehaviour
 
     public int EnemyNumber()
     {
-        int enemy_count = 0; 
+        int enemy_count = 0;
 
         foreach (Wave wave in waves)
         {

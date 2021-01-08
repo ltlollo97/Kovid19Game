@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
-    public AudioSource hitSound, laughSound, startSound;
+    public AudioSource hitSound, laughSound, startSound, bitchSound;
     public AnimationClip explosion;
     public float enemySpeed;
     private int offset = 2;
     public Animator anim;
     protected Player player;
     public int health;
-    private bool routineHasBeenCalled = false;
     private bool dead = false;
     private bool facingLeft = false;
     private bool invulnerable = false;
@@ -21,12 +20,16 @@ public class Boss : MonoBehaviour
     private bool ready_for_new_step = true;
     private Vector3 position;
     public BarsUI healthBar;
+    public BarsUI playerBar;
     private bool moveTowards = false;
     private bool welcomed = false;
     private bool hit = false;
     public bool generateChildren = false;
     private bool givingBirth = false;
     public GameObject child;
+    public GameObject protection;
+    protected GameObject barrier;
+    private bool alreadyPlayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -60,24 +63,17 @@ public class Boss : MonoBehaviour
 
                 if (ready_for_new_step)
                     MoveTowards();
-
-                // DESTROY RONA WHEN SHE IS DEAD
-
-                if (health <= 0 && !routineHasBeenCalled)
-                {
-                    StartCoroutine(Die());
-                    routineHasBeenCalled = true;
-                }
-
             }
         }
+
+        StartCoroutine(CheckIfWin());
     }
 
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("MissRona has collided with " + collision.collider.name);
-        
+
         if (!invulnerable)
         {
             if (collision.collider.tag == "Attack")
@@ -89,8 +85,18 @@ public class Boss : MonoBehaviour
                 healthBar.SetValue(health);
                 if (!hitSound.isPlaying)
                     hitSound.Play();
-                StartCoroutine(Invulnerability());
-            }      
+                if (health > 0)
+                    StartCoroutine(Invulnerability());
+                else
+                    StartCoroutine(Die());
+            }
+
+            if (collision.collider.tag == "Player" && !dead)
+            {
+                anim.Play("Laugh");
+                if (!laughSound.isPlaying)
+                    laughSound.Play();
+            }
         }
     }
 
@@ -124,7 +130,8 @@ public class Boss : MonoBehaviour
 
     protected void Move()
     {
-        if (ready_for_new_step) {       // If the previous step has been completed, select a new one. Otherwise, continue the step of before.
+        if (ready_for_new_step)
+        {       // If the previous step has been completed, select a new one. Otherwise, continue the step of before.
 
             while (curr_position == prev_position)      // Select a position with index 1-5 different from the one of before.
             {
@@ -143,7 +150,7 @@ public class Boss : MonoBehaviour
             position.y = -4.5f;
             position.z = 0;
 
-            if (transform.position.x == position.x && transform.position.y == position.y)
+            if (Mathf.Abs(transform.position.x - position.x) < 0.5 && Mathf.Abs(transform.position.y - position.y) < 0.5)
             {
                 prev_position = curr_position;
                 ready_for_new_step = true;      // Unlock the procedure for a new step!
@@ -159,7 +166,7 @@ public class Boss : MonoBehaviour
             position.y = -4.5f;
             position.z = 0;
 
-            if (transform.position.x == position.x && transform.position.y == position.y)
+            if (Mathf.Abs(transform.position.x - position.x) < 0.5 && Mathf.Abs(transform.position.y - position.y) < 0.5)
             {
                 prev_position = curr_position;
                 ready_for_new_step = true;      // Unlock the procedure for a new step!
@@ -175,7 +182,7 @@ public class Boss : MonoBehaviour
             position.y = -1f;
             position.z = 0;
 
-            if (transform.position.x == position.x && transform.position.y == position.y)
+            if (Mathf.Abs(transform.position.x - position.x) < 0.5 && Mathf.Abs(transform.position.y - position.y) < 0.5)
             {
                 if (generateChildren)
                     StartCoroutine(Attack());     // Generate new child!
@@ -193,7 +200,7 @@ public class Boss : MonoBehaviour
             position.y = -1f;
             position.z = 0;
 
-            if (transform.position.x == position.x && transform.position.y == position.y)
+            if (Mathf.Abs(transform.position.x - position.x) < 0.5 && Mathf.Abs(transform.position.y - position.y) < 0.5)
             {
                 if (generateChildren)
                     StartCoroutine(Attack());     // Generate new child!
@@ -204,22 +211,6 @@ public class Boss : MonoBehaviour
             else
                 transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
         }
-
-    /*    else    // special position (ON THE STAGE!)
-        {
-            position.x = -1f;
-            position.y = -2.7f;
-            position.z = 0;
-
-            if (transform.position.x == position.x && transform.position.y == position.y)
-            {
-                prev_position = curr_position;
-                ready_for_new_step = true;      // Unlock the procedure for a new step!
-            }
-
-            else
-                transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
-        }  */   
     }
 
     protected void MoveTowards()         // move Rona Towards the Player
@@ -233,12 +224,8 @@ public class Boss : MonoBehaviour
             position.z = 0;
         }
 
-        if (transform.position.x == position.x && transform.position.y == position.y) {
-            anim.Play("Laugh");
-            if (!laughSound.isPlaying)
-                laughSound.Play();
+        if (Mathf.Abs(transform.position.x - position.x) < 0.5 && Mathf.Abs(transform.position.y - position.y) < 0.5)
             moveTowards = false;    // Rona is where the player is!
-        }
 
         else
             transform.position = Vector2.MoveTowards(transform.position, position, 2 * enemySpeed * Time.deltaTime);
@@ -247,8 +234,9 @@ public class Boss : MonoBehaviour
     private IEnumerator Die()
     {
         dead = true;
+        gameObject.layer = 14; // switch to "ImmuneBoss" layer
         anim.Play("Die");
-        yield return new WaitForSeconds(1.567f);        // length of the "Die" animation: 0.667 (+ approx. time for the sound to end)
+        yield return new WaitForSeconds(1.8f);        // length of the "Die" animation: 0.667 (+ approx. time for the sound to end)
         Destroy(gameObject);
         // If Rona dies destroy also all her children
         GameObject[] children = GameObject.FindGameObjectsWithTag("Enemy");
@@ -268,13 +256,18 @@ public class Boss : MonoBehaviour
         invulnerable = true;
         gameObject.layer = 14; // switch to "ImmuneBoss" layer
         yield return new WaitForSeconds(1f);
-        gameObject.layer = 15; // bring back to "Boss" layer
-        invulnerable = false;
         hit = false;
+        Instantiate(protection, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+        yield return new WaitForSeconds(4f);
+        barrier = GameObject.Find("Protection(Clone)");
+        Destroy(barrier);
+        invulnerable = false;
+        gameObject.layer = 15; // bring back to "Boss" layer
     }
 
     private IEnumerator Welcome()
     {
+        yield return new WaitForSeconds(0.1f);
         welcomed = true;
         anim.Play("Laugh");
         if (!startSound.isPlaying)
@@ -292,5 +285,17 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1f);
         givingBirth = false;
     }
-}
 
+    private IEnumerator CheckIfWin()
+    {
+        if (playerBar.GetValue() <= 0 && !alreadyPlayed)
+        {
+            if (!bitchSound.isPlaying && !laughSound.isPlaying)
+            {
+                yield return new WaitForSeconds(1.5f);
+                bitchSound.Play();
+                alreadyPlayed = true;
+            }
+        }
+    }
+}

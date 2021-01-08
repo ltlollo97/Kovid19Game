@@ -14,7 +14,7 @@ public class ScoreSystem : MonoBehaviour
 
     private int threshold;
     private float percentage;
-    private List<int> thresholds = new List<int>();
+    private List<int> thresholds = new List<int>(); //max number of enemies spawned by each spawnerr
     private EnemyTracker tracker;
     private GameObject levelCompetePanel;
     private GameObject[] spawners;
@@ -43,7 +43,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach (int val in thresholds)
         {
-            threshold += val;
+            threshold += val; // total number of enemies in level
         }
         Debug.Log("Threshold : " + threshold);
         completionBar.SetMaxValue(100);

@@ -67,16 +67,4 @@ public abstract class Enemy : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Attack")
-        {
-            health -= collision.gameObject.GetComponent<Projectile>().attackValue;
-            
-            anim.Play("Hit");
-            if (!hitSound.isPlaying)
-                hitSound.Play();
-            // health -= GetSanitizerAttack(); this should return the attack value of an item
-        }
-    }
 }

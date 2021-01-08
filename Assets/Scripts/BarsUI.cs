@@ -7,6 +7,11 @@ public class BarsUI : MonoBehaviour
 {
     public Slider slider;
 
+    private void Start()
+    {
+        slider = gameObject.GetComponent<Slider>();
+    }
+
     public void SetMaxValue(int value)
     {
         slider.maxValue = value;
@@ -16,6 +21,11 @@ public class BarsUI : MonoBehaviour
     public void SetValue(int value)
     {
         slider.value = value; //update slider's current value
+    }
+
+    public void SetFloatValue(float value)
+    {
+        slider.value = value; //if slider has floats
     }
 
     public float GetValue()

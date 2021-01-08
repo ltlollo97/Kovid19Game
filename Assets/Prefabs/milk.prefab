@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingSound: {fileID: 1564605575}
-  hitSound: {fileID: 7017169004390321837}
   fallSpeed: 5
   spinSpeed: 250
+  isShit: 0
 --- !u!82 &1564605575
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,7 +282,8 @@ AudioSource:
   m_GameObject: {fileID: 426875940125113210}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 609f556bc65ec27409713a6d7c624d00,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: ba75065586cce6446ad313ebad31cb1e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5

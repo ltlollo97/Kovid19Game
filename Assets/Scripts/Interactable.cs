@@ -7,12 +7,12 @@ public class Interactable : MonoBehaviour
     // Destroys game object
     private float waitTime = 1.0f;
     private float timer = 0.0f;
-    public AudioSource clip;
+    //public AudioSource clip;
 
     private void Start()
     {
-        if(gameObject.tag == "HealthKit")
-            clip = GameObject.Find("Camera Obj").GetComponent<AudioSource>();
+        //if(gameObject.tag == "HealthKit")
+            //clip = GameObject.Find("Camera Obj").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -33,7 +33,7 @@ public class Interactable : MonoBehaviour
 
         if (gameObject.tag == "HealthKit" && collision.collider.tag == "Player") //healthkit destroys when player hits it
         {
-            clip.Play();
+            SoundManagerScript.PlaySound("health");
             Destroy(gameObject);
         }
 

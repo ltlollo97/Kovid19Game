@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bar Lights
+  m_Controller: {fileID: 9100000, guid: 642df54e376e98f4fa5617467e0e0d21, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a88008f170000dc4ab72d3d286a6c05b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: de530a02ac6587d4b94aa61994b9cead, type: 2}

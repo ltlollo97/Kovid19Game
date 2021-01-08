@@ -6,16 +6,11 @@ using UnityEngine.UI;
 public class ScoreSystemBoss : MonoBehaviour
 {
 
-    public float score; //each level has a maximum amount of point obtainable
+    public int score; //each level has a maximum amount of point obtainable
     public Text timerUI; //timer text on canvas
     public Text scoreText; // score text on level complete panel
     public BarsUI bossBar;
-    private int threshold;
-    private float percentage;
-    private List<int> thresholds = new List<int>();
-    private EnemyTracker tracker;
     private GameObject levelCompletePanel;
-    private GameObject[] spawners;
     private bool gameEnded = false;
     private float timeSpent; //how much time the player spent in completing the level
 
@@ -26,11 +21,7 @@ public class ScoreSystemBoss : MonoBehaviour
         levelCompletePanel = GameObject.Find("LevelCompletePanel");
         levelCompletePanel.SetActive(false);
 
-        timeSpent = 0f; //time when the level starts
-        //    threshold = 0;
-
-        //    completionBar.SetMaxValue(100);
-        //   completionBar.SetValue(100);
+        timeSpent = 0f;
     }
 
     // Update is called once per frame
@@ -49,20 +40,15 @@ public class ScoreSystemBoss : MonoBehaviour
         timerUI.text = min.ToString("00") + ":" + sec.ToString("00");
     }
 
-
-    public float GetTimeSpent()
-    {
-        return timeSpent;
-    }
-
     private void Win()
     {
         //  the lower timeSpent, the higher score
         levelCompletePanel.SetActive(true);
-        score -= 2 * timeSpent;
-        if (score <= 200)
-            score = 200; // minimum amount of points
-        int visualScore = (int)score; //type cast
-        scoreText.text = visualScore.ToString();
+        score = 600; // fixed amounts of points for defeating the boss
+
+        // update points 
+        int currentPoints = PlayerPrefs.GetInt("totalPoints");
+        currentPoints += score; // calculate new amount
+        PlayerPrefs.SetInt("totalPoints", currentPoints);
     }
 }

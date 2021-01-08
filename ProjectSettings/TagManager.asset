@@ -16,6 +16,8 @@ TagManager:
   - Platform
   - SettingsMenu
   - Piece
+  - NextLevelPanel
+  - EndGamePanel
   layers:
   - Default
   - TransparentFX
@@ -33,7 +35,7 @@ TagManager:
   - Object
   - ImmuneBoss
   - Boss
-  - 
+  - Ball
   - 
   - 
   - 

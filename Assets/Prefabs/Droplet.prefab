@@ -94,8 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSound: {fileID: -5698194568692387513}
-  enemySpeed: 2.5
+  enemySpeed: 2
   health: 100
+  amplitude: 5
 --- !u!50 &2236088282386246551
 Rigidbody2D:
   serializedVersion: 4

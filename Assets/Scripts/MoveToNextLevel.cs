@@ -11,12 +11,13 @@ public class MoveToNextLevel : MonoBehaviour
     void Start()
     {
         nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        Debug.Log("NEXT SCENE INDEX:" + nextSceneLoad);
     }
 
     public void NextLevel()
     {
         
-        if (SceneManager.GetActiveScene().buildIndex == 5) // last scene in builder
+        if (SceneManager.GetActiveScene().buildIndex == 6) // last scene in builder
         {
             Debug.Log("All levels completed");
         }

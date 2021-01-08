@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public AudioSource jumpSound, hitSound, spraySound, ultraSound, dashSound;
-    public int health;
     public int playerSpeed = 10;
     public int jumpPower;
     public float dashDuration;
@@ -22,24 +21,25 @@ public class Player : MonoBehaviour
     // movement
     private bool facingLeft = false; //player orientation
     private float moveX; //horizontal movement
-    private bool canDash;
+    private bool canDash = true;
     private bool isDashing;
     private float gravityScal;
     private IEnumerator dashCoroutine;
     private float direction;
     private bool isGrounded = true; //if true player is not jumping 
     // attack
-    private bool ultraReady = false;
+    private bool ultraReady = false; 
     private float nextUltimateFire;
     private float timeBetweenShots;
     // status
-    private int maxHealth;
+    public int baseHealth; // base HP value without bonus
+    private int health; // maximum player health = base + bonus
     private bool isDead = false;
     private bool invulnerable = false;
+    private float timePassed;
     private float invincibilityTime = 3f;
     // other game objs
     private Animator playerAnimator;
-    private ScoreSystem level;
     private GameObject gameOverPanel;
     // equip
     private Mask mask;
@@ -51,20 +51,16 @@ public class Player : MonoBehaviour
     {
         InitializeEquip();
 
-        canDash = true;
+        
         gravityScal = gameObject.GetComponent<Rigidbody2D>().gravityScale;
 
         GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
 
         gameOverPanel = GameObject.Find("GameOverPanel");
         gameOverPanel.SetActive(false);
-        
-        
-        level = camObj.GetComponent<ScoreSystem>();
+
         playerAnimator = gameObject.GetComponent<Animator>();
-
         nextUltimateFire = ultimateAttackCooldown; // wait 60 secs at the beginning
-
 
         // set initial values for UI bars
         superAttackBar.SetMaxValue((int)ultimateAttackCooldown);
@@ -79,21 +75,27 @@ public class Player : MonoBehaviour
         if (!isDead)
             PlayerControl();
 
-        if (Time.time >= nextUltimateFire)
+        if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
         {
             ultraReady = true;
-
+            timePassed = 0f;
+            StopCoroutine(ChargeSuperBar());
+        }
+        else if (!ultraReady)
+        {
+            timePassed += Time.deltaTime;
+            StartCoroutine(ChargeSuperBar());
         }
 
-        if (health <= 0 && !isDead)
+        if (healthBar.GetValue() <= 0 && !isDead)
         {
             isDead = true;
             Die();
         }
 
         //updates Sliders value
-        if (!ultraReady)
-            superAttackBar.SetValue((int)Time.time % (int)(ultimateAttackCooldown + 1));
+        //if (!ultraReady)
+           // superAttackBar.SetValue((int)Time.time % (int)(ultimateAttackCooldown) + 1);
 
         if (!isDead)
             healthBar.SetValue(health);
@@ -133,8 +135,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
-            superAttackBar.SetValue(0); // resets super attack bar
-            nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown
+            superAttackBar.SetFloatValue(0f); // resets super attack bar
+            //nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown
             Attack(sanitizerUltraPrefab, new Vector2(0.0f, 0.5f));
             //UltraAttack();
             if (!ultraSound.isPlaying)
@@ -213,6 +215,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
     private void Jump()
     {
         isGrounded = false;
@@ -255,8 +258,8 @@ public class Player : MonoBehaviour
     {
         mask = GetComponentInChildren<Mask>();
         mask.SelectOption(PlayerPrefs.GetInt("maskEquipped"));
-        maxHealth += mask.bonusHP; // health = base + mask power up
-        health = maxHealth; // at the beginning, current health is max
+        baseHealth += mask.bonusHP; // health = base + mask power up
+        health = baseHealth; // at the beginning, current health is max
         Debug.Log("Player hp: " + health);
 
         sanitizer = GetComponentInChildren<Weapon>();
@@ -300,13 +303,13 @@ public class Player : MonoBehaviour
 
             if (collision.gameObject.tag == "HealthKit")
             {
-                if (health + 100 < maxHealth)
+                if (health + 100 < baseHealth + mask.bonusHP)
                 {
                     health += 100;
                 }
                 else
                 {
-                    health = maxHealth;
+                    health = baseHealth + mask.bonusHP;
                 }
             }
 
@@ -368,6 +371,12 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+    }
+
+    private IEnumerator ChargeSuperBar()
+    {
+        superAttackBar.SetFloatValue(timePassed);
+        yield return new WaitForSeconds(1f);
     }
 
 

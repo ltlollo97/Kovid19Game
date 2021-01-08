@@ -28,10 +28,14 @@ public class MainMenu : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         musicMixer.SetFloat("volume", volume);
+        PlayerPrefs.SetFloat("musicVolume", volume);
+
+        Debug.Log("MUSIC EFFECTS VOLUME SET AT: " + volume);
     }
 
     public void SetEffectsVolume(float volume)
     {
         effectsMixer.SetFloat("volume", volume);
+        PlayerPrefs.SetFloat("effectsVolume", volume);
     }
 }
