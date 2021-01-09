@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public BarsUI superAttackBar, healthBar;
     //public float startTimeBetweenShots;
     public float ultimateAttackCooldown;
+    public Joystick joystick;
 
 
     // movement
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour
         // ------------- ATTACK ----------------------
         if (timeBetweenShots <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+           if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
             {
 
                 playerAnimator.Play("Attack");
@@ -154,7 +155,7 @@ public class Player : MonoBehaviour
         }
         // --
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || joystick.Vertical>=.5f ) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
