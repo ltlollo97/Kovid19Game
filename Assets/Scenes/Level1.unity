@@ -57827,6 +57827,16 @@ PrefabInstance:
       propertyPath: m_FontData.m_MaxSize
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 187918474733900191, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214623620519379954, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
     - target: {fileID: 2214623620519379981, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -57846,6 +57856,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 61.68509
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214623622445631476, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214623622445631476, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214623622445631476, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214623622445631476, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
       objectReference: {fileID: 0}
     - target: {fileID: 2214623622445631479, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
@@ -57886,6 +57916,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040478566623998743, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040478566623998743, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040478566623998743, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596051835024663664, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
@@ -149347,6 +149392,11 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 868072296}
+    - target: {fileID: 2001343581945543698, guid: 76a3545824f9d6c4f914f8034e7ce0b5,
+        type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2195763601971224211, guid: 76a3545824f9d6c4f914f8034e7ce0b5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

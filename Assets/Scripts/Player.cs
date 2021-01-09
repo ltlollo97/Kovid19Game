@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     //public float startTimeBetweenShots;
     public float ultimateAttackCooldown;
     public Joystick joystick;
+    public FixedButton attack;
 
 
     // movement
@@ -67,6 +68,8 @@ public class Player : MonoBehaviour
         superAttackBar.SetMaxValue((int)ultimateAttackCooldown);
         superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
         healthBar.SetMaxValue(health);
+
+        //Debug.Log(Application.platform);
     }
 
 
@@ -118,7 +121,7 @@ public class Player : MonoBehaviour
         // ------------- ATTACK ----------------------
         if (timeBetweenShots <= 0)
         {
-           if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+           if ((Input.GetKeyDown(KeyCode.Space)||attack.Pressed) == true) //player hits space bar to attack
             {
 
                 playerAnimator.Play("Attack");
@@ -180,8 +183,8 @@ public class Player : MonoBehaviour
 
 
         // ------------ MOVEMENT ON X AXIS -------------
-        moveX = Input.GetAxis("Horizontal");
-
+        //moveX = Input.GetAxis("Horizontal");
+        moveX = joystick.Horizontal;
         if (moveX != 0)
             direction = moveX;
 
@@ -200,7 +203,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift)) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
