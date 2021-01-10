@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .7f || joystick.Horizontal <= -.7f) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .8f || joystick.Horizontal <= -.8f) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
