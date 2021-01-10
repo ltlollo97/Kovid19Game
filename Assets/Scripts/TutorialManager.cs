@@ -23,6 +23,12 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!firstGame)
+        {
+            //Debug.Log("Tutorial Ended");
+            return;
+        }
+
         if (mobile)
         {
             mobile_version();
@@ -34,15 +40,10 @@ public class TutorialManager : MonoBehaviour
 
     void default_version()
     {
-            if (!firstGame)
-            {
-                //Debug.Log("Tutorial Ended");
-                return;
-            }
 
             if (popUpIndex == 0)
             {
-
+                popUps[popUpIndex].SetActive(true);
                 if (Input.anyKeyDown) // movement tutorial
                 {
                     popUps[popUpIndex].SetActive(false);
@@ -86,14 +87,10 @@ public class TutorialManager : MonoBehaviour
 
     void mobile_version()
     {
-            if (!firstGame)
-            {
-                //Debug.Log("Tutorial Ended");
-                return;
-            }
 
+            popUpsMobile[popUpIndex].SetActive(true);
             if (popUpIndex == 0)
-            {
+                {
 
                 if (Input.anyKeyDown) // movement tutorial
                 {
