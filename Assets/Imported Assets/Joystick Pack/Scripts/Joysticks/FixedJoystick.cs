@@ -6,7 +6,7 @@ public class FixedJoystick : Joystick
 {
     void Awake()
     {
-        Debug.Log("Platform : " + Application.platform);
+       /* Debug.Log("Platform : " + Application.platform);
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
             this.gameObject.SetActive(true);
@@ -15,6 +15,6 @@ public class FixedJoystick : Joystick
         {
             this.gameObject.SetActive(false);
         }
-
+       */
     }
 }
