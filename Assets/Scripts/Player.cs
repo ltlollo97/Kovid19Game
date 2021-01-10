@@ -16,9 +16,7 @@ public class Player : MonoBehaviour
     public BarsUI superAttackBar, healthBar;
     //public float startTimeBetweenShots;
     public float ultimateAttackCooldown;
-    public Joystick joystick;
-    public FixedButton attack;
-    public FixedButton supAttack;
+    
 
 
     // movement
@@ -47,6 +45,11 @@ public class Player : MonoBehaviour
     // equip
     private Mask mask;
     private Weapon sanitizer;
+    // android 
+    public Joystick joystick;
+    public FixedButton attack;
+    public FixedButton supAttack;
+    public RuntimePlatform platform;
 
 
     // Start is called before the first frame update
@@ -70,7 +73,9 @@ public class Player : MonoBehaviour
         superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
         healthBar.SetMaxValue(health);
 
-        //Debug.Log(Application.platform);
+        //set the platform we use 
+        platform = Application.platform;
+
     }
 
 
@@ -186,8 +191,15 @@ public class Player : MonoBehaviour
 
 
         // ------------ MOVEMENT ON X AXIS -------------
-        moveX = joystick.Horizontal; 
-        moveX = Input.GetAxis("Horizontal");
+        
+        if (platform== RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer)
+        {
+            moveX = joystick.Horizontal; 
+        }
+        else
+        {
+            moveX = Input.GetAxis("Horizontal");
+        }
         
         if (moveX != 0)
             direction = moveX;
@@ -207,7 +219,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if ((Input.GetKeyDown(KeyCode.LeftShift)) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .2f) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
