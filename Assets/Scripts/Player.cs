@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float ultimateAttackCooldown;
     public Joystick joystick;
     public FixedButton attack;
+    public FixedButton supAttack;
 
 
     // movement
@@ -83,11 +84,13 @@ public class Player : MonoBehaviour
         {
             ultraReady = true;
             timePassed = 0f;
+            supAttack.gameObject.SetActive(true);
             StopCoroutine(ChargeSuperBar());
         }
         else if (!ultraReady)
         {
             timePassed += Time.deltaTime;
+            supAttack.gameObject.SetActive(false);
             StartCoroutine(ChargeSuperBar());
         }
 
@@ -136,7 +139,7 @@ public class Player : MonoBehaviour
             timeBetweenShots -= Time.deltaTime;
         }
         // -- ULTRA ATTACK 
-        if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
+        if ((Input.GetKeyDown(KeyCode.Q) || supAttack.Pressed) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
             superAttackBar.SetFloatValue(0f); // resets super attack bar
@@ -183,8 +186,9 @@ public class Player : MonoBehaviour
 
 
         // ------------ MOVEMENT ON X AXIS -------------
-        //moveX = Input.GetAxis("Horizontal");
-        moveX = joystick.Horizontal;
+        moveX = joystick.Horizontal; 
+        moveX = Input.GetAxis("Horizontal");
+        
         if (moveX != 0)
             direction = moveX;
 

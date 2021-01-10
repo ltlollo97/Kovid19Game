@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -22217,6 +22217,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b84acb5d367c38489e26c2fcc53c09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &511537558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7227880548049798263, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 511537549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731ac5824794feb448ac09102cf5412c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &511537559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2214623622445631482, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 511537549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &520526073
@@ -94568,6 +94592,16 @@ PrefabInstance:
       propertyPath: baseHealth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2001343581945543698, guid: 76a3545824f9d6c4f914f8034e7ce0b5,
+        type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 511537558}
+    - target: {fileID: 2001343581945543698, guid: 76a3545824f9d6c4f914f8034e7ce0b5,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 511537559}
     - target: {fileID: 2195763601971224211, guid: 76a3545824f9d6c4f914f8034e7ce0b5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
