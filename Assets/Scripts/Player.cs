@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
     private Weapon sanitizer;
     // android 
     public Joystick joystick;
-    public FixedButton attack;
-    public FixedButton supAttack;
     public RuntimePlatform platform;
 
 
