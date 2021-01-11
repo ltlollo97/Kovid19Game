@@ -5,16 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Panel : MonoBehaviour
 {
-    
+    public AudioSource backgroundSrc;
+
     public void OnEnable()
     {
-       //SoundManagerScript.StopBackgroundMusic(); // stops background music
+        backgroundSrc.mute = true; // stops background music
     }
 
-    private void Start()
-    {
-        SoundManagerScript.StopBackgroundMusic(); // stops background music
-    }
 
     public void FreezeGame() // called via event keyframe in animation
     {
@@ -25,9 +22,10 @@ public class Panel : MonoBehaviour
 
     private void OnDisable()
     {
-       SoundManagerScript.PlayBackgroundMusic();
+        if (backgroundSrc != null)
+            backgroundSrc.mute = false; // play background music again
 
-        if(SceneManager.GetActiveScene().buildIndex != 3) // avoid reset time scaling in tutorial level MODIFY THE VALUE IF SCENE INDEX CHANGES!!!
+        if (SceneManager.GetActiveScene().buildIndex != 3) // avoid reset time scaling in tutorial level MODIFY THE VALUE IF SCENE INDEX CHANGES!!!
             Time.timeScale = 1f; // resume the game as soon as the panel is closed
     }
 

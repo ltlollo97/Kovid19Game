@@ -10,18 +10,21 @@ public abstract class Enemy : MonoBehaviour
     public AudioSource hitSound;
     public float enemySpeed;
     public int health;
+    public GameObject smoke;
     protected bool facingLeft = false;
     protected float minDistance = 0.2f;
     protected Player player;
     protected float playerUltraCooldown;
     protected Animator anim;
+    private bool addDeath = false;
 
     // Start is called before the first frame update
     public void Start()
     {
+        Instantiate(smoke, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         anim = GetComponent<Animator>();
-
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -29,22 +32,17 @@ public abstract class Enemy : MonoBehaviour
     {
         ChasePlayer();
 
-        if (health <= 0)
+        if (health <= 0 && !addDeath)
         {
-            if (hitSound.isPlaying)
-                Invoke("Destroy(gameObject)", 1);
-            else
-            {
-                EnemyTracker tracker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EnemyTracker>();
-                tracker.AddDeath();
-                anim.Play("Die");
-                Destroy(gameObject);
-            }
-                
+            if(!hitSound.isPlaying)
+                hitSound.Play();
 
-            //player.SetUltraCooldown(player.GetUltraCooldown() - 2f); //if enemy is killed, reduce player's ultra cooldown
+            EnemyTracker tracker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EnemyTracker>();
+            tracker.AddDeath();
+            addDeath = true;
+
+            StartCoroutine(Die());
         }
-
     }
 
 
@@ -65,6 +63,15 @@ public abstract class Enemy : MonoBehaviour
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    private IEnumerator Die()
+    {
+        anim.Play("Hit");
+        yield return new WaitForSeconds(1f);
+        Instantiate(smoke, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+        yield return new WaitForSeconds(1.8f);        // length of the "Die" animation: 0.667 (+ approx. time for the sound to end)
+        Destroy(gameObject);
     }
 
 }

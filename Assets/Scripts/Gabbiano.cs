@@ -12,7 +12,6 @@ public class Gabbiano : MonoBehaviour
     private bool flip_positions = false;
     private bool flip = false;
     public bool needToFlip = false;
-    protected Player player;
     public float angle;
     private Vector3 position;
     private bool rotate = false;
@@ -25,7 +24,6 @@ public class Gabbiano : MonoBehaviour
         Quaternion target = Quaternion.Euler(0, 0, angle);
         transform.position = new Vector3(startPoint, transform.position.y, 0);
         position = new Vector3(endPoint, transform.position.y, 0);
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -88,7 +86,7 @@ public class Gabbiano : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.name.Equals("Player"))
+        if (col.gameObject.tag.Equals("Player"))
         {
             if (!activated)
             {

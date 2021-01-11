@@ -414,8 +414,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce184b6b4c0399747999fa786c991933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  lifeTime: 0.5
+  speed: 17
+  lifeTime: 0.25
+  distance: 0.25
+  whatIsSolid:
+    serializedVersion: 2
+    m_Bits: 0
   attackValue: 70
   cameraShakingEnabled: 1
   isDestructible: 0

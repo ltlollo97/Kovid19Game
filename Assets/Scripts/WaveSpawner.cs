@@ -15,39 +15,50 @@ public class WaveSpawner : MonoBehaviour
         public int count; // number of enemies spawned in a wave
         public float rate;
     }
-
+    
     public Transform[] spawnPoints;
 
     public Wave[] waves;
+    [Header("Quanto tempo aspetto per la prima ondata da spawnare")]
+    public int firstWaveSpawn;
     private int nextWave = 0;
-
-    public float timeBetweenWaves = 5f;
+    private int limitSound = 15;
+    [Header("Quanto tempo passa tra due ondate successive")]
+    public float timeBetweenWaves;
     private float waveCountdown;
     private float searchCountdown;
+    protected Player player;
     private int remainingWaves;
-
     public SpawnState state = SpawnState.COUNTING;
 
     private void Start()
     {
-        waveCountdown = timeBetweenWaves;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        waveCountdown = firstWaveSpawn; // first enemy spawned after 1 sec
         remainingWaves = waves.Length;
     }
 
     private void Update()
     {
+ 
         if (remainingWaves > 0)
         {
             if (state == SpawnState.WAITING)
             {
-                if (!EnemyisAlive())
+
+                if (waveCountdown <= 0)
+                    WaveCompleted();
+                else
+                    waveCountdown -= Time.deltaTime;
+
+                /*if (!EnemyisAlive())  // spawn new wave only if all enemies have been killed
                 {
                     WaveCompleted();
                 }
                 else
                 {
                     return;
-                }
+                }*/
             }
 
 
@@ -117,7 +128,7 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy(Transform enemy)
     {
-        Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
         if (spawnPoints.Length == 0)
         {
             Debug.Log("error: no spawn points reference");

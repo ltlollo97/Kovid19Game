@@ -2963,7 +2963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4596051835024663664
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5692,6 +5692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a73e9d7281c26f498bfebfe1fc859fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundSrc: {fileID: 0}
 --- !u!82 &1119532372886899673
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6514,6 +6515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a73e9d7281c26f498bfebfe1fc859fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundSrc: {fileID: 0}
 --- !u!82 &4837805911298791822
 AudioSource:
   m_ObjectHideFlags: 0

@@ -17,12 +17,12 @@ public class Shop : MonoBehaviour
     void Start()
     {
         // UNCOMMENT FOR DEBUG
-        //if (Application.isEditor)
-        //{
-           // PlayerPrefs.SetInt("totalPoints", 6000);
-           // PlayerPrefs.SetInt("greenSold", 0); // 0: false, 1: true
-           // PlayerPrefs.SetInt("redSold", 0); // 0: false, 1: true
-        //}
+        if (Application.isEditor)
+        {
+           PlayerPrefs.SetInt("totalPoints", 6000);
+           PlayerPrefs.SetInt("greenSold", 0); // 0: false, 1: true
+           PlayerPrefs.SetInt("redSold", 0); // 0: false, 1: true
+        }
 
         greenSold = PlayerPrefs.GetInt("greenSold");
         redSold = PlayerPrefs.GetInt("redSold");
@@ -33,7 +33,7 @@ public class Shop : MonoBehaviour
     {
         totalPoints.text = PlayerPrefs.GetInt("totalPoints").ToString();
 
-        if(greenSold == 0)
+        if(greenSold == 0) // player has not bought the green sanitzer yet
         {
             if (PlayerPrefs.GetInt("totalPoints") >= 1000) // player can buy the item
             {
@@ -49,7 +49,7 @@ public class Shop : MonoBehaviour
             }
         }
 
-        if(redSold == 0)
+        if(redSold == 0) // player has not bought the red sanitzer yet
         {
             if (PlayerPrefs.GetInt("totalPoints") >= 2750)
             {
@@ -82,7 +82,7 @@ public class Shop : MonoBehaviour
         else if (index == 2 && redSold == 0) // player bought red sanitizer
         {
             amount -= 2750;
-            soldOut[2].GetComponent<Image>().overrideSprite = sold;
+            soldOut[2].GetComponent<Image>().sprite = sold;
             redSold = 1;
             PlayerPrefs.SetInt("redSold", 1);
             soldOut[2].SetActive(true);

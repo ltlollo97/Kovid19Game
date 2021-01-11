@@ -17,7 +17,7 @@ public class MoveToNextLevel : MonoBehaviour
     public void NextLevel()
     {
         
-        if (SceneManager.GetActiveScene().buildIndex == 6) // last scene in builder
+        if (SceneManager.GetActiveScene().buildIndex == 5) // last scene in builder
         {
             Debug.Log("All levels completed");
         }

@@ -2,82 +2,130 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Droplet : Enemy
+public class Droplet : MonoBehaviour
 {
-    private int offset = 2;
     protected GameObject rightSide;
     protected GameObject leftSide;
-    private Vector2 target;
     private Vector3 position;
-    private bool touched;
     public float amplitude;
-    private bool waited;
-    private bool called = false;
+    private bool speedup = false;
+    private int state = 1;
+    public AudioSource hitSound, appearSound;
+    public float enemySpeed;
+    public int health;
+    private SoundManagerScript soundManager;
+    public GameObject smoke;
+    protected bool facingLeft = false;
+    protected Player player;
+    protected Animator anim;
+    private bool addDeath = false;
+    private bool go = false;
+    private bool dead = false;
 
     // Start is called before the first frame update
-    new void Start()
+
+    private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        anim = GetComponent<Animator>();
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         rightSide = GameObject.Find("RightSide");
         leftSide = GameObject.Find("LeftSide");
-        base.Start();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
         health = 100;
+        StartCoroutine(Go());
     }
 
     // Update is called once per frame
-    new void Update()
+    private void Update()
     {
-        base.Update();
+        if (go)
+        {
+            if (state == 1)
+                MoveTowardsPlayer();
+            else if (state == 2)
+                ReachBorder();
+            else if (state == 3)
+                Escape();
+
+            CheckIfDied();
+        }
     }
 
-    protected override void ChasePlayer()
+    protected void MoveTowardsPlayer()
     {
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) < 3.0 && !touched && !waited)
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) < 1.5)
+            state = 2;
+
+        if (facingLeft)
         {
-            if (transform.position.x > player.transform.position.x + 1.5 && facingLeft)
-                FlipEnemy();
-
-            else if (transform.position.x < player.transform.position.x - 1.5 && !facingLeft)
-                FlipEnemy();
-
-            if (!called)
-                StartCoroutine(Wait());
-
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
-            
+            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
         }
 
-        else
+        else if (!facingLeft)
         {
-            if (facingLeft)
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+        }
+    }
+
+    protected void ReachBorder()
+    {
+
+        if (facingLeft)
+        {
+            position.x = rightSide.transform.position.x + 5;
+            position.y = transform.position.y;
+            position.z = 0;
+            transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+
+            if (transform.position.x > rightSide.transform.position.x + 4) //go left
             {
-                position.x = rightSide.transform.position.x + 5;
-                position.y = transform.position.y;
-                position.z = 0;
-               // transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
-                GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+                FlipEnemy();
+                anim.SetBool("Hit", false);
+                if (speedup)
+                {
+                    enemySpeed /= 2;
+                    speedup = false;
+                }
+                state = 1;        //  2 --> 1
             }
+        }
 
-            else if (!facingLeft)
+        else if (!facingLeft)
+        {
+            position.x = leftSide.transform.position.x - 5;
+            position.y = transform.position.y;
+            position.z = 0;
+            transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+
+            if (transform.position.x < leftSide.transform.position.x - 4) //go right
             {
-                position.x = leftSide.transform.position.x - 5;
-                position.y = transform.position.y;
-                position.z = 0;
-                //transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
-                GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
+                FlipEnemy();
+                anim.SetBool("Hit", false);
+                if (speedup)
+                {
+                    enemySpeed /= 2;
+                    speedup = false;
+                }
+                state = 1;          //  2 --> 1
             }
         }
+    }
 
-        if (transform.position.x > rightSide.transform.position.x + 4) //go left
+    protected void Escape()
+    {
+        if (facingLeft && player.transform.position.x > transform.position.x + 1 || !facingLeft && player.transform.position.x < transform.position.x + 1)
+            FlipEnemy();
+        if (!speedup)
         {
-            if (facingLeft)
-                FlipEnemy();
+            enemySpeed *= 2;
+            speedup = true;
         }
-
-        else if (transform.position.x < leftSide.transform.position.x - 4) //go right
-        {
-            if (!facingLeft)
-                FlipEnemy();
-        }
+        state = 2;
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -86,34 +134,84 @@ public class Droplet : Enemy
 
         if (collision.collider.tag == "Player")
         {
-            StartCoroutine(ChangeVariable());
+            if (!speedup)
+            {
+                enemySpeed *= 2;
+                speedup = true;
+            }
         }
 
         if (collision.collider.tag == "Attack")
         {
             health -= collision.gameObject.GetComponent<Projectile>().attackValue;
-
-            anim.Play("Hit");
+            //    anim.Play("Hit");
+            anim.SetBool("Hit", true);
             if (!hitSound.isPlaying)
                 hitSound.Play();
-            // health -= GetSanitizerAttack(); this should return the attack value of an item
+            if (health > 0)
+                StartCoroutine(Invulnerability());  // 1 --> 3
+            else
+                state = 0;
         }
     }
 
-    private IEnumerator ChangeVariable()
+    protected void CheckIfDied()
     {
-        touched = true;
-        yield return new WaitForSeconds(3f);
-        touched = false;
+        if (health <= 0 && !addDeath)
+        {
+            if (!hitSound.isPlaying)
+                hitSound.Play();
+
+            EnemyTracker tracker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EnemyTracker>();
+            tracker.AddDeath();
+            addDeath = true;
+
+            StartCoroutine(Die());
+        }
     }
 
-    private IEnumerator Wait()
+    protected void FlipEnemy()
     {
-        called = true;
+        facingLeft = !facingLeft;
+        Vector2 localScale = gameObject.transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
+
+    private IEnumerator Invulnerability()
+    {
+        gameObject.layer = 14; // switch to "ImmuneBoss" layer
+        state = 0;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         yield return new WaitForSeconds(1f);
-        waited = true;
-        yield return new WaitForSeconds(3f);
-        waited = false;
-        called = false;
+        state = 3;              // 1 --> 3
+        yield return new WaitForSeconds(2f);
+        gameObject.layer = 9; // switch to "Enemy" layer
+    }
+
+    private IEnumerator Go()
+    {
+        if (!appearSound.isPlaying && Mathf.Abs(transform.position.x - player.transform.position.x) < 10)
+            appearSound.Play();
+        yield return new WaitForSeconds(1f);
+        if (facingLeft && player.transform.position.x < transform.position.x + 1 || !facingLeft && player.transform.position.x > transform.position.x + 1)
+            FlipEnemy();
+        go = true;
+    }
+
+    private IEnumerator Die()
+    {
+        anim.Play("Hit");
+        gameObject.layer = 14; // switch to "ImmuneBoss" layer
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        go = false;
+        yield return new WaitForSeconds(1f);
+        if (!dead)
+        {
+            SoundManagerScript.PlaySound("puff");
+            dead = true;
+        }
+        Instantiate(smoke, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+        Destroy(gameObject);
     }
 }

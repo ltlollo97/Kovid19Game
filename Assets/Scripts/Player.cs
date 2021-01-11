@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     private float timeBetweenShots;
     // status
     public int baseHealth; // base HP value without bonus
-    private int health; // maximum player health = base + bonus
+    private int health; // player health = base + bonus
     private bool isDead = false;
     private bool invulnerable = false;
     private float timePassed;
@@ -75,76 +75,18 @@ public class Player : MonoBehaviour
         if (!isDead)
             PlayerControl();
 
-        if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
-        {
-            ultraReady = true;
-            timePassed = 0f;
-            StopCoroutine(ChargeSuperBar());
-        }
-        else if (!ultraReady)
-        {
-            timePassed += Time.deltaTime;
-            StartCoroutine(ChargeSuperBar());
-        }
-
-        if (healthBar.GetValue() <= 0 && !isDead)
+        if (health <= 0 && !isDead)
         {
             isDead = true;
             Die();
         }
 
-        //updates Sliders value
-        //if (!ultraReady)
-           // superAttackBar.SetValue((int)Time.time % (int)(ultimateAttackCooldown) + 1);
-
         if (!isDead)
             healthBar.SetValue(health);
     }
 
-   
-    public float GetUltraCooldown()
-    {
-        return nextUltimateFire;
-    }
-
-    public void SetUltraCooldown(float val)
-    {
-        nextUltimateFire = val;
-    }
-
     private void PlayerControl()
     {
-        // ------------- ATTACK ----------------------
-        if (timeBetweenShots <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
-            {
-
-                playerAnimator.Play("Attack");
-                Attack(sanitizerPuffPrefab, Vector2.zero); // spawn without offset
-                if (!spraySound.isPlaying)
-                    spraySound.Play();
-                timeBetweenShots = sanitizer.startTimeBetweenShots;
-            }
-        }
-        else
-        {
-            timeBetweenShots -= Time.deltaTime;
-        }
-        // -- ULTRA ATTACK 
-        if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
-        {
-            ultraReady = false;
-            superAttackBar.SetFloatValue(0f); // resets super attack bar
-            //nextUltimateFire = Time.time + ultimateAttackCooldown; //reset cooldown
-            Attack(sanitizerUltraPrefab, new Vector2(0.0f, 0.5f));
-            //UltraAttack();
-            if (!ultraSound.isPlaying)
-                ultraSound.Play();
-        }
-        // ------------------------------------------------
-
-
         // -------------- JUMP ----------------------------
         
         // -- JUMP ANIMATION
@@ -230,6 +172,8 @@ public class Player : MonoBehaviour
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+        
+
     }
 
     private void Attack(GameObject projectilePrefab, Vector3 offset) //instantiate projectilePrefab attack with an offset
@@ -258,8 +202,7 @@ public class Player : MonoBehaviour
     {
         mask = GetComponentInChildren<Mask>();
         mask.SelectOption(PlayerPrefs.GetInt("maskEquipped"));
-        baseHealth += mask.bonusHP; // health = base + mask power up
-        health = baseHealth; // at the beginning, current health is max
+        health = baseHealth + mask.bonusHP; // health = base + mask power up
         Debug.Log("Player hp: " + health);
 
         sanitizer = GetComponentInChildren<Weapon>();
@@ -371,12 +314,6 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-    }
-
-    private IEnumerator ChargeSuperBar()
-    {
-        superAttackBar.SetFloatValue(timePassed);
-        yield return new WaitForSeconds(1f);
     }
 
 

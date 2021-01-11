@@ -5,12 +5,14 @@ using UnityEngine.Audio;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    public static AudioClip breakingObjectSound, shitSound, healthSound;
-    [SerializeField]public static AudioSource[] audioSrc;
+    public static AudioClip breakingObjectSound, shitSound, healthSound, puffSound; // appearanceSound;
+    public static AudioSource audioSrc;
 
     // keep the volume values set in the main menu settings
     public AudioMixer musicMixer, effectsMixer;
     public BarsUI musicSlider, effectsSlider;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +20,10 @@ public class SoundManagerScript : MonoBehaviour
         breakingObjectSound = Resources.Load<AudioClip>("breaking-bottle");
         shitSound = Resources.Load<AudioClip>("shit");
         healthSound = Resources.Load<AudioClip>("healthpickup");
-        audioSrc = GetComponents<AudioSource>();
-        
+        puffSound = Resources.Load<AudioClip>("poof");
+        //appearanceSound = Resources.Load<AudioClip>("appearance");
+        audioSrc = GetComponent<AudioSource>();
+
         // retrieve mixers attribs value set in main menu
         musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
         musicSlider.SetFloatValue(PlayerPrefs.GetFloat("musicVolume"));
@@ -38,27 +42,31 @@ public class SoundManagerScript : MonoBehaviour
         switch (clip)
         {
             case "breakingObject":
-                audioSrc[0].PlayOneShot(breakingObjectSound);
+                audioSrc.PlayOneShot(breakingObjectSound);
                 break;
             case "shit":
-                audioSrc[0].PlayOneShot(shitSound);
+                audioSrc.PlayOneShot(shitSound);
                 break;
-
             case "health":
-                audioSrc[0].PlayOneShot(healthSound);
+                audioSrc.PlayOneShot(healthSound);
                 break;
-
+            case "puff":
+                audioSrc.PlayOneShot(puffSound);
+                break;
+        /*    case "appear":
+                audioSrc.PlayOneShot(appearanceSound);
+                break;*/
         }
         
     }
 
-    public static void PlayBackgroundMusic()
+    public void PlayBackgroundMusic()
     {
-        audioSrc[1].Play();
+        //backgroundSrc.Play();
     }
 
-    public static void StopBackgroundMusic()
+    public void StopBackgroundMusic()
     {
-        audioSrc[1].Stop();
+        //backgroundSrc.Stop();
     }
 }

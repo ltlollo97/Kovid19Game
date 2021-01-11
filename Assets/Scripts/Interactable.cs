@@ -28,7 +28,7 @@ public class Interactable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag != "Player")
+        if (collision.collider.tag != "Player" && gameObject.tag != "HealthKit")
             Destroy(gameObject);
 
         if (gameObject.tag == "HealthKit" && collision.collider.tag == "Player") //healthkit destroys when player hits it

@@ -6,13 +6,15 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     public float lifeTime;
+    public float distance;
+    public LayerMask whatIsSolid;
     public int attackValue;
     public bool cameraShakingEnabled;
     public bool isDestructible;
 
     public GameObject destroyEffect;
     private GameObject cam;
-    
+    private float dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,11 @@ public class Projectile : MonoBehaviour
         {
             cam.GetComponentInChildren<Animator>().SetTrigger("shake");
         }
+    }
+
+    private void Update()
+    {
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -34,10 +41,10 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
-        {
-            if(isDestructible)
+       {
+           if(isDestructible)
                 DestroyProjectile(); // normal attack destroys as soon as hits an enemy
-        }
+       }
      
-    }
+   }
 }
