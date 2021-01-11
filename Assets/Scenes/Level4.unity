@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -929,6 +929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 1873211372}
 --- !u!1 &161018275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7330190231000092533, guid: d34601d7fa1a6f046bb9828276dbc301,
@@ -1636,6 +1637,7 @@ MonoBehaviour:
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
     count: 1
     rate: 1
+  firstWaveSpawn: 0
   timeBetweenWaves: 3
   state: 2
 --- !u!4 &489376546
@@ -2346,6 +2348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 1873211372}
 --- !u!1 &628800645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2748,6 +2751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 1873211372}
 --- !u!1 &908659129 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7243642986616900456, guid: bf382834c34b0dc4e99ca201e14ce8b4,
@@ -3143,6 +3147,7 @@ MonoBehaviour:
     enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
     count: 1
     rate: 0.2
+  firstWaveSpawn: 0
   timeBetweenWaves: 5
   state: 2
 --- !u!4 &1141394468
@@ -3794,6 +3799,11 @@ PrefabInstance:
       propertyPath: superAttackBar
       value: 
       objectReference: {fileID: 511537551}
+    - target: {fileID: 1332818346575934872, guid: a2d3466272f47954e852f208280970cc,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 1873211372}
     - target: {fileID: 3595348419333441302, guid: a2d3466272f47954e852f208280970cc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3902,6 +3912,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873211372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2214623622445631482, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 511537549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1925323254
 GameObject:
   m_ObjectHideFlags: 0

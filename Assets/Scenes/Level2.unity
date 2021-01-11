@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!43 &81588739
 Mesh:
   m_ObjectHideFlags: 0
@@ -17618,7 +17618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &422826463
 GameObject:
   m_ObjectHideFlags: 0
@@ -22424,7 +22424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &521943920
 GameObject:
   m_ObjectHideFlags: 0
@@ -22701,7 +22701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &522917559
 GameObject:
   m_ObjectHideFlags: 0
@@ -30335,7 +30335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &686313528
 GameObject:
   m_ObjectHideFlags: 0
@@ -54341,7 +54341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &1280862934
 GameObject:
   m_ObjectHideFlags: 0
@@ -65252,7 +65252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!43 &1551131181
 Mesh:
   m_ObjectHideFlags: 0
@@ -74984,7 +74984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &1753112855
 GameObject:
   m_ObjectHideFlags: 0
@@ -76838,7 +76838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &1783255573
 GameObject:
   m_ObjectHideFlags: 0
@@ -87168,7 +87168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
-  joystick: {fileID: 0}
+  joystick: {fileID: 1865459270}
 --- !u!1 &2008454079
 GameObject:
   m_ObjectHideFlags: 0

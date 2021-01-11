@@ -514,6 +514,7 @@ MonoBehaviour:
     enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
     count: 5
     rate: 0.5
+  firstWaveSpawn: 0
   timeBetweenWaves: 2
   state: 2
 --- !u!1 &340089838
@@ -892,6 +893,7 @@ MonoBehaviour:
     enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
     count: 5
     rate: 0.5
+  firstWaveSpawn: 0
   timeBetweenWaves: 2
   state: 2
 --- !u!4 &489376546
@@ -1332,6 +1334,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &607793820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2214623622445631482, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 511537549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &628800645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1542,7 @@ MonoBehaviour:
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
     count: 5
     rate: 0.1
+  firstWaveSpawn: 0
   timeBetweenWaves: 3
   state: 2
 --- !u!1 &715960400
@@ -2715,6 +2730,7 @@ MonoBehaviour:
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
     count: 5
     rate: 0.1
+  firstWaveSpawn: 0
   timeBetweenWaves: 3
   state: 2
 --- !u!4 &1141394468
@@ -3280,6 +3296,11 @@ PrefabInstance:
       propertyPath: playerSpeed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1332818346575934872, guid: a2d3466272f47954e852f208280970cc,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 607793820}
     - target: {fileID: 4066025078069171838, guid: a2d3466272f47954e852f208280970cc,
         type: 3}
       propertyPath: m_Name
