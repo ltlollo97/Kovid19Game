@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4351,6 +4351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &76346755
 Mesh:
   m_ObjectHideFlags: 0
@@ -9941,6 +9942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &170224225
 GameObject:
   m_ObjectHideFlags: 0
@@ -12446,6 +12448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &201967138
 GameObject:
   m_ObjectHideFlags: 0
@@ -12588,6 +12591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &203894680
 Mesh:
   m_ObjectHideFlags: 0
@@ -15828,6 +15832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &238791029
 GameObject:
   m_ObjectHideFlags: 0
@@ -21473,6 +21478,7 @@ MonoBehaviour:
     enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
     count: 1
     rate: 0.5
+  firstWaveSpawn: 0
   timeBetweenWaves: 2
   state: 2
 --- !u!43 &334462908
@@ -23975,6 +23981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &373353922
 Mesh:
   m_ObjectHideFlags: 0
@@ -26442,6 +26449,12 @@ Transform:
   m_Father: {fileID: 1549181408}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &409939323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7979972001712706287, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 888475464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &411662144
 Mesh:
   m_ObjectHideFlags: 0
@@ -27129,6 +27142,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2950644175326156578, guid: e2b5d66978cb51d4fa8d9cb7f40f3fad,
     type: 3}
   m_PrefabInstance: {fileID: 2950644177192103067}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &420076056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8506173263338989722, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 888475464}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &421430904
 GameObject:
@@ -29669,6 +29688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &459121818
 Mesh:
   m_ObjectHideFlags: 0
@@ -31224,6 +31244,7 @@ MonoBehaviour:
     enemy: {fileID: 8351222753802608442, guid: b28963ef2750a124c8c902b89f29f1e1, type: 3}
     count: 1
     rate: 0.5
+  firstWaveSpawn: 0
   timeBetweenWaves: 10
   state: 2
 --- !u!4 &489376546
@@ -32501,6 +32522,7 @@ MonoBehaviour:
     enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
     count: 6
     rate: 1
+  firstWaveSpawn: 0
   timeBetweenWaves: 1
   state: 2
 --- !u!4 &507660541
@@ -33676,6 +33698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &528047526
 GameObject:
   m_ObjectHideFlags: 0
@@ -33818,6 +33841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &533074671
 Mesh:
   m_ObjectHideFlags: 0
@@ -41070,6 +41094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &615520056
 GameObject:
   m_ObjectHideFlags: 0
@@ -41212,6 +41237,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
+--- !u!114 &616798732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2214623622445631482, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 888475464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &618930930
 Mesh:
   m_ObjectHideFlags: 0
@@ -44095,6 +44133,7 @@ MonoBehaviour:
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
     count: 2
     rate: 0.2
+  firstWaveSpawn: 0
   timeBetweenWaves: 1
   state: 2
 --- !u!43 &657626797
@@ -45450,6 +45489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &681049769
 Mesh:
   m_ObjectHideFlags: 0
@@ -47348,6 +47388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &719648996
 GameObject:
   m_ObjectHideFlags: 0
@@ -48314,6 +48355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &736982883
 Mesh:
   m_ObjectHideFlags: 0
@@ -50818,6 +50860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &760721819
 Mesh:
   m_ObjectHideFlags: 0
@@ -57408,6 +57451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &881729388
 GameObject:
   m_ObjectHideFlags: 0
@@ -58385,7 +58429,7 @@ PrefabInstance:
     - target: {fileID: 6379485596783943044, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6384452813079077942, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
@@ -59799,6 +59843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &908659129 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7243642986616900456, guid: bf382834c34b0dc4e99ca201e14ce8b4,
@@ -60718,6 +60763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &920253740
 GameObject:
   m_ObjectHideFlags: 0
@@ -61154,6 +61200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &924738142
 Mesh:
   m_ObjectHideFlags: 0
@@ -62803,6 +62850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &944431882
 GameObject:
   m_ObjectHideFlags: 0
@@ -64818,6 +64866,7 @@ MonoBehaviour:
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
     count: 6
     rate: 1
+  firstWaveSpawn: 0
   timeBetweenWaves: 1
   state: 2
 --- !u!43 &972071544
@@ -70688,6 +70737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1067151391
 Mesh:
   m_ObjectHideFlags: 0
@@ -76605,6 +76655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1137714639
 GameObject:
   m_ObjectHideFlags: 0
@@ -76784,6 +76835,7 @@ MonoBehaviour:
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
     count: 2
     rate: 0.2
+  firstWaveSpawn: 0
   timeBetweenWaves: 1
   state: 2
 --- !u!4 &1141394468
@@ -77238,6 +77290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1153168258
 Mesh:
   m_ObjectHideFlags: 0
@@ -77839,6 +77892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1160711773
 GameObject:
   m_ObjectHideFlags: 0
@@ -81483,6 +81537,11 @@ MonoBehaviour:
   - {fileID: 793678955}
   - {fileID: 1437458802}
   - {fileID: 2077074347}
+  popUpsMobile:
+  - {fileID: 1604744984}
+  - {fileID: 793678955}
+  - {fileID: 409939323}
+  - {fileID: 420076056}
 --- !u!4 &1237064971
 Transform:
   m_ObjectHideFlags: 0
@@ -87506,6 +87565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1305340425
 GameObject:
   m_ObjectHideFlags: 0
@@ -91785,6 +91845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1389972092
 Mesh:
   m_ObjectHideFlags: 0
@@ -94326,6 +94387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1415790984
 Mesh:
   m_ObjectHideFlags: 0
@@ -99984,6 +100046,11 @@ PrefabInstance:
       propertyPath: playerSpeed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1332818346575934872, guid: a2d3466272f47954e852f208280970cc,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 616798732}
     - target: {fileID: 3127654310369323922, guid: a2d3466272f47954e852f208280970cc,
         type: 3}
       propertyPath: m_GravityScale
@@ -105096,6 +105163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1001 &1560938167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108895,6 +108963,12 @@ Transform:
   m_Father: {fileID: 1907566082}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1604744984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2105935068394337047, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 888475464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1604975708
 GameObject:
   m_ObjectHideFlags: 0
@@ -117660,6 +117734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1733641217
 GameObject:
   m_ObjectHideFlags: 0
@@ -117934,6 +118009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1740849836
 GameObject:
   m_ObjectHideFlags: 0
@@ -121828,6 +121904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1788689463
 GameObject:
   m_ObjectHideFlags: 0
@@ -122102,6 +122179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &1793130280
 GameObject:
   m_ObjectHideFlags: 0
@@ -132646,6 +132724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1919482914
 Mesh:
   m_ObjectHideFlags: 0
@@ -134523,6 +134602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!43 &1939979540
 Mesh:
   m_ObjectHideFlags: 0
@@ -139233,6 +139313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &2010473646
 GameObject:
   m_ObjectHideFlags: 0
@@ -144370,6 +144451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!21 &2068624125
 Material:
   serializedVersion: 6
@@ -147893,6 +147975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0
+  joystick: {fileID: 616798732}
 --- !u!1 &2136617790
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public BarsUI superAttackBar, healthBar;
     //public float startTimeBetweenShots;
     public float ultimateAttackCooldown;
+    
 
 
     // movement
@@ -44,6 +45,9 @@ public class Player : MonoBehaviour
     // equip
     private Mask mask;
     private Weapon sanitizer;
+    // android 
+    public Joystick joystick;
+    public RuntimePlatform platform;
 
 
     // Start is called before the first frame update
@@ -66,6 +70,10 @@ public class Player : MonoBehaviour
         superAttackBar.SetMaxValue((int)ultimateAttackCooldown);
         superAttackBar.SetValue(0);//when filled up completely, the playe can cast an ultra attack
         healthBar.SetMaxValue(health);
+
+        //set the platform we use 
+        platform = Application.platform;
+
     }
 
 
@@ -96,7 +104,7 @@ public class Player : MonoBehaviour
         }
         // --
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || joystick.Vertical>=.5f ) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
@@ -121,8 +129,16 @@ public class Player : MonoBehaviour
 
 
         // ------------ MOVEMENT ON X AXIS -------------
-        moveX = Input.GetAxis("Horizontal");
-
+        
+        if (platform== RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer)
+        {
+            moveX = joystick.Horizontal; 
+        }
+        else
+        {
+            moveX = Input.GetAxis("Horizontal");
+        }
+        
         if (moveX != 0)
             direction = moveX;
 
@@ -141,7 +157,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .8f || joystick.Horizontal <= -.8f) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);

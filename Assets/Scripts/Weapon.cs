@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     public Transform shotPoint;
     public AudioSource shotSound, ultraSound;
     public BarsUI superAttackBar;
+    public bool mobile;
 
     public GameObject[] normalAttackPrefab;
     public GameObject[] ultraAttackPrefab;
@@ -31,6 +32,13 @@ public class Weapon : MonoBehaviour
     public float ultimateAttackCooldown = 60f;
 
     [SerializeField] private Transform player;
+    void Start()
+    {
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            mobile = true;
+        }
+    }
 
     public void SelectSanitizer(int index)
     {
@@ -80,7 +88,7 @@ public class Weapon : MonoBehaviour
 
         if (timeBtwShots <= 0)
         {
-            if (Input.GetMouseButton(0)) // left click
+            if ((!mobile && Input.GetMouseButton(0))/*||(mobile  &&) */) // left click or clicking on the right of the screen
             {
                 if (!shotSound.isPlaying)
                     shotSound.Play();
@@ -95,7 +103,7 @@ public class Weapon : MonoBehaviour
 
         if (ultraReady)
         {
-            if (Input.GetMouseButton(1)) // right click
+            if (Input.GetMouseButton(1)/*||(mobile  &&) */) // right click
             {
                 if (!ultraSound.isPlaying)
                     ultraSound.Play();
