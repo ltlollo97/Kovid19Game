@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -114,10 +115,12 @@ public class Player : MonoBehaviour
 
     private void PlayerControl()
     {
+        var gamepad = Gamepad.current;
+        
         // ------------- ATTACK ----------------------
         if (timeBetweenShots <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space) == true) //player hits space bar to attack
+            if (Input.GetKeyDown(KeyCode.Space) == true || (gamepad != null && gamepad.rightTrigger.wasPressedThisFrame)) //player hits space bar to attack
             {
 
                 playerAnimator.Play("Attack");
@@ -132,7 +135,7 @@ public class Player : MonoBehaviour
             timeBetweenShots -= Time.deltaTime;
         }
         // -- ULTRA ATTACK 
-        if (Input.GetKeyDown(KeyCode.Q) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
+        if ((Input.GetKeyDown(KeyCode.Q) || (gamepad != null && gamepad.leftShoulder.wasPressedThisFrame && gamepad.rightShoulder.wasPressedThisFrame)) && ultraReady == true) //ultra attack available,  player hits 'q' to perform an ultra attack
         {
             ultraReady = false;
             superAttackBar.SetFloatValue(0f); // resets super attack bar
@@ -154,7 +157,7 @@ public class Player : MonoBehaviour
         }
         // --
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
@@ -199,7 +202,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || (gamepad != null && gamepad.leftShoulder.wasPressedThisFrame)) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);

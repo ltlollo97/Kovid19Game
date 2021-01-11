@@ -638,6 +638,6 @@ PlayerSettings:
   projectName: Kovid19Game
   organizationId: lt_lollo
   cloudEnabled: 0
-  enableNativePlatformBackendsForNewInputSystem: 0
+  enableNativePlatformBackendsForNewInputSystem: 1
   disableOldInputManagerSupport: 0
   legacyClampBlendShapeWeights: 0
