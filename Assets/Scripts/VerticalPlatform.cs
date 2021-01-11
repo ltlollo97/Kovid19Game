@@ -6,6 +6,7 @@ public class VerticalPlatform : MonoBehaviour
 {
     private PlatformEffector2D effector;
     public float waitTime;
+    public Joystick joystick;
 
     // Start is called before the first frame update
     void Start()
@@ -16,15 +17,17 @@ public class VerticalPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) || (joystick.Vertical < 0f && joystick.Vertical > -.5f))
         {
             waitTime = 0.1f;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || joystick.Vertical <= -.5f)
         {
+           
             if(waitTime <= 0)
             {
+                Debug.Log("I'm here");
                 effector.rotationalOffset = 180f;
                 waitTime = 0.1f;
             }
@@ -34,7 +37,7 @@ public class VerticalPlatform : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || joystick.Vertical >= .5f)
         {
             effector.rotationalOffset = 0f;
         }
