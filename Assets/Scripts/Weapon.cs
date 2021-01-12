@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
 {
 
     [Header("Uncheck if firing mechanism should be disabled")]
-    [SerializeField]private bool canFire = true; 
+    [SerializeField] private bool canFire = true;
 
     private float startTimeBetweenShots;
     public SpriteRenderer sanitizer;
@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject[] normalAttackPrefab;
     public GameObject[] ultraAttackPrefab;
-    
+
     public List<Sprite> sprites = new List<Sprite>();
 
     // 0 : BLUE SANITIZER
@@ -28,7 +28,9 @@ public class Weapon : MonoBehaviour
 
     private float timeBtwShots;
     private bool ultraReady;
+    private bool ultraOn;
     private float timePassed;
+
     //[Header("N.B. is a private variable")]
     public float ultimateAttackCooldown = 60f;
 
@@ -51,7 +53,7 @@ public class Weapon : MonoBehaviour
 
     private void UpdateFiringRate()
     {
-        if(PlayerPrefs.GetInt("sanitizerEquipped") == 0)
+        if (PlayerPrefs.GetInt("sanitizerEquipped") == 0)
         {
             startTimeBetweenShots = 0.6f;
         }
@@ -67,10 +69,16 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (canFire)
-            Fire();
+        if (canFire && !mobile)
+         {
+             Fire();
+         }else if (canFire && mobile)
+         {
+             FireMobile();
+         }
+
     }
-    
+
 
     private void Fire()
     {
@@ -91,7 +99,7 @@ public class Weapon : MonoBehaviour
 
         if (timeBtwShots <= 0)
         {
-            if ((!mobile && (Input.GetMouseButton(0) || (gamepad != null && gamepad.rightTrigger.wasPressedThisFrame)))/*||(mobile  &&) */) // left click or clicking on the right of the screen
+            if ((!mobile && (Input.GetMouseButton(0) || (gamepad != null && gamepad.rightTrigger.wasPressedThisFrame)))) // left click 
             {
                 if (!shotSound.isPlaying)
                     shotSound.Play();
@@ -106,7 +114,7 @@ public class Weapon : MonoBehaviour
 
         if (ultraReady)
         {
-            if (Input.GetMouseButton(1)/*||(mobile  &&) */ || (gamepad != null && gamepad.leftTrigger.wasPressedThisFrame)) // right click
+            if (Input.GetMouseButton(1) || (gamepad != null && gamepad.leftTrigger.wasPressedThisFrame)) // right click
             {
                 if (!ultraSound.isPlaying)
                     ultraSound.Play();
@@ -116,6 +124,67 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+
+    private void FireMobile()
+    {
+        float timePress = 0f;
+        if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
+        {
+
+            ultraReady = true;
+            timePassed = 0f;
+            StopCoroutine(ChargeSuperBar());
+            Debug.Log("Here UltraReady " + ultraReady);
+        }
+        else if (!ultraReady)
+        {
+            timePassed += Time.deltaTime;
+            StartCoroutine(ChargeSuperBar());
+        }
+
+        if (timeBtwShots <= 0)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Debug.Log("Here tapCount normal " + Input.touches[i].tapCount);
+                Vector3 touchPosition = Input.touches[i].position;
+                if (touchPosition.x > Screen.width / 2 && Input.touches[i].tapCount == 1)
+                {
+                   if (!shotSound.isPlaying)
+                        shotSound.Play();
+                    Instantiate(normalAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")], shotPoint.position, shotPoint.rotation);
+                    timeBtwShots = startTimeBetweenShots;
+                }
+            }
+
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
+        }
+
+        if (ultraReady)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+
+                Vector3 touchPosition = Input.touches[i].position;
+
+                if (touchPosition.x > Screen.width / 2  && Input.touches[i].tapCount > 1) // double touch
+                {
+                    if (!ultraSound.isPlaying)
+                        ultraSound.Play();
+                    Instantiate(ultraAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")], shotPoint.position, shotPoint.rotation);
+                    ultraReady = false;
+                    ultraOn = false;
+                    superAttackBar.SetFloatValue(0f); // resets super attack bar
+
+                }
+            }
+        }
+    }
+
+
 
     private IEnumerator ChargeSuperBar()
     {
