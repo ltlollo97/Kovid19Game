@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject[] normalAttackPrefab;
     public GameObject[] ultraAttackPrefab;
-    public FixedButton superAttack;
+    public FixedButton supAttack;
     
     public List<Sprite> sprites = new List<Sprite>();
 
@@ -127,21 +127,26 @@ public class Weapon : MonoBehaviour
 
     private void FireMobile()
     {
-       
-         
-           
-            
-            if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
-            {
-                ultraReady = true;
-                timePassed = 0f;
-                StopCoroutine(ChargeSuperBar());
-            }
-            else if (!ultraReady)
-            {
-                timePassed += Time.deltaTime;
-                StartCoroutine(ChargeSuperBar());
-            }
+        bool ultraOn = false;
+
+        if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
+        {
+
+            ultraReady = true;
+            supAttack.gameObject.SetActive(true);
+            timePassed = 0f;
+            StopCoroutine(ChargeSuperBar());
+        }
+        else if (!ultraReady)
+        {
+            timePassed += Time.deltaTime;
+            StartCoroutine(ChargeSuperBar());
+        }
+
+        if (supAttack.Pressed)
+        {
+            ultraOn = true;
+        }
 
         for (int i = 0; i < Input.touchCount; i++)
         {
@@ -149,7 +154,7 @@ public class Weapon : MonoBehaviour
             Debug.Log("Touched");
             if (timeBtwShots <= 0)
             {
-                if (touchPosition.x > Screen.width / 2)
+                if (touchPosition.x > Screen.width / 2 && !ultraOn)
                 {
                     Debug.Log("Right Touch");
                     if (!shotSound.isPlaying)
@@ -161,7 +166,21 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                timeBtwShots -= Time.deltaTime;
+                timeBtwShots -= Time.deltaTime*2;
+            }
+
+            if (ultraReady && ultraOn)
+            {
+                Debug.Log("UltraReadt + ultraOn");
+                if (touchPosition.x > Screen.width / 2) // right click
+                {
+                    if (!ultraSound.isPlaying)
+                        ultraSound.Play();
+                    Instantiate(ultraAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")], shotPoint.position, shotPoint.rotation);
+                    ultraReady = false;
+                    ultraOn = false;
+                    superAttackBar.SetFloatValue(0f); // resets super attack bar
+                }
             }
         }
 
