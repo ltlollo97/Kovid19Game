@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
 {
@@ -73,6 +74,8 @@ public class Weapon : MonoBehaviour
 
     private void Fire()
     {
+        var gamepad = Gamepad.current;
+
         if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
         {
             ultraReady = true;
@@ -88,7 +91,7 @@ public class Weapon : MonoBehaviour
 
         if (timeBtwShots <= 0)
         {
-            if ((!mobile && Input.GetMouseButton(0))/*||(mobile  &&) */) // left click or clicking on the right of the screen
+            if ((!mobile && (Input.GetMouseButton(0) || (gamepad != null && gamepad.rightTrigger.wasPressedThisFrame)))/*||(mobile  &&) */) // left click or clicking on the right of the screen
             {
                 if (!shotSound.isPlaying)
                     shotSound.Play();
@@ -103,7 +106,7 @@ public class Weapon : MonoBehaviour
 
         if (ultraReady)
         {
-            if (Input.GetMouseButton(1)/*||(mobile  &&) */) // right click
+            if (Input.GetMouseButton(1)/*||(mobile  &&) */ || (gamepad != null && gamepad.leftTrigger.wasPressedThisFrame)) // right click
             {
                 if (!ultraSound.isPlaying)
                     ultraSound.Play();

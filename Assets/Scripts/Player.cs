@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -95,6 +96,7 @@ public class Player : MonoBehaviour
 
     private void PlayerControl()
     {
+        var gamepad = Gamepad.current;
         // -------------- JUMP ----------------------------
         
         // -- JUMP ANIMATION
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
         }
         // --
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || joystick.Vertical>=.5f ) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || joystick.Vertical>=.5f || (gamepad != null && gamepad.leftShoulder.wasPressedThisFrame)) && isGrounded == true)  //up arrow (or W) to jump IF the player has not jumped already
         {
             playerAnimator.SetTrigger("takeOff");
             Jump();
@@ -157,7 +159,7 @@ public class Player : MonoBehaviour
 
 
         // ------------ DASH --------------------------
-        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .8f || joystick.Horizontal <= -.8f) && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.LeftShift)|| joystick.Horizontal >= .8f || joystick.Horizontal <= -.8f || (gamepad != null && gamepad.rightShoulder.wasPressedThisFrame)) && canDash == true)
         {
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);

@@ -300,6 +300,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   ultimateAttackCooldown: 60
   baseHealth: 200
+  joystick: {fileID: 0}
+  platform: 0
 --- !u!82 &6691948278807654472
 AudioSource:
   m_ObjectHideFlags: 0
@@ -996,11 +998,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2469553bdb1d74419f94f78ea341116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFire: 1
   sanitizer: {fileID: 8248946540592262329}
   shotPoint: {fileID: 8248946542344689886}
   shotSound: {fileID: 3404188213612744585}
   ultraSound: {fileID: 1119184202035129286}
   superAttackBar: {fileID: 0}
+  mobile: 0
   normalAttackPrefab:
   - {fileID: 1158794219509665489, guid: 2a27a25436bc4f5469ce4d3c3b40102a, type: 3}
   - {fileID: 6994444444818091453, guid: f10314a5c8aaa2d41a033031d2c6bd51, type: 3}
