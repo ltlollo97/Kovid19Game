@@ -18,6 +18,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject[] normalAttackPrefab;
     public GameObject[] ultraAttackPrefab;
+    public FixedButton superAttack;
     
     public List<Sprite> sprites = new List<Sprite>();
 
@@ -28,6 +29,8 @@ public class Weapon : MonoBehaviour
     private float timeBtwShots;
     private bool ultraReady;
     private float timePassed;
+    private float lastTouchTime;
+    private const float DOUBLE_TOUCH_TIME = .6f;
     //[Header("N.B. is a private variable")]
     public float ultimateAttackCooldown = 60f;
 
@@ -66,8 +69,15 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (canFire)
-            Fire();
+        /* if (canFire && !mobile)
+         {
+             Fire();
+         }else if (canFire && mobile)
+         {
+             FireMobile();
+         }*/
+        FireMobile();
+            
     }
     
 
@@ -88,7 +98,8 @@ public class Weapon : MonoBehaviour
 
         if (timeBtwShots <= 0)
         {
-            if ((!mobile && Input.GetMouseButton(0))/*||(mobile  &&) */) // left click or clicking on the right of the screen
+
+            if (Input.GetMouseButton(0)) // left click 
             {
                 if (!shotSound.isPlaying)
                     shotSound.Play();
@@ -103,7 +114,7 @@ public class Weapon : MonoBehaviour
 
         if (ultraReady)
         {
-            if (Input.GetMouseButton(1)/*||(mobile  &&) */) // right click
+            if (Input.GetMouseButton(1)) // right click
             {
                 if (!ultraSound.isPlaying)
                     ultraSound.Play();
@@ -114,9 +125,54 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private IEnumerator ChargeSuperBar()
+    private void FireMobile()
+    {
+       
+         
+           
+            
+            if (timePassed >= ultimateAttackCooldown && !ultraReady) //player can cast ultimate attack
+            {
+                ultraReady = true;
+                timePassed = 0f;
+                StopCoroutine(ChargeSuperBar());
+            }
+            else if (!ultraReady)
+            {
+                timePassed += Time.deltaTime;
+                StartCoroutine(ChargeSuperBar());
+            }
+
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Vector3 touchPosition = Input.touches[i].position;
+            Debug.Log("Touched");
+            if (timeBtwShots <= 0)
+            {
+                if (touchPosition.x > Screen.width / 2)
+                {
+                    Debug.Log("Right Touch");
+                    if (!shotSound.isPlaying)
+                        shotSound.Play();
+                    Instantiate(normalAttackPrefab[PlayerPrefs.GetInt("sanitizerEquipped")], shotPoint.position, shotPoint.rotation);
+                    timeBtwShots = startTimeBetweenShots;
+                }
+                
+            }
+            else
+            {
+                timeBtwShots -= Time.deltaTime;
+            }
+        }
+
+        
+        
+    }
+
+        private IEnumerator ChargeSuperBar()
     {
         superAttackBar.SetFloatValue(timePassed);
         yield return new WaitForSeconds(1f);
     }
+  
 }

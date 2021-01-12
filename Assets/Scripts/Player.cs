@@ -137,6 +137,8 @@ public class Player : MonoBehaviour
         else
         {
             moveX = Input.GetAxis("Horizontal");
+            //ToRemove
+            moveX = joystick.Horizontal;
         }
         
         if (moveX != 0)

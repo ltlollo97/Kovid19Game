@@ -6,14 +6,14 @@ public class FixedJoystick : Joystick
 {
     void Awake()
     {
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        /*if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
             this.gameObject.SetActive(true);
         }
         else
         {
             this.gameObject.SetActive(false);
-        }
+        }*/
       
     }
 }
