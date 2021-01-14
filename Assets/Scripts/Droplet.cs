@@ -76,7 +76,7 @@ public class Droplet : MonoBehaviour
         if (facingLeft)
         {
             position.x = rightSide.transform.position.x + 5;
-            position.y = transform.position.y;
+            position.y = rightSide.transform.position.y;
             position.z = 0;
             transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
             GetComponent<Rigidbody2D>().velocity = new Vector2(enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
@@ -90,6 +90,8 @@ public class Droplet : MonoBehaviour
                     enemySpeed /= 2;
                     speedup = false;
                 }
+                transform.position = new Vector3(rightSide.transform.position.x + 4, rightSide.transform.position.y + Random.Range(-2,2), 0);
+                StartCoroutine(WaitaBit());
                 state = 1;        //  2 --> 1
             }
         }
@@ -97,7 +99,7 @@ public class Droplet : MonoBehaviour
         else if (!facingLeft)
         {
             position.x = leftSide.transform.position.x - 5;
-            position.y = transform.position.y;
+            position.y = leftSide.transform.position.y;
             position.z = 0;
             transform.position = Vector2.MoveTowards(transform.position, position, enemySpeed * Time.deltaTime);
             GetComponent<Rigidbody2D>().velocity = new Vector2(-enemySpeed, amplitude * Mathf.Sin(Time.time * 3f));
@@ -111,6 +113,8 @@ public class Droplet : MonoBehaviour
                     enemySpeed /= 2;
                     speedup = false;
                 }
+                transform.position = new Vector3(leftSide.transform.position.x - 4, leftSide.transform.position.y + Random.Range(-2, 5), 0);
+                StartCoroutine(WaitaBit());
                 state = 1;          //  2 --> 1
             }
         }
@@ -187,11 +191,12 @@ public class Droplet : MonoBehaviour
         state = 3;              // 1 --> 3
         yield return new WaitForSeconds(2f);
         gameObject.layer = 9; // switch to "Enemy" layer
+        anim.SetBool("Hit", false);
     }
 
     private IEnumerator Go()
     {
-        if (!appearSound.isPlaying && Mathf.Abs(transform.position.x - player.transform.position.x) < 10)
+        if (!appearSound.isPlaying && Mathf.Abs(transform.position.x - player.transform.position.x) < 15)
             appearSound.Play();
         yield return new WaitForSeconds(1f);
         if (facingLeft && player.transform.position.x < transform.position.x + 1 || !facingLeft && player.transform.position.x > transform.position.x + 1)
@@ -213,5 +218,14 @@ public class Droplet : MonoBehaviour
         }
         Instantiate(smoke, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private IEnumerator WaitaBit()
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        go = false;
+        state = 1;
+        yield return new WaitForSeconds(Random.Range(1f, 5f));
+        go = true;
     }
 }

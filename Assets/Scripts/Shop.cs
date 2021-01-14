@@ -52,6 +52,11 @@ public class Shop : MonoBehaviour
                 Debug.Log("You can't buy the green sanitizer");
             }
         }
+        else
+        {
+            soldOut[1].GetComponent<Image>().sprite = sold;
+            soldOut[1].SetActive(true);
+        }
 
         if(redSold == 0) // player has not bought the red sanitzer yet
         {
@@ -67,6 +72,11 @@ public class Shop : MonoBehaviour
                 soldOut[2].SetActive(true); // sold out image displayed
                 Debug.Log("You can't buy the red sanitizer");
             }
+        }
+        else
+        {
+            soldOut[2].GetComponent<Image>().sprite = sold;
+            soldOut[2].SetActive(true);
         }
     }
 

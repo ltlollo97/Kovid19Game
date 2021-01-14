@@ -43,6 +43,11 @@ public class MaskShop : MonoBehaviour
                 soldOut[0].SetActive(true); // sold out image displayed
             }
         }
+        else
+        {
+            soldOut[1].GetComponent<Image>().sprite = sold;
+            soldOut[1].SetActive(true);
+        }
     }
 
     public void BuyItem(int index) // updates current amount of points

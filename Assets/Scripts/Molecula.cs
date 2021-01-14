@@ -144,6 +144,21 @@ public class Molecula : MonoBehaviour
             else
                 state = 0;
         }
+
+        if (collision.collider.tag == "Enemy" && collision.collider.gameObject.layer == 17)
+        {
+            anim.SetBool("Hit", false);
+            if (speedup)
+            {
+                enemySpeed /= 2;
+                speedup = false;
+            }
+
+            if (facingLeft && player.transform.position.x < transform.position.x + 1 || !facingLeft && player.transform.position.x > transform.position.x + 1)
+                FlipEnemy();
+
+            state = 1;
+        }
     }
 
     protected void CheckIfDied()
@@ -171,7 +186,7 @@ public class Molecula : MonoBehaviour
 
     private IEnumerator Go()
     {
-        if (!appearSound.isPlaying && Mathf.Abs(transform.position.x - player.transform.position.x) < 10)
+        if (!appearSound.isPlaying && Mathf.Abs(transform.position.x - player.transform.position.x) < 15)
             appearSound.Play();
         yield return new WaitForSeconds(1f);
         if (facingLeft && player.transform.position.x < transform.position.x + 1 || !facingLeft && player.transform.position.x > transform.position.x + 1)
@@ -204,6 +219,7 @@ public class Molecula : MonoBehaviour
         yield return new WaitForSeconds(1f);
         state = 3;
         yield return new WaitForSeconds(2f);
-        gameObject.layer = 9; // switch to "Enemy" layer   
+        gameObject.layer = 17; // switch to "Enemy" layer   
+        anim.SetBool("Hit", false);
     }
 }

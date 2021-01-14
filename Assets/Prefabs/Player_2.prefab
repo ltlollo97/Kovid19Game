@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4864830490010452665}
+  returnTime: 0.8
 --- !u!1 &8050691341387868981
 GameObject:
   m_ObjectHideFlags: 0

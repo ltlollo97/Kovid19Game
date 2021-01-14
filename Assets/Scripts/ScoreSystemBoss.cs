@@ -51,5 +51,6 @@ public class ScoreSystemBoss : MonoBehaviour
         int currentPoints = PlayerPrefs.GetInt("totalPoints");
         currentPoints += (int)score; // calculate new amount
         PlayerPrefs.SetInt("totalPoints", currentPoints);
+        scoreText.text = score.ToString();
     }
 }
