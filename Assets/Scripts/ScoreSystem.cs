@@ -69,6 +69,7 @@ public class ScoreSystem : MonoBehaviour
             Win();
         }
 
+        //Debug.Log("Current score " + (score - 0.5f*timeSpent));
 
         int min = Mathf.FloorToInt(timeSpent / 60);
         int sec = Mathf.FloorToInt(timeSpent % 60);
@@ -86,7 +87,7 @@ public class ScoreSystem : MonoBehaviour
     {
         //  the lower timeSpent, the higher score
         levelCompetePanel.SetActive(true);
-        score -= 2 * timeSpent;
+        score -= 0.2f * timeSpent;
         if (score <= 200)
             score = 200; // minimum amount of points
         int visualScore = (int)score; //type cast

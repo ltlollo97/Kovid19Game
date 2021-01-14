@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public BarsUI superAttackBar, healthBar;
     //public float startTimeBetweenShots;
     public float ultimateAttackCooldown;
-    
+    public bool canControl = true;
 
 
     // movement
@@ -81,17 +81,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
-            PlayerControl();
-
-        if (health <= 0 && !isDead)
+        if (canControl)
         {
-            isDead = true;
-            Die();
+            if (!isDead)
+                PlayerControl();
+
+            if (health <= 0 && !isDead)
+            {
+                isDead = true;
+                Die();
+            }
+
+            if (!isDead)
+                healthBar.SetValue(health);
         }
 
-        if (!isDead)
-            healthBar.SetValue(health);
     }
 
     private void PlayerControl()

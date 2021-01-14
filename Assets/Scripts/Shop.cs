@@ -20,8 +20,8 @@ public class Shop : MonoBehaviour
         if (Application.isEditor)
         {
            PlayerPrefs.SetInt("totalPoints", 6000);
-           PlayerPrefs.SetInt("greenSold", 0); // 0: false, 1: true
-           PlayerPrefs.SetInt("redSold", 0); // 0: false, 1: true
+           //PlayerPrefs.SetInt("greenSold", 0); // 0: false, 1: true
+           //PlayerPrefs.SetInt("redSold", 0); // 0: false, 1: true
         }
         else
         {

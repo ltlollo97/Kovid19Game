@@ -149489,6 +149489,11 @@ PrefabInstance:
       propertyPath: maxScore
       value: 600
       objectReference: {fileID: 0}
+    - target: {fileID: 7243642986489348568, guid: bf382834c34b0dc4e99ca201e14ce8b4,
+        type: 3}
+      propertyPath: score
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7243642986489348569, guid: bf382834c34b0dc4e99ca201e14ce8b4,
         type: 3}
       propertyPath: OutputAudioMixerGroup

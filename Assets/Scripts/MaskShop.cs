@@ -45,8 +45,8 @@ public class MaskShop : MonoBehaviour
         }
         else
         {
-            soldOut[1].GetComponent<Image>().sprite = sold;
-            soldOut[1].SetActive(true);
+            soldOut[0].GetComponent<Image>().sprite = sold;
+            soldOut[0].SetActive(true);
         }
     }
 
@@ -60,6 +60,7 @@ public class MaskShop : MonoBehaviour
             soldOut[index-1].GetComponent<Image>().sprite = sold;
             maskSold = 1;
             soldOut[index-1].SetActive(true);
+            PlayerPrefs.SetInt("maskSold",1);
             PlayerPrefs.SetInt("totalPoints", amount);
         }
 

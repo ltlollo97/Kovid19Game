@@ -2781,6 +2781,7 @@ MonoBehaviour:
   timerUI: {fileID: 6929747122866028628}
   scoreText: {fileID: 6634647896580830670}
   bossBar: {fileID: 8643682782388263399}
+  maxScore: 2000
 --- !u!114 &1238102853
 MonoBehaviour:
   m_ObjectHideFlags: 0

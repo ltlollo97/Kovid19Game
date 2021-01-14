@@ -45,7 +45,9 @@ public class ScoreSystemBoss : MonoBehaviour
     {
         //  the lower timeSpent, the higher score
         levelCompletePanel.SetActive(true);
-        score -= 2 * timeSpent; // fixed amounts of points for defeating the boss
+        score -= 0.2f * timeSpent;
+        if (score <= 200)
+            score = 200; // minimum amount of points
 
         // update points 
         int currentPoints = PlayerPrefs.GetInt("totalPoints");
