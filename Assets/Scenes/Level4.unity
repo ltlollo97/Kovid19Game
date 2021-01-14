@@ -1799,6 +1799,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -109.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8643682781871160594, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -62.69983
+      objectReference: {fileID: 0}
     - target: {fileID: 8643682781871160595, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_IsActive
@@ -2772,7 +2777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e091f0a989b94b4a93b99d649331898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 2000
+  score: 0
   timerUI: {fileID: 6929747122866028628}
   scoreText: {fileID: 6634647896580830670}
   bossBar: {fileID: 8643682782388263399}

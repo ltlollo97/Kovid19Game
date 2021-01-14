@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class ScoreSystemBoss : MonoBehaviour
 {
 
-    public int score; //each level has a maximum amount of point obtainable
+    public float score; //each level has a maximum amount of point obtainable
     public Text timerUI; //timer text on canvas
     public Text scoreText; // score text on level complete panel
     public BarsUI bossBar;
     private GameObject levelCompletePanel;
     private bool gameEnded = false;
     private float timeSpent; //how much time the player spent in completing the level
-
+    public int maxScore;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class ScoreSystemBoss : MonoBehaviour
         levelCompletePanel.SetActive(false);
 
         timeSpent = 0f;
+        score = maxScore;
     }
 
     // Update is called once per frame
@@ -44,11 +45,11 @@ public class ScoreSystemBoss : MonoBehaviour
     {
         //  the lower timeSpent, the higher score
         levelCompletePanel.SetActive(true);
-        score = 600; // fixed amounts of points for defeating the boss
+        score -= 2 * timeSpent; // fixed amounts of points for defeating the boss
 
         // update points 
         int currentPoints = PlayerPrefs.GetInt("totalPoints");
-        currentPoints += score; // calculate new amount
+        currentPoints += (int)score; // calculate new amount
         PlayerPrefs.SetInt("totalPoints", currentPoints);
     }
 }
