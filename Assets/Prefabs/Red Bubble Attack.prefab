@@ -356,10 +356,7 @@ MonoBehaviour:
   speed: 17
   lifeTime: 0.25
   distance: 0.25
-  whatIsSolid:
-    serializedVersion: 2
-    m_Bits: 0
-  attackValue: 70
+  attackValue: 100
   cameraShakingEnabled: 1
   isDestructible: 0
   destroyEffect: {fileID: 5073508826623903859, guid: b0047a46b7289a242ae5a4f85763f96b,

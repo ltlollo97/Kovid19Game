@@ -23,6 +23,10 @@ public class Shop : MonoBehaviour
            PlayerPrefs.SetInt("greenSold", 0); // 0: false, 1: true
            PlayerPrefs.SetInt("redSold", 0); // 0: false, 1: true
         }
+        else
+        {
+            PlayerPrefs.SetInt("totalPoints", 3000);
+        }
 
         greenSold = PlayerPrefs.GetInt("greenSold");
         redSold = PlayerPrefs.GetInt("redSold");

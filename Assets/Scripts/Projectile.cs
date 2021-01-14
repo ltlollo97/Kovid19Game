@@ -7,7 +7,6 @@ public class Projectile : MonoBehaviour
     public float speed;
     public float lifeTime;
     public float distance;
-    public LayerMask whatIsSolid;
     public int attackValue;
     public bool cameraShakingEnabled;
     public bool isDestructible;
