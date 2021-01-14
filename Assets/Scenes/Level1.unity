@@ -41626,7 +41626,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 7c6fc0d5d26de864aaf30b1f2a265991, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -58105,12 +58105,42 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 289.73532
       objectReference: {fileID: 0}
+    - target: {fileID: 2731872510077787823, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -12.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 2731872510077787823, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 209.41225
+      objectReference: {fileID: 0}
     - target: {fileID: 4060192702640274688, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a57a7f359e9f23446b2728441c2111b9,
         type: 3}
+    - target: {fileID: 4116298502424854756, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688112663410114620, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 167
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688112663410114620, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1335.0491
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688112663410114620, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 184
+      objectReference: {fileID: 0}
     - target: {fileID: 4802155660216131736, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_IsActive
@@ -58134,7 +58164,7 @@ PrefabInstance:
     - target: {fileID: 6379485596783943044, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6384452813079077942, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
@@ -149454,6 +149484,11 @@ PrefabInstance:
       propertyPath: completionBar
       value: 
       objectReference: {fileID: 888475467}
+    - target: {fileID: 7243642986489348568, guid: bf382834c34b0dc4e99ca201e14ce8b4,
+        type: 3}
+      propertyPath: maxScore
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 7243642986489348569, guid: bf382834c34b0dc4e99ca201e14ce8b4,
         type: 3}
       propertyPath: OutputAudioMixerGroup

@@ -265,6 +265,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   lifeTime: 2
+  distance: 0
+  whatIsSolid:
+    serializedVersion: 2
+    m_Bits: 0
   attackValue: 150
   cameraShakingEnabled: 1
   isDestructible: 1
@@ -339,7 +343,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968895305
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: a366e8215d45b234eb9850001f4be0c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -493,7 +497,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968895305
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: a366e8215d45b234eb9850001f4be0c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -574,7 +578,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968895305
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: a366e8215d45b234eb9850001f4be0c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

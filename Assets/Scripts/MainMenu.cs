@@ -17,7 +17,11 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        //if (PlayerPrefs.GetInt("levelAt") == 0) //first run
+        //    PlayerPrefs.SetInt("levelAt",2);
+
         SceneManager.LoadScene(PlayerPrefs.GetInt("levelAt"));
+        PlayerPrefs.SetInt("levelAt", 5);
     }
 
     public void Load(string scene)

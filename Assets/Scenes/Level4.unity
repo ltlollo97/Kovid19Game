@@ -1463,6 +1463,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -14.783596
       objectReference: {fileID: 0}
+    - target: {fileID: 2985184240634318536, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985184240634318536, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 248.38055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116298502424854756, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4187569559261669219, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_Text
@@ -1503,6 +1518,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 878.5226
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971555496339693564, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 59.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971555496339693564, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 321.2597
       objectReference: {fileID: 0}
     - target: {fileID: 8433763612120807076, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
@@ -2079,7 +2104,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 0c6c7b01985a71146ad93743cde66991, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2289,7 +2314,7 @@ Transform:
   - {fileID: 1661703497}
   - {fileID: 1546623899}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &808963446 stripped
 GameObject:
@@ -2747,7 +2772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e091f0a989b94b4a93b99d649331898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  score: 2000
   timerUI: {fileID: 6929747122866028628}
   scoreText: {fileID: 6634647896580830670}
   bossBar: {fileID: 8643682782388263399}
@@ -2942,7 +2967,7 @@ Transform:
   - {fileID: 899587637}
   - {fileID: 158717389}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1546623896
 GameObject:
@@ -3371,7 +3396,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2007630958
 PrefabInstance:
@@ -3513,63 +3538,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 628800646}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2085340037
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2085340039}
-  - component: {fileID: 2085340038}
-  m_Layer: 11
-  m_Name: Floor
-  m_TagString: Floor
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &2085340038
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085340037}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 14.025795, y: 0.17697334}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 65.55996, y: 1.3539467}
-  m_EdgeRadius: 0
---- !u!4 &2085340039
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085340037}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15, y: -5.76, z: -353.17578}
-  m_LocalScale: {x: 1.575, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1041134809380929117 stripped
 MonoBehaviour:

@@ -28600,7 +28600,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 76dbe3e5bbf95ed4698a8e0750c517a8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -48850,7 +48850,7 @@ PrefabInstance:
     - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
         type: 3}
@@ -55889,7 +55889,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1310160823
 Mesh:
@@ -57493,7 +57493,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.73, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1349462557
 GameObject:
@@ -71167,7 +71167,7 @@ PrefabInstance:
     - target: {fileID: 7299545225392647494, guid: ba6b63b87a1838b45a1132de78bd8819,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7299545225392647494, guid: ba6b63b87a1838b45a1132de78bd8819,
         type: 3}
@@ -77032,7 +77032,7 @@ Transform:
   - {fileID: 1024323015}
   - {fileID: 1281431434}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790409490
 GameObject:
@@ -94551,6 +94551,11 @@ PrefabInstance:
       propertyPath: completionBar
       value: 
       objectReference: {fileID: 511537552}
+    - target: {fileID: 7243642986489348568, guid: bf382834c34b0dc4e99ca201e14ce8b4,
+        type: 3}
+      propertyPath: score
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 7243642986489348569, guid: bf382834c34b0dc4e99ca201e14ce8b4,
         type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -94665,7 +94670,7 @@ PrefabInstance:
     - target: {fileID: 7243642986616900458, guid: bf382834c34b0dc4e99ca201e14ce8b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7243642986616900458, guid: bf382834c34b0dc4e99ca201e14ce8b4,
         type: 3}

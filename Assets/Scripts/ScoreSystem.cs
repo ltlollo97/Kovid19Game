@@ -11,6 +11,7 @@ public class ScoreSystem : MonoBehaviour
     public Text completionState; // completion text on canvas
     public Text scoreText; // score text on level complete panel
     public BarsUI completionBar; // completion bar to fill on canvas
+    public int maxScore; // maximum amount of points obtainable in the level
 
     private int threshold;
     private float percentage;
@@ -28,6 +29,7 @@ public class ScoreSystem : MonoBehaviour
         levelCompetePanel = GameObject.Find("LevelCompletePanel");
         levelCompetePanel.SetActive(false);
 
+        score = maxScore; 
         timeSpent = 0f; //time when the level starts
         threshold = 0;
         percentage = 0f;

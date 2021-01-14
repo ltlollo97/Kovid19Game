@@ -293,7 +293,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968895305
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 682deeacc5e307a4a861d6a6c93a6a3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -359,6 +359,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7.5
   lifeTime: 2.5
+  distance: 0
+  whatIsSolid:
+    serializedVersion: 2
+    m_Bits: 0
   attackValue: 100
   cameraShakingEnabled: 1
   isDestructible: 0
