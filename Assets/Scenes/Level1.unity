@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1625,7 +1625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25725946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 73.75061, y: -6.1132727, z: 28.238281}
+  m_LocalPosition: {x: -37.55, y: -8.27, z: 28.238281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
@@ -3750,6 +3750,69 @@ Transform:
   m_Father: {fileID: 1013762898}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &66223087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 66223088}
+  - component: {fileID: 66223089}
+  m_Layer: 0
+  m_Name: Molecula Spawner 2
+  m_TagString: Spawner
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &66223088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66223087}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 63.97, y: -14.063272, z: 28.238281}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1540607165}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66223089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66223087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f320f0bedda5334fb3006274f83e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
+    type: 3}
+  spawnPoints:
+  - {fileID: 1117028606}
+  waves:
+  - name: Molecula
+    enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
+    count: 0
+    rate: 0.1
+  - name: Molecula
+    enemy: {fileID: 7400102990683349134, guid: 3f3d74d568142b54e8c751a517b963e3, type: 3}
+    count: 1
+    rate: 0.1
+  - name: Molecula
+    enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
+    count: 1
+    rate: 0.1
+  firstWaveSpawn: 80
+  timeBetweenWaves: 20
+  state: 2
 --- !u!43 &66344351
 Mesh:
   m_ObjectHideFlags: 0
@@ -16315,7 +16378,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242899899}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 45.560608, y: -7.1332726, z: 28.238281}
+  m_LocalPosition: {x: 93.62, y: -8.52, z: 28.238281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
@@ -17558,11 +17621,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261290786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.7, y: -12.823273, z: 28.238281}
+  m_LocalPosition: {x: 93.72, y: -12.823273, z: 28.238281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &263065259
 Mesh:
@@ -21329,14 +21392,13 @@ GameObject:
   m_Component:
   - component: {fileID: 333395679}
   - component: {fileID: 333395681}
-  - component: {fileID: 333395680}
   m_Layer: 0
-  m_Name: Droplet Spawner (1)
+  m_Name: Droplet Spawner 2
   m_TagString: Spawner
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &333395679
 Transform:
   m_ObjectHideFlags: 0
@@ -21351,102 +21413,6 @@ Transform:
   m_Father: {fileID: 1540607165}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &333395680
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333395678}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 260b18000ff1db142811e49b87515229, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &333395681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21462,24 +21428,22 @@ MonoBehaviour:
   spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
     type: 3}
   spawnPoints:
-  - {fileID: 25725947}
   - {fileID: 242899900}
-  - {fileID: 920253741}
   waves:
   - name: Droplet
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
-    count: 1
-    rate: 0.5
+    count: 2
+    rate: 0.1
   - name: Droplet
     enemy: {fileID: 8351222753802608442, guid: b28963ef2750a124c8c902b89f29f1e1, type: 3}
-    count: 1
-    rate: 0.5
+    count: 3
+    rate: 0.1
   - name: Droplet
     enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
     count: 1
-    rate: 0.5
-  firstWaveSpawn: 0
-  timeBetweenWaves: 2
+    rate: 0.1
+  firstWaveSpawn: 10
+  timeBetweenWaves: 30
   state: 2
 --- !u!43 &334462908
 Mesh:
@@ -31207,7 +31171,6 @@ GameObject:
   m_Component:
   - component: {fileID: 489376546}
   - component: {fileID: 489376545}
-  - component: {fileID: 489376547}
   m_Layer: 0
   m_Name: Droplet Spawner
   m_TagString: Spawner
@@ -31230,22 +31193,22 @@ MonoBehaviour:
   spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
     type: 3}
   spawnPoints:
-  - {fileID: 242899900}
+  - {fileID: 25725947}
   waves:
   - name: Droplet
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
-    count: 1
-    rate: 0.5
+    count: 3
+    rate: 0.2
   - name: Droplet
     enemy: {fileID: 8351222753802608442, guid: b28963ef2750a124c8c902b89f29f1e1, type: 3}
-    count: 1
-    rate: 0.5
+    count: 2
+    rate: 0.2
   - name: Droplet
-    enemy: {fileID: 8351222753802608442, guid: b28963ef2750a124c8c902b89f29f1e1, type: 3}
-    count: 1
-    rate: 0.5
-  firstWaveSpawn: 0
-  timeBetweenWaves: 10
+    enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
+    count: 0
+    rate: 0.2
+  firstWaveSpawn: 5
+  timeBetweenWaves: 20
   state: 2
 --- !u!4 &489376546
 Transform:
@@ -31261,102 +31224,6 @@ Transform:
   m_Father: {fileID: 1540607165}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &489376547
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489376544}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 260b18000ff1db142811e49b87515229, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!43 &492783416
 Mesh:
   m_ObjectHideFlags: 0
@@ -32378,166 +32245,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1837639024}
   m_RootOrder: 33
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &507660538
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 507660541}
-  - component: {fileID: 507660540}
-  - component: {fileID: 507660539}
-  m_Layer: 0
-  m_Name: Droplet Spawner (1)
-  m_TagString: Spawner
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!82 &507660539
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507660538}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 260b18000ff1db142811e49b87515229, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &507660540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507660538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f320f0bedda5334fb3006274f83e4e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
-    type: 3}
-  spawnPoints:
-  - {fileID: 242899900}
-  waves:
-  - name: Droplet
-    enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
-    count: 6
-    rate: 1
-  - name: Droplet
-    enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
-    count: 6
-    rate: 1
-  - name: Droplet
-    enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
-    count: 6
-    rate: 1
-  firstWaveSpawn: 0
-  timeBetweenWaves: 1
-  state: 2
---- !u!4 &507660541
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507660538}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 60.74061, y: -14.063272, z: 28.238281}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1540607165}
-  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &510386717
 GameObject:
@@ -44082,12 +43789,12 @@ GameObject:
   - component: {fileID: 655465046}
   - component: {fileID: 655465047}
   m_Layer: 0
-  m_Name: Molecula Spawner (1)
+  m_Name: Molecula Spawner 3
   m_TagString: Spawner
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &655465046
 Transform:
   m_ObjectHideFlags: 0
@@ -44100,7 +43807,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &655465047
 MonoBehaviour:
@@ -44117,37 +43824,23 @@ MonoBehaviour:
   spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
     type: 3}
   spawnPoints:
-  - {fileID: 715960401}
   - {fileID: 261290787}
-  - {fileID: 1117028606}
   waves:
   - name: Molecula
     enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
-    count: 1
-    rate: 0.2
+    count: 2
+    rate: 0.1
   - name: Molecula
     enemy: {fileID: 7400102990683349134, guid: 3f3d74d568142b54e8c751a517b963e3, type: 3}
     count: 2
-    rate: 0.2
+    rate: 0.1
   - name: Molecula
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
-    count: 2
-    rate: 0.2
-  firstWaveSpawn: 0
-  timeBetweenWaves: 1
+    count: 0
+    rate: 0.1
+  firstWaveSpawn: 15
+  timeBetweenWaves: 30
   state: 2
---- !u!114 &657444618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4074253380055304704, guid: ae90c1c2138320c45be1c53dd1f196ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 888475464}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 731ac5824794feb448ac09102cf5412c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &657626797
 Mesh:
   m_ObjectHideFlags: 0
@@ -47256,7 +46949,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &716402272
 GameObject:
@@ -58483,6 +58176,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8433763612120807076, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 888475471}
+    - target: {fileID: 8433763612120807076, guid: ae90c1c2138320c45be1c53dd1f196ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 8643682781264583793, guid: ae90c1c2138320c45be1c53dd1f196ff,
         type: 3}
       propertyPath: m_Name
@@ -58788,6 +58491,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &888475471 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8883909558937402490, guid: ae90c1c2138320c45be1c53dd1f196ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 888475464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9349cd743e18909488a1998be5f95958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &888862983
@@ -60800,7 +60515,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920253740}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.840607, y: -10.293272, z: 28.238281}
+  m_LocalPosition: {x: 12.840607, y: -7.88, z: 28.238281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
@@ -64721,12 +64436,12 @@ GameObject:
   - component: {fileID: 969674991}
   - component: {fileID: 969674990}
   m_Layer: 0
-  m_Name: Droplet Spawner (3)
+  m_Name: Droplet Spawner 3
   m_TagString: Spawner
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &969674989
 Transform:
   m_ObjectHideFlags: 0
@@ -64739,7 +64454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &969674990
 AudioSource:
@@ -64750,7 +64465,8 @@ AudioSource:
   m_GameObject: {fileID: 969674988}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 609f556bc65ec27409713a6d7c624d00,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 260b18000ff1db142811e49b87515229, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -64852,7 +64568,7 @@ MonoBehaviour:
   spawnEffect: {fileID: 7803678613060932933, guid: 7b9412268ca3fd249899920e69a2b126,
     type: 3}
   spawnPoints:
-  - {fileID: 25725947}
+  - {fileID: 920253741}
   waves:
   - name: Droplet
     enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
@@ -64866,20 +64582,8 @@ MonoBehaviour:
     enemy: {fileID: 850101510157788328, guid: 97451ce4060b8d4489d68a998eed6410, type: 3}
     count: 1
     rate: 0.5
-  - name: Droplet
-    enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
-    count: 6
-    rate: 1
-  - name: Droplet
-    enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
-    count: 6
-    rate: 1
-  - name: Droplet
-    enemy: {fileID: 6897298837467814523, guid: eb7f6a242da11e24191f8b4e444d20b9, type: 3}
-    count: 6
-    rate: 1
-  firstWaveSpawn: 0
-  timeBetweenWaves: 1
+  firstWaveSpawn: 60
+  timeBetweenWaves: 40
   state: 2
 --- !u!43 &972071544
 Mesh:
@@ -75112,11 +74816,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117028605}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 93.78061, y: -12.923273, z: 28.238281}
+  m_LocalPosition: {x: 35.53, y: -12.923273, z: 28.238281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1119391268
 Mesh:
@@ -76815,7 +76519,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1141394467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76832,12 +76536,10 @@ MonoBehaviour:
     type: 3}
   spawnPoints:
   - {fileID: 715960401}
-  - {fileID: 261290787}
-  - {fileID: 1117028606}
   waves:
   - name: Molecula
     enemy: {fileID: 204280866254530969, guid: b3d0bcaf44083bc4f8b25889bfa8b125, type: 3}
-    count: 1
+    count: 2
     rate: 0.2
   - name: Molecula
     enemy: {fileID: 7400102990683349134, guid: 3f3d74d568142b54e8c751a517b963e3, type: 3}
@@ -76845,10 +76547,10 @@ MonoBehaviour:
     rate: 0.2
   - name: Molecula
     enemy: {fileID: 350734861058251412, guid: 3d0a20e9540b220489513040102aa160, type: 3}
-    count: 2
+    count: 1
     rate: 0.2
-  firstWaveSpawn: 0
-  timeBetweenWaves: 1
+  firstWaveSpawn: 5
+  timeBetweenWaves: 20
   state: 2
 --- !u!4 &1141394468
 Transform:
@@ -76862,7 +76564,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540607165}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148130128
 GameObject:
@@ -100142,9 +99844,15 @@ PrefabInstance:
         type: 3}
       propertyPath: supAttack
       value: 
-      objectReference: {fileID: 657444618}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d3466272f47954e852f208280970cc, type: 3}
+--- !u!4 &1485873249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4864830490010452665, guid: a2d3466272f47954e852f208280970cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1485873248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1488014321
 GameObject:
   m_ObjectHideFlags: 0
@@ -103178,13 +102886,13 @@ Transform:
   - {fileID: 920253741}
   - {fileID: 489376546}
   - {fileID: 333395679}
+  - {fileID: 969674989}
   - {fileID: 715960401}
   - {fileID: 261290787}
   - {fileID: 1117028606}
   - {fileID: 1141394468}
+  - {fileID: 66223088}
   - {fileID: 655465046}
-  - {fileID: 969674989}
-  - {fileID: 507660541}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149704,6 +149412,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4669ebafa42b7504986ad61f629be9ca, type: 3}
+--- !u!1001 &6094293922212926860
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 367.0438
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 208.84892
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -420.6116
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230628, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230634, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthKit Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094293923528230635, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1485873249}
+    - target: {fileID: 6094293923528230635, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d,
+        type: 3}
+      propertyPath: playerBar
+      value: 
+      objectReference: {fileID: 888475465}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6aa959ae8cd1a8b4f9fc9e25fd907b5d, type: 3}
 --- !u!1001 &7243642985233328608
 PrefabInstance:
   m_ObjectHideFlags: 0
