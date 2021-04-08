@@ -1,5 +1,5 @@
 # KO-VID 19 
-Main repo for the EVI 20/21 project. 
+Main repo for the EVI 20/21 project @ UPV 
 
 Make sure your Unity client is ready to work with GitHub:  
 Edit -> Project Settings -> Editor -> Version Control -> Visible Meta Files  
